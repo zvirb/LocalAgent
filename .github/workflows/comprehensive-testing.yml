@@ -1,0 +1,672 @@
+name: LocalAgent Comprehensive Testing Pipeline
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  workflow_dispatch:  # Manual trigger
+    inputs:
+      test_suites:
+        description: 'Test suites to run (comma-separated)'
+        required: false
+        default: 'unit,integration,e2e,security,contract'
+      run_performance:
+        description: 'Run performance tests'
+        type: boolean
+        default: false
+      run_chaos:
+        description: 'Run chaos engineering tests'
+        type: boolean
+        default: false
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/localagent
+
+jobs:
+  # Quick validation job
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      should_run_tests: ${{ steps.changes.outputs.should_run }}
+      test_matrix: ${{ steps.matrix.outputs.matrix }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+    
+    - name: Check for relevant changes
+      id: changes
+      run: |
+        if git diff --name-only HEAD^ HEAD | grep -E '\.(py|yaml|yml|json|md)$|Dockerfile|requirements|pyproject'; then
+          echo "should_run=true" >> $GITHUB_OUTPUT
+        elif [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "should_run=true" >> $GITHUB_OUTPUT
+        else
+          echo "should_run=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Generate test matrix
+      id: matrix
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          SUITES="${{ github.event.inputs.test_suites }}"
+        elif [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          SUITES="unit,integration,e2e,security,contract,regression"
+        else
+          SUITES="unit,integration,security"
+        fi
+        echo "matrix={\"test_suite\":[\"$(echo $SUITES | sed 's/,/","/g')\"]}" >> $GITHUB_OUTPUT
+
+  # Unit tests - Fast feedback
+  unit-tests:
+    runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 15
+    
+    strategy:
+      matrix:
+        provider: [ollama, openai, gemini, perplexity]
+        python-version: ['3.10', '3.11', '3.12']
+      fail-fast: false
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements*.txt', '**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.python-version }}-
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio pytest-cov pytest-timeout pytest-json-report
+    
+    - name: Run unit tests for ${{ matrix.provider }} provider
+      run: |
+        python -m pytest tests/unit/ -v \
+          --tb=short \
+          --timeout=30 \
+          --cov=app.llm_providers \
+          --cov-report=xml \
+          --cov-report=html \
+          --json-report --json-report-file=test-results/unit-${{ matrix.provider }}-${{ matrix.python-version }}-report.json \
+          --junitxml=test-results/unit-${{ matrix.provider }}-${{ matrix.python-version }}-results.xml \
+          -k "test_${{ matrix.provider }}_provider or test_base_provider or test_provider_manager"
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: unit-test-results-${{ matrix.provider }}-py${{ matrix.python-version }}
+        path: |
+          test-results/
+          htmlcov/
+    
+    - name: Upload coverage to Codecov
+      if: matrix.python-version == '3.11'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unit-tests,${{ matrix.provider }}
+        name: unit-${{ matrix.provider }}
+
+  # Integration tests with mock servers
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: [validate, unit-tests]
+    if: needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 30
+    
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio pytest-timeout aiohttp
+    
+    - name: Start mock servers
+      run: |
+        python -m pytest tests/integration/mock_servers.py --setup-only &
+        sleep 10
+    
+    - name: Run integration tests
+      env:
+        TEST_OLLAMA_URL: http://localhost:11434
+        TEST_OPENAI_URL: http://localhost:8080/v1
+        TEST_GEMINI_URL: http://localhost:8081/v1
+        TEST_PERPLEXITY_URL: http://localhost:8082
+        REDIS_URL: redis://localhost:6379/0
+      run: |
+        python -m pytest tests/integration/ -v \
+          --tb=short \
+          --timeout=60 \
+          --json-report --json-report-file=test-results/integration-report.json \
+          --junitxml=test-results/integration-results.xml
+    
+    - name: Upload integration test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: integration-test-results
+        path: test-results/
+
+  # End-to-end CLI tests
+  e2e-cli-tests:
+    runs-on: ${{ matrix.os }}
+    needs: [validate, integration-tests]
+    if: needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 25
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install LocalAgent
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e .
+    
+    - name: Test CLI installation
+      shell: bash
+      run: |
+        localagent --version
+        localagent --help
+    
+    - name: Run E2E CLI tests
+      shell: bash
+      run: |
+        python -m pytest tests/e2e/ -v \
+          --tb=short \
+          --timeout=120 \
+          --json-report --json-report-file=test-results/e2e-${{ matrix.os }}-report.json \
+          --junitxml=test-results/e2e-${{ matrix.os }}-results.xml
+    
+    - name: Upload E2E test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e-test-results-${{ matrix.os }}
+        path: test-results/
+
+  # Security testing
+  security-tests:
+    runs-on: ubuntu-latest
+    needs: [validate, unit-tests]
+    if: needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 20
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install security testing dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install bandit safety semgrep pytest
+    
+    - name: Run Bandit security scan
+      run: |
+        bandit -r app/ -f json -o test-results/bandit-results.json || true
+        bandit -r app/ -f txt
+    
+    - name: Run Safety dependency scan
+      run: |
+        safety check --json --output test-results/safety-results.json || true
+        safety check
+    
+    - name: Run Semgrep static analysis
+      run: |
+        semgrep --config=auto --json --output=test-results/semgrep-results.json app/ || true
+    
+    - name: Run security unit tests
+      run: |
+        python -m pytest tests/security/ -v \
+          --tb=short \
+          --timeout=60 \
+          --json-report --json-report-file=test-results/security-test-report.json \
+          --junitxml=test-results/security-test-results.xml
+    
+    - name: Upload security scan results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-scan-results
+        path: test-results/
+    
+    - name: Security scan summary
+      if: always()
+      run: |
+        echo "## Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+        if [ -f test-results/bandit-results.json ]; then
+          echo "### Bandit Results" >> $GITHUB_STEP_SUMMARY
+          python -c "import json; data=json.load(open('test-results/bandit-results.json')); print(f'- Issues found: {len(data.get(\"results\", []))}')" >> $GITHUB_STEP_SUMMARY
+        fi
+        if [ -f test-results/safety-results.json ]; then
+          echo "### Safety Results" >> $GITHUB_STEP_SUMMARY
+          python -c "import json; data=json.load(open('test-results/safety-results.json')); print(f'- Vulnerabilities: {len(data)}')" >> $GITHUB_STEP_SUMMARY || echo "- No vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+        fi
+
+  # Contract testing
+  contract-tests:
+    runs-on: ubuntu-latest
+    needs: [validate, integration-tests]
+    if: needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 20
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio jsonschema
+    
+    - name: Run contract tests
+      run: |
+        python -m pytest tests/contract/ -v \
+          --tb=short \
+          --timeout=60 \
+          --json-report --json-report-file=test-results/contract-report.json \
+          --junitxml=test-results/contract-results.xml
+    
+    - name: Validate API schemas
+      run: |
+        python scripts/validate_api_schemas.py || true
+    
+    - name: Upload contract test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: contract-test-results
+        path: test-results/
+
+  # Performance tests (conditional)
+  performance-tests:
+    runs-on: ubuntu-latest
+    needs: [validate, integration-tests]
+    if: |
+      (needs.validate.outputs.should_run_tests == 'true') && 
+      (github.event_name == 'schedule' || 
+       github.event.inputs.run_performance == 'true' || 
+       contains(github.event.head_commit.message, '[perf-test]'))
+    timeout-minutes: 45
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install performance testing dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio pytest-benchmark memory-profiler psutil
+    
+    - name: Run performance benchmarks
+      run: |
+        python -m pytest tests/performance/ -v \
+          --tb=short \
+          --timeout=300 \
+          -m benchmark \
+          --benchmark-json=test-results/benchmark-results.json \
+          --json-report --json-report-file=test-results/performance-report.json \
+          --junitxml=test-results/performance-results.xml
+    
+    - name: Check performance regression
+      run: |
+        python scripts/check_performance_regression.py test-results/benchmark-results.json
+    
+    - name: Upload performance results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: performance-test-results
+        path: test-results/
+    
+    - name: Performance summary
+      if: always()
+      run: |
+        echo "## Performance Test Summary" >> $GITHUB_STEP_SUMMARY
+        if [ -f test-results/benchmark-results.json ]; then
+          python -c "
+          import json
+          data = json.load(open('test-results/benchmark-results.json'))
+          if 'benchmarks' in data:
+              for bench in data['benchmarks']:
+                  name = bench.get('name', 'Unknown')
+                  mean = bench.get('stats', {}).get('mean', 0)
+                  print(f'- {name}: {mean:.3f}s mean')
+          " >> $GITHUB_STEP_SUMMARY
+        fi
+
+  # Chaos engineering tests (conditional)  
+  chaos-tests:
+    runs-on: ubuntu-latest
+    needs: [validate, integration-tests]
+    if: |
+      (needs.validate.outputs.should_run_tests == 'true') && 
+      (github.event_name == 'schedule' || 
+       github.event.inputs.run_chaos == 'true' || 
+       contains(github.event.head_commit.message, '[chaos-test]'))
+    timeout-minutes: 30
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install chaos testing dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio
+    
+    - name: Run chaos engineering tests
+      run: |
+        python -m pytest tests/chaos/ -v \
+          --tb=short \
+          --timeout=180 \
+          -m chaos \
+          --json-report --json-report-file=test-results/chaos-report.json \
+          --junitxml=test-results/chaos-results.xml
+    
+    - name: Upload chaos test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: chaos-test-results
+        path: test-results/
+
+  # Regression tests
+  regression-tests:
+    runs-on: ubuntu-latest
+    needs: [validate, unit-tests, integration-tests]
+    if: needs.validate.outputs.should_run_tests == 'true' && github.ref == 'refs/heads/main'
+    timeout-minutes: 25
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Need full history for regression comparison
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-asyncio
+    
+    - name: Download regression baselines
+      uses: actions/download-artifact@v3
+      with:
+        name: regression-baselines
+        path: tests/regression/baselines/
+      continue-on-error: true  # OK if no baselines exist yet
+    
+    - name: Run regression tests
+      run: |
+        python -m pytest tests/regression/ -v \
+          --tb=short \
+          --timeout=120 \
+          --json-report --json-report-file=test-results/regression-report.json \
+          --junitxml=test-results/regression-results.xml
+    
+    - name: Upload new regression baselines
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: regression-baselines
+        path: tests/regression/baselines/
+    
+    - name: Upload regression test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: regression-test-results
+        path: test-results/
+
+  # Comprehensive test report generation
+  test-report:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, e2e-cli-tests, security-tests, contract-tests]
+    if: always() && needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install report dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jinja2 json2html
+    
+    - name: Download all test results
+      uses: actions/download-artifact@v3
+      with:
+        path: all-test-results/
+    
+    - name: Generate comprehensive test report
+      run: |
+        python scripts/generate_comprehensive_report.py all-test-results/
+    
+    - name: Upload comprehensive test report
+      uses: actions/upload-artifact@v3
+      with:
+        name: comprehensive-test-report
+        path: |
+          comprehensive-test-report.html
+          comprehensive-test-report.json
+    
+    - name: Comment PR with test results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          if (fs.existsSync('comprehensive-test-report.json')) {
+            const report = JSON.parse(fs.readFileSync('comprehensive-test-report.json', 'utf8'));
+            const summary = report.summary;
+            
+            const comment = `
+            ## 🧪 Test Results Summary
+            
+            | Suite | Status | Tests | Duration |
+            |-------|--------|-------|----------|
+            ${Object.entries(report.results || {}).map(([suite, result]) => 
+              `| ${suite} | ${result.success ? '✅ PASS' : result.skipped ? '⏭️ SKIP' : '❌ FAIL'} | ${result.test_count || 'N/A'} | ${result.duration ? result.duration.toFixed(1) + 's' : 'N/A'} |`
+            ).join('\n')}
+            
+            **Overall Success Rate**: ${((summary?.suite_success_rate || 0) * 100).toFixed(1)}%
+            
+            📄 [View Detailed Report](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
+
+  # Deployment readiness check (main branch only)
+  deployment-readiness:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, e2e-cli-tests, security-tests, contract-tests]
+    if: github.ref == 'refs/heads/main' && needs.validate.outputs.should_run_tests == 'true'
+    timeout-minutes: 15
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Build package
+      run: |
+        python -m pip install --upgrade pip build
+        python -m build
+    
+    - name: Test package installation
+      run: |
+        pip install dist/*.whl
+        localagent --version
+    
+    - name: Run smoke tests
+      run: |
+        python -m pytest tests/smoke/ -v \
+          --tb=short \
+          --timeout=60 \
+          --json-report --json-report-file=test-results/smoke-report.json
+    
+    - name: Create release candidate
+      if: success()
+      run: |
+        echo "All tests passed - ready for deployment" >> $GITHUB_STEP_SUMMARY
+        echo "DEPLOYMENT_READY=true" >> $GITHUB_ENV
+    
+    - name: Upload deployment artifacts
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: deployment-ready-package
+        path: dist/
+
+  # Notification job
+  notify-results:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, e2e-cli-tests, security-tests, contract-tests, test-report]
+    if: always() && needs.validate.outputs.should_run_tests == 'true'
+    
+    steps:
+    - name: Determine overall status
+      id: status
+      run: |
+        if [ "${{ needs.unit-tests.result }}" = "success" ] && 
+           [ "${{ needs.integration-tests.result }}" = "success" ] && 
+           [ "${{ needs.e2e-cli-tests.result }}" = "success" ] && 
+           [ "${{ needs.security-tests.result }}" = "success" ] && 
+           [ "${{ needs.contract-tests.result }}" = "success" ]; then
+          echo "status=success" >> $GITHUB_OUTPUT
+          echo "message=All core tests passed ✅" >> $GITHUB_OUTPUT
+        else
+          echo "status=failure" >> $GITHUB_OUTPUT
+          echo "message=Some tests failed ❌" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Create workflow summary
+      run: |
+        echo "# LocalAgent Testing Pipeline Results" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Status**: ${{ steps.status.outputs.message }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "## Test Suite Results" >> $GITHUB_STEP_SUMMARY
+        echo "| Test Suite | Result |" >> $GITHUB_STEP_SUMMARY
+        echo "|------------|--------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Unit Tests | ${{ needs.unit-tests.result == 'success' && '✅ PASS' || needs.unit-tests.result == 'skipped' && '⏭️ SKIP' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Integration Tests | ${{ needs.integration-tests.result == 'success' && '✅ PASS' || needs.integration-tests.result == 'skipped' && '⏭️ SKIP' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| E2E CLI Tests | ${{ needs.e2e-cli-tests.result == 'success' && '✅ PASS' || needs.e2e-cli-tests.result == 'skipped' && '⏭️ SKIP' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Security Tests | ${{ needs.security-tests.result == 'success' && '✅ PASS' || needs.security-tests.result == 'skipped' && '⏭️ SKIP' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Contract Tests | ${{ needs.contract-tests.result == 'success' && '✅ PASS' || needs.contract-tests.result == 'skipped' && '⏭️ SKIP' || '❌ FAIL' }} |" >> $GITHUB_STEP_SUMMARY
+    
+    - name: Notify on Slack (if configured)
+      if: env.SLACK_WEBHOOK_URL != ''
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ steps.status.outputs.status }}
+        text: |
+          LocalAgent Testing Pipeline: ${{ steps.status.outputs.message }}
+          
+          Branch: ${{ github.ref_name }}
+          Commit: ${{ github.sha }}
+          
+          Results:
+          • Unit Tests: ${{ needs.unit-tests.result }}
+          • Integration: ${{ needs.integration-tests.result }}
+          • E2E CLI: ${{ needs.e2e-cli-tests.result }}
+          • Security: ${{ needs.security-tests.result }}
+          • Contract: ${{ needs.contract-tests.result }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

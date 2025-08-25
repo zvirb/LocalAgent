@@ -1,0 +1,36 @@
+# LocalAgent + UnifiedWorkflow Orchestration Configuration
+orchestration:
+  max_parallel_agents: 10
+  max_workflow_iterations: 3
+  enable_evidence_collection: true
+  enable_cross_session_continuity: true
+
+context:
+  strategic_context_tokens: 3000
+  technical_context_tokens: 4000
+  frontend_context_tokens: 3000
+  security_context_tokens: 3000
+  performance_context_tokens: 3000
+  database_context_tokens: 3500
+  default_context_tokens: 4000
+
+mcp:
+  redis:
+    redis_url: redis://localhost:6379
+  memory: {}
+
+providers:
+  ollama:
+    base_url: http://localhost:11434
+    default_model: llama3.1:latest
+    timeout: 120
+  # Add other providers as needed
+  # openai:
+  #   api_key: your-api-key
+  # gemini:
+  #   api_key: your-api-key
+  # perplexity:
+  #   api_key: your-api-key
+
+workflow:
+  config_path: null  # Uses default UnifiedWorkflow config
