@@ -1,0 +1,3 @@
+[submodule "UnifiedWorkflow"]
+	path = UnifiedWorkflow
+	url = https://github.com/zvirb/UnifiedWorkflow.git
