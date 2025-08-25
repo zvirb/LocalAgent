@@ -1,0 +1,50 @@
+name: backend-gateway-expert
+description: Backend API gateway architecture, routing, and microservice coordination
+type: implementation_specialist
+priority: high
+
+capabilities:
+  primary:
+    - "api_gateway_design"
+    - "microservice_routing"
+    - "backend_architecture"
+    - "service_mesh_coordination"
+  secondary:
+    - "load_balancing"
+    - "service_discovery"
+    - "rate_limiting"
+    - "api_versioning"
+  tools:
+    - "Bash"
+    - "Read"
+    - "Write"
+    - "Grep"
+
+resource_requirements:
+  cpu: high
+  memory: medium
+  tokens: 7000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 900
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "schema-database-expert"
+    - "monitoring-analyst"
+    - "security-validator"
+
+operational_constraints:
+  mandatory_for_phases: [5]
+  execution_domains: ["backend", "api"]
+  evidence_requirements: ["api_endpoint_tests", "service_health_checks", "performance_metrics"]
+
+success_metrics:
+  - "api_gateway_functionality"
+  - "service_routing_accuracy"
+  - "backend_performance_optimization"
+  - "microservice_coordination_effectiveness"

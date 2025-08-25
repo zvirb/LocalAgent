@@ -1,0 +1,47 @@
+name: orchestration-todo-manager
+description: Cross-session todo management and context continuity coordinator
+type: orchestrator
+priority: critical
+
+capabilities:
+  primary:
+    - "todo_management"
+    - "context_continuity"
+    - "priority_assessment"
+    - "cross_session_coordination"
+  secondary:
+    - "workflow_loop_control"
+    - "completion_tracking"
+    - "escalation_management"
+  tools:
+    - "Read"
+    - "Write" 
+    - "TodoWrite"
+
+resource_requirements:
+  cpu: low
+  memory: medium
+  tokens: 4000
+
+execution_config:
+  parallel_execution: false
+  retry_count: 2
+  timeout: 300
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "project-orchestrator"
+    - "orchestration-auditor"
+
+operational_constraints:
+  mandatory_for_phases: [0, 12]
+  execution_domains: ["orchestration", "management"]
+  evidence_requirements: ["todo_analysis", "priority_assessment", "loop_decision"]
+
+success_metrics:
+  - "todo_management_effectiveness"
+  - "context_continuity_maintenance"
+  - "priority_assessment_accuracy"
+  - "workflow_completion_optimization"

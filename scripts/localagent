@@ -1,0 +1,256 @@
+#!/usr/bin/env python3
+"""
+LocalAgent CLI - A multi-provider LLM orchestration tool
+Mimics Claude Code CLI interface with support for Ollama, OpenAI, Gemini, and Perplexity
+"""
+
+import click
+import asyncio
+import sys
+import os
+from pathlib import Path
+from rich.console import Console
+from rich.table import Table
+from rich.prompt import Prompt, Confirm
+from rich.markdown import Markdown
+from rich.progress import Progress, SpinnerColumn, TextColumn
+import yaml
+import json
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from app.llm_providers import ProviderManager
+from app.llm_providers.base_provider import CompletionRequest
+
+console = Console()
+
+class LocalAgentCLI:
+    """Main CLI application class"""
+    
+    def __init__(self):
+        self.config_path = Path.home() / '.localagent' / 'config.yaml'
+        self.provider_manager = None
+        self.current_provider = 'ollama'  # Default to local
+        
+    def load_config(self):
+        """Load configuration from file"""
+        if self.config_path.exists():
+            with open(self.config_path) as f:
+                return yaml.safe_load(f)
+        return {}
+    
+    def save_config(self, config):
+        """Save configuration to file"""
+        self.config_path.parent.mkdir(exist_ok=True)
+        with open(self.config_path, 'w') as f:
+            yaml.dump(config, f)
+    
+    async def initialize(self):
+        """Initialize the provider manager"""
+        config = self.load_config()
+        self.provider_manager = ProviderManager(config)
+        await self.provider_manager.initialize_providers()
+
+@click.group(invoke_without_command=True)
+@click.pass_context
+def cli(ctx):
+    """LocalAgent - Multi-provider LLM orchestration CLI
+    
+    A Claude Code-compatible CLI supporting Ollama, OpenAI, Gemini, and Perplexity.
+    """
+    if ctx.invoked_subcommand is None:
+        # Launch interactive mode
+        asyncio.run(interactive_mode())
+
+@cli.command()
+def init():
+    """Initialize LocalAgent configuration"""
+    console.print("[bold cyan]LocalAgent Configuration Setup[/bold cyan]")
+    console.print()
+    
+    config = {}
+    
+    # Ollama setup
+    console.print("[yellow]Ollama Configuration[/yellow]")
+    ollama_url = Prompt.ask("Ollama server URL", default="http://localhost:11434")
+    config['ollama'] = {'base_url': ollama_url}
+    
+    # OpenAI setup
+    if Confirm.ask("Configure OpenAI API?"):
+        api_key = Prompt.ask("OpenAI API Key", password=True)
+        config['openai'] = {'api_key': api_key}
+    
+    # Gemini setup  
+    if Confirm.ask("Configure Google Gemini API?"):
+        api_key = Prompt.ask("Gemini API Key", password=True)
+        config['gemini'] = {'api_key': api_key}
+    
+    # Perplexity setup
+    if Confirm.ask("Configure Perplexity API?"):
+        api_key = Prompt.ask("Perplexity API Key", password=True)
+        config['perplexity'] = {'api_key': api_key}
+    
+    # Save configuration
+    config_path = Path.home() / '.localagent' / 'config.yaml'
+    config_path.parent.mkdir(exist_ok=True)
+    with open(config_path, 'w') as f:
+        yaml.dump(config, f)
+    
+    console.print("[green]✓ Configuration saved successfully![/green]")
+
+@cli.command()
+@click.option('--provider', '-p', help='Provider to use (ollama/openai/gemini/perplexity)')
+async def providers(provider):
+    """List available providers and their status"""
+    app = LocalAgentCLI()
+    await app.initialize()
+    
+    table = Table(title="Available Providers")
+    table.add_column("Provider", style="cyan")
+    table.add_column("Status", style="green")
+    table.add_column("Models", style="yellow")
+    table.add_column("API Key", style="magenta")
+    
+    for provider_name, provider_instance in app.provider_manager.providers.items():
+        if provider and provider != provider_name:
+            continue
+            
+        health = await provider_instance.health_check()
+        status = "✓ Healthy" if health['healthy'] else "✗ Offline"
+        models = health.get('models_available', 0)
+        needs_key = "Required" if provider_instance.requires_api_key else "Not needed"
+        
+        table.add_row(provider_name, status, str(models), needs_key)
+    
+    console.print(table)
+
+@cli.command()
+@click.argument('prompt')
+@click.option('--provider', '-p', default='ollama', help='Provider to use')
+@click.option('--model', '-m', help='Model to use')
+@click.option('--stream/--no-stream', default=True, help='Stream the response')
+async def complete(prompt, provider, model, stream):
+    """Generate a completion for the given prompt"""
+    app = LocalAgentCLI()
+    await app.initialize()
+    
+    # Select provider
+    if provider not in app.provider_manager.providers:
+        console.print(f"[red]Provider '{provider}' not available[/red]")
+        return
+    
+    provider_instance = app.provider_manager.providers[provider]
+    
+    # Select model if not specified
+    if not model:
+        models = await provider_instance.list_models()
+        if models:
+            model = models[0].name
+        else:
+            console.print("[red]No models available[/red]")
+            return
+    
+    # Create request
+    request = CompletionRequest(
+        messages=[{'role': 'user', 'content': prompt}],
+        model=model,
+        stream=stream
+    )
+    
+    # Generate completion
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        console=console
+    ) as progress:
+        task = progress.add_task(f"Thinking with {model}...", total=None)
+        
+        if stream:
+            async for chunk in provider_instance.stream_complete(request):
+                console.print(chunk, end='')
+        else:
+            response = await provider_instance.complete(request)
+            console.print(response.content)
+        
+        progress.remove_task(task)
+
+async def interactive_mode():
+    """Interactive chat mode"""
+    console.print("[bold cyan]Welcome to LocalAgent CLI[/bold cyan]")
+    console.print("Type [yellow]/help[/yellow] for commands or start chatting!")
+    console.print()
+    
+    app = LocalAgentCLI()
+    await app.initialize()
+    
+    # Check provider health
+    healthy_providers = []
+    for name, provider in app.provider_manager.providers.items():
+        health = await provider.health_check()
+        if health['healthy']:
+            healthy_providers.append(name)
+    
+    if not healthy_providers:
+        console.print("[red]No providers available. Run 'localagent init' to configure.[/red]")
+        return
+    
+    current_provider = healthy_providers[0]
+    console.print(f"[green]Using provider: {current_provider}[/green]")
+    
+    while True:
+        try:
+            user_input = Prompt.ask("\n[cyan]You[/cyan]")
+            
+            if user_input.startswith('/'):
+                # Handle commands
+                if user_input == '/help':
+                    console.print("""
+Available commands:
+  /provider <name>  - Switch provider
+  /models          - List available models
+  /clear           - Clear screen
+                    /exit            - Exit
+                    """)
+                elif user_input.startswith('/provider'):
+                    _, provider_name = user_input.split(maxsplit=1)
+                    if provider_name in healthy_providers:
+                        current_provider = provider_name
+                        console.print(f"[green]Switched to {provider_name}[/green]")
+                    else:
+                        console.print(f"[red]Provider {provider_name} not available[/red]")
+                elif user_input == '/exit':
+                    break
+                elif user_input == '/clear':
+                    console.clear()
+                continue
+            
+            # Generate response
+            provider = app.provider_manager.providers[current_provider]
+            models = await provider.list_models()
+            model = models[0].name if models else None
+            
+            if not model:
+                console.print("[red]No models available for current provider[/red]")
+                continue
+            
+            request = CompletionRequest(
+                messages=[{'role': 'user', 'content': user_input}],
+                model=model,
+                stream=True
+            )
+            
+            console.print(f"\n[magenta]Assistant ({model})[/magenta]")
+            async for chunk in provider.stream_complete(request):
+                console.print(chunk, end='')
+            console.print()
+            
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            console.print(f"[red]Error: {e}[/red]")
+    
+    console.print("\n[cyan]Goodbye![/cyan]")
+
+if __name__ == '__main__':
+    cli()

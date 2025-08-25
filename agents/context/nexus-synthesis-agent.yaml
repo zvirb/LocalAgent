@@ -1,0 +1,48 @@
+name: nexus-synthesis-agent
+description: Cross-domain context integration and synthesis specialist
+type: specialist
+priority: high
+
+capabilities:
+  primary:
+    - "cross_domain_synthesis"
+    - "context_integration"
+    - "pattern_recognition"
+    - "information_consolidation"
+  secondary:
+    - "dependency_mapping"
+    - "conflict_resolution"
+    - "priority_optimization"
+  tools:
+    - "Read"
+    - "Write" 
+    - "Grep"
+    - "MultiEdit"
+
+resource_requirements:
+  cpu: high
+  memory: very_high
+  tokens: 8000
+
+execution_config:
+  parallel_execution: false
+  retry_count: 3
+  timeout: 900
+
+coordination:
+  dependencies: ["codebase-research-analyst", "enhanced-research-coordinator"]
+  conflicts: []
+  integration_points:
+    - "context-compression"
+    - "project-orchestrator"
+
+operational_constraints:
+  mandatory_for_phases: [4]
+  execution_domains: ["context", "synthesis"]
+  evidence_requirements: ["synthesis_report", "integration_matrix", "context_packages"]
+
+success_metrics:
+  - "cross_domain_integration_completeness"
+  - "context_package_coherence"
+  - "information_synthesis_accuracy"
+  - "dependency_resolution_effectiveness"

@@ -1,0 +1,50 @@
+name: user-experience-auditor
+description: User perspective validation with concrete evidence collection using browser automation
+type: validation_specialist
+priority: high
+
+capabilities:
+  primary:
+    - "user_experience_validation"
+    - "browser_automation_testing"
+    - "accessibility_auditing"
+    - "user_flow_verification"
+  secondary:
+    - "performance_user_impact_analysis"
+    - "mobile_responsiveness_testing"
+    - "cross_browser_compatibility"
+    - "usability_assessment"
+  tools:
+    - "WebFetch"
+    - "Bash"
+    - "Read"
+    - "Write"
+
+resource_requirements:
+  cpu: medium
+  memory: medium
+  tokens: 5000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 1200
+
+coordination:
+  dependencies: ["ui-architect"]
+  conflicts: []
+  integration_points:
+    - "ui-regression-debugger"
+    - "test-automation-engineer"
+    - "production-endpoint-validator"
+
+operational_constraints:
+  mandatory_for_phases: [5, 6]
+  execution_domains: ["quality", "validation"]
+  evidence_requirements: ["user_flow_screenshots", "accessibility_reports", "performance_metrics"]
+
+success_metrics:
+  - "user_experience_validation_completeness"
+  - "accessibility_compliance_score"
+  - "user_flow_success_rate"
+  - "evidence_collection_quality"

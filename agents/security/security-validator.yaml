@@ -1,0 +1,48 @@
+name: security-validator
+description: Comprehensive security assessment and vulnerability analysis specialist
+type: specialist
+priority: critical
+
+capabilities:
+  primary:
+    - "security_vulnerability_scanning"
+    - "authentication_flow_validation"
+    - "authorization_pattern_analysis"
+    - "security_configuration_audit"
+  secondary:
+    - "compliance_validation"
+    - "penetration_testing"
+    - "security_monitoring_setup"
+  tools:
+    - "Bash"
+    - "Read"
+    - "Grep"
+    - "WebSearch"
+
+resource_requirements:
+  cpu: high
+  memory: high
+  tokens: 7000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 900
+
+coordination:
+  dependencies: []
+  conflicts: ["security-vulnerability-scanner"]
+  integration_points:
+    - "fullstack-communication-auditor"
+    - "backend-gateway-expert"
+
+operational_constraints:
+  mandatory_for_phases: [3, 5, 6]
+  execution_domains: ["security", "validation"]
+  evidence_requirements: ["security_audit_report", "vulnerability_scan_results", "penetration_test_results"]
+
+success_metrics:
+  - "vulnerability_detection_accuracy"
+  - "security_configuration_compliance"
+  - "authentication_flow_validation_success"
+  - "zero_critical_vulnerabilities_remaining"

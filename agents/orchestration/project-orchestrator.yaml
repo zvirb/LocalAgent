@@ -1,0 +1,47 @@
+name: project-orchestrator
+description: Strategic planning and multi-agent coordination for complex orchestration workflows
+type: orchestrator
+priority: critical
+
+capabilities:
+  primary:
+    - "strategic_planning"
+    - "multi_agent_coordination" 
+    - "task_breakdown"
+    - "workflow_design"
+  secondary:
+    - "resource_allocation_planning"
+    - "risk_assessment"
+    - "success_criteria_definition"
+  tools:
+    - "Read"
+    - "Write"
+    - "Bash"
+
+resource_requirements:
+  cpu: high
+  memory: high
+  tokens: 10000
+
+execution_config:
+  parallel_execution: false
+  retry_count: 3
+  timeout: 900
+
+coordination:
+  dependencies: ["codebase-research-analyst"]
+  conflicts: ["other-orchestrators"]
+  integration_points:
+    - "enhanced-nexus-synthesis"
+    - "agent-integration-orchestrator"
+
+operational_constraints:
+  mandatory_for_phases: [2]
+  execution_domains: ["orchestration", "planning"]
+  evidence_requirements: ["strategic_plan", "coordination_strategy", "resource_allocation"]
+
+success_metrics:
+  - "strategy_completeness"
+  - "coordination_clarity"
+  - "implementation_viability"
+  - "validation_robustness"

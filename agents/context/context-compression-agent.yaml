@@ -1,0 +1,57 @@
+name: context-compression-agent
+description: Context package optimization and token management specialist
+type: specialist
+priority: high
+
+capabilities:
+  primary:
+    - "context_compression"
+    - "token_optimization"
+    - "information_density_maximization"
+    - "relevance_scoring"
+  secondary:
+    - "semantic_preservation"
+    - "lossy_compression_decision"
+    - "compression_quality_assessment"
+  tools:
+    - "Read"
+    - "Write"
+    - "Edit"
+    - "MultiEdit"
+
+resource_requirements:
+  cpu: medium
+  memory: high
+  tokens: 6000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 600
+
+coordination:
+  dependencies: ["nexus-synthesis-agent"]
+  conflicts: []
+  integration_points:
+    - "enhanced-nexus-synthesis-agent"
+    - "document-compression-agent"
+
+operational_constraints:
+  mandatory_for_phases: [4]
+  execution_domains: ["context", "optimization"]
+  evidence_requirements: ["compression_metrics", "token_usage_analysis", "quality_preservation_report"]
+
+success_criteria:
+  token_limits:
+    strategic_context: 3000
+    technical_context: 4000
+    frontend_context: 3000
+    security_context: 3000
+    performance_context: 3000
+    database_context: 3500
+
+success_metrics:
+  - "token_reduction_percentage"
+  - "information_preservation_quality"
+  - "compression_speed_optimization"
+  - "context_package_size_compliance"

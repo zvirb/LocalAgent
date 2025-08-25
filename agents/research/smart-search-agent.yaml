@@ -1,0 +1,48 @@
+name: smart-search-agent
+description: Intelligent search and information discovery across multiple domains
+type: specialist
+priority: medium
+
+capabilities:
+  primary:
+    - "intelligent_search"
+    - "information_discovery"
+    - "content_relevance_scoring"
+    - "search_optimization"
+  secondary:
+    - "data_source_validation"
+    - "information_quality_assessment"
+    - "search_strategy_adaptation"
+  tools:
+    - "WebSearch"
+    - "Grep"
+    - "Glob"
+    - "Read"
+
+resource_requirements:
+  cpu: medium
+  memory: medium
+  tokens: 4000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 300
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "enhanced-research-coordinator"
+    - "codebase-research-analyst"
+
+operational_constraints:
+  mandatory_for_phases: [1, 3]
+  execution_domains: ["research", "discovery"]
+  evidence_requirements: ["search_results_analysis", "information_quality_metrics"]
+
+success_metrics:
+  - "search_result_relevance_score"
+  - "information_discovery_completeness"
+  - "search_efficiency_optimization"
+  - "data_source_reliability_validation"

@@ -1,0 +1,1391 @@
+# Claude Code Context Management Templates
+# Research-based templates aligned with actual Claude Code CLI architecture
+# Based on CLAUDE.md memory system, MCP integration, and context engineering principles
+
+metadata:
+  schema_version: "3.0"
+  content_version: "2.0.0"
+  created: "2025-01-19"
+  last_modified: "2025-08-22T12:00:00Z"
+  description: "Context engineering templates based on Anthropic's official Claude Code architecture"
+  research_basis: "84.8% SWE-Bench solve rate, 40% token reduction through efficient context management"
+  methodology: "Context engineering over prompt engineering - systematic project understanding"
+  change_log:
+    - version: "1.0.0"
+      date: "2025-01-19"
+      changes: ["Initial template creation with basic structure"]
+    - version: "2.1.0" 
+      date: "2025-08-22"
+      changes: ["Added dynamic token allocation", "Implemented inter-package dependencies", "Added agent feedback collection", "Enhanced validation mechanisms"]
+    - version: "3.0.0"
+      date: "2025-08-22"
+      changes: ["Aligned with official Claude Code architecture", "Integrated CLAUDE.md memory system", "Added MCP-based context patterns", "Implemented context engineering methodology", "Added hierarchical context support"]
+
+# Research-Based Architecture Alignment
+architecture_alignment:
+  claude_code_official:
+    primary_mechanisms:
+      - "CLAUDE.md memory system - hierarchical markdown context"
+      - "Model Context Protocol (MCP) - USB-C for AI applications"  
+      - "Context engineering - systematic project understanding"
+    
+    performance_metrics:
+      swe_bench_solve_rate: 84.8  # Percentage
+      token_reduction: 40         # Percentage improvement
+      context_window: 1000000     # 1M token capacity in Sonnet 4
+      parallel_speedup: "2.8-4.4x"  # Speed improvement through coordination
+    
+    limitations:
+      - "1M token boundary for very large codebases"
+      - "Setup requires technical expertise"
+      - "API costs $100-200+ monthly for intensive usage"
+      - "Rapid development means frequent breaking changes"
+
+# Dynamic Token Management System
+token_management:
+  # Token Limits (Base Allocation)
+  base_limits:
+    memory_mcp_entities: 8000
+    context_packages: 4000
+    strategic_packages: 3000
+    
+  # Dynamic Allocation Configuration
+  dynamic_allocation:
+    mode: "adaptive" # "strict" | "adaptive" | "elastic"
+    overflow_strategy: "prioritize" # "truncate" | "split" | "prioritize"
+    elastic_threshold: 0.85 # When to trigger overflow handling
+    max_expansion: 1.2 # Maximum token expansion multiplier
+    
+  # Section Priority System (higher number = higher priority)
+  priority_sections:
+    implementation_details: 10
+    current_architecture: 9
+    success_criteria: 8
+    constraints: 7
+    dependencies: 6
+    configuration: 5
+    testing_requirements: 4
+    risk_assessment: 3
+    timeline: 2
+    browser_support: 1
+
+# CLAUDE.md Memory System Integration
+claude_md_integration:
+  # Hierarchical Context Architecture
+  hierarchy:
+    enterprise_level:
+      file: "~/.claude/CLAUDE.md"
+      precedence: 1  # Highest precedence
+      scope: "System-wide policies and standards"
+      purpose: "Enterprise coding standards, security policies, compliance requirements"
+      
+    project_level:
+      file: "./CLAUDE.md"
+      precedence: 2
+      scope: "Project-specific instructions and context"
+      purpose: "Technology stack, project structure, team preferences, workflow instructions"
+      
+    user_level:
+      file: "~/.claude/projects/{project_name}/CLAUDE.md"
+      precedence: 3
+      scope: "Personal customizations and preferences"
+      purpose: "Individual developer preferences, personal shortcuts, custom workflows"
+      
+    directory_level:
+      file: "./.claude/CLAUDE.md"
+      precedence: 4  # Lowest precedence, most specific
+      scope: "Directory-specific context"
+      purpose: "Module-specific patterns, local conventions, component guidelines"
+  
+  # Import System (@path/to/import syntax)
+  modular_organization:
+    import_patterns:
+      - "@/docs/architecture.md": "System architecture documentation"
+      - "@/docs/coding-standards.md": "Code style and standards"
+      - "@/.claude/workflows/": "Custom workflow definitions"
+      - "@/.claude/patterns/": "Code pattern examples"
+      - "@/.claude/commands/": "Custom slash commands"
+    
+    best_practices:
+      - "Use relative imports within project scope"
+      - "Import common patterns from shared locations"
+      - "Keep imports lightweight and focused"
+      - "Version control shared import files"
+
+# Model Context Protocol (MCP) Integration  
+mcp_integration:
+  # MCP Architecture Components
+  components:
+    servers:
+      description: "Provide specific capabilities to Claude Code"
+      examples:
+        - "claude-context: Semantic code search using vector databases"
+        - "github-mcp: GitHub API integration"
+        - "database-mcp: Database query and schema access"
+        - "filesystem-mcp: Enhanced file system operations"
+    
+    resources:
+      description: "Accessible via @ mentions in Claude Code"
+      access_pattern: "@resource_name"
+      examples:
+        - "@codebase/search": "Semantic code search"
+        - "@github/issues": "GitHub issue access"
+        - "@db/schema": "Database schema information"
+    
+    tools:
+      description: "Actions that agents can execute"
+      examples:
+        - "execute_query": "Run database queries"
+        - "create_branch": "Git branch operations"
+        - "deploy_service": "Deployment operations"
+    
+    prompts:
+      description: "Exposed as slash commands"
+      examples:
+        - "/analyze-code": "Code analysis prompts"
+        - "/generate-tests": "Test generation prompts"
+        - "/refactor-suggestion": "Refactoring recommendations"
+  
+  # Configuration Scopes
+  configuration_scopes:
+    local:
+      file: "./.mcp.json"
+      purpose: "Project-specific MCP server configurations"
+      example: |
+        {
+          "servers": {
+            "claude-context": {
+              "command": "claude-context-server",
+              "args": ["--project-root", "./"]
+            }
+          }
+        }
+    
+    project:
+      file: "./.mcp.json"
+      purpose: "Team-shared MCP configurations"
+      version_controlled: true
+      
+    global:
+      file: "~/.claude/mcp.json"
+      purpose: "User-wide MCP preferences"
+      personal: true
+
+# Package Type Definitions (Updated for Context Engineering)
+# Context Engineering Package Types
+# Aligned with Claude Code's context engineering methodology
+context_engineering_packages:
+  
+  claude_md_context:
+    type: "primary_context"
+    format: "markdown"
+    max_tokens: 8000  # Leverages 1M context window effectively
+    description: "CLAUDE.md-based hierarchical context for systematic project understanding"
+    target_mechanisms: ["CLAUDE.md memory system", "hierarchical imports"]
+    components:
+      technology_stack:
+        purpose: "Complete tech stack specification"
+        examples: ["Node.js 18+, React 18+, TypeScript, PostgreSQL 14+"]
+        importance: "critical"
+        
+      coding_standards:
+        purpose: "Team coding style and patterns"
+        examples: ["ES modules, arrow functions, 2-space indentation"]
+        importance: "high"
+        
+      project_structure:
+        purpose: "Directory organization and file naming"
+        examples: ["src/components/, src/utils/, src/hooks/"]
+        importance: "high"
+        
+      workflow_instructions:
+        purpose: "Development workflow and processes"
+        examples: ["TDD, feature branches, PR requirements"]
+        importance: "medium"
+        
+      pattern_examples:
+        purpose: "Code pattern library with examples"
+        examples: ["Authentication patterns, API error handling"]
+        importance: "medium"
+
+  mcp_integration_context:
+    type: "tool_integration"
+    format: "json_configuration"
+    max_tokens: 2000
+    description: "MCP server configurations and resource access patterns"
+    target_mechanisms: ["Model Context Protocol", "external tool integration"]
+    components:
+      server_configurations:
+        purpose: "MCP server setup and connection details"
+        examples: ["claude-context server, GitHub MCP, database MCP"]
+        importance: "critical"
+        
+      resource_mappings:
+        purpose: "@ mention resource access patterns"
+        examples: ["@codebase/search, @github/issues, @db/schema"]
+        importance: "high"
+        
+      tool_permissions:
+        purpose: "Allowed tools and security constraints"
+        examples: ["Edit, Bash(git:*), specific MCP tool access"]
+        importance: "critical"
+
+  prp_context:
+    type: "implementation_blueprint"
+    format: "structured_markdown"
+    max_tokens: 5000
+    description: "Product Requirements Prompts for implementation guidance"
+    target_mechanisms: ["Context engineering", "validation loops"]
+    components:
+      complete_documentation:
+        purpose: "Comprehensive feature/component documentation"
+        structure: ["Requirements, Architecture, Implementation Plan"]
+        importance: "critical"
+        
+      implementation_steps:
+        purpose: "Step-by-step implementation blueprint"
+        structure: ["Setup, Core Implementation, Testing, Deployment"]
+        importance: "high"
+        
+      error_handling_patterns:
+        purpose: "Error scenarios and handling strategies"
+        structure: ["Common Errors, Recovery Patterns, User Feedback"]
+        importance: "high"
+        
+      confidence_scoring:
+        purpose: "Implementation quality and completion confidence"
+        structure: ["Completion %, Quality Score, Risk Assessment"]
+        importance: "medium"
+
+  validation_context:
+    type: "quality_assurance"
+    format: "yaml_configuration"
+    max_tokens: 3000
+    description: "Validation loops and self-correction mechanisms"
+    target_mechanisms: ["Context engineering", "persistent memory"]
+    components:
+      validation_criteria:
+        purpose: "Success criteria and quality metrics"
+        examples: ["Code quality, test coverage, performance targets"]
+        importance: "critical"
+        
+      self_correction_loops:
+        purpose: "Automated validation and correction processes"
+        examples: ["Lint checks, type validation, test execution"]
+        importance: "high"
+        
+      feedback_integration:
+        purpose: "Learning from validation results"
+        examples: ["Pattern updates, error prevention, optimization"]
+        importance: "medium"
+
+# Legacy Package Types (Deprecated - Use Context Engineering Types Above)
+legacy_package_types:
+  strategic_context:
+    status: "deprecated"
+    replacement: "claude_md_context"
+    migration_path: "Convert to CLAUDE.md hierarchical format"
+    
+  technical_context:
+    status: "deprecated"  
+    replacement: "prp_context"
+    migration_path: "Structure as Product Requirements Prompt"
+
+# Inter-Package Dependencies System
+package_dependencies:
+  strategic_context:
+    requires: [] # Base package, no dependencies
+    optional: []
+    enables: ["technical_context", "frontend_context", "security_context"]
+    
+  technical_context:
+    requires: ["strategic_context"]
+    optional: []
+    enables: ["frontend_context", "security_context", "database_context", "performance_context"]
+    
+  frontend_context:
+    requires: ["technical_context"]
+    optional: ["performance_context", "security_context"]
+    enables: []
+    
+  security_context:
+    requires: ["technical_context"]
+    optional: ["database_context", "frontend_context"]
+    enables: []
+    
+  performance_context:
+    requires: ["technical_context"]
+    optional: ["database_context", "frontend_context"]
+    enables: []
+    
+  database_context:
+    requires: ["technical_context"]
+    optional: ["performance_context", "security_context"]
+    enables: []
+    
+# Dependency Resolution Rules
+dependency_resolution:
+  validation:
+    enforce_required: true # Fail if required dependencies missing
+    warn_optional: true # Warn if optional dependencies missing
+    circular_detection: true # Detect and prevent circular dependencies
+    
+  auto_generation:
+    enabled: true # Auto-generate missing required dependencies
+    use_templates: true # Use default templates for auto-generated packages
+    notify_agents: true # Notify agents about auto-generated dependencies
+
+# Context Engineering Methodology
+# Research-based approach: systematic project understanding over clever prompting
+context_engineering_methodology:
+  
+  # Core Principles (40% token reduction achieved)
+  principles:
+    comprehensive_context_upfront:
+      description: "Provide complete project understanding from the start"
+      benefits: ["Reduced AI hallucinations", "Better first-attempt success rates", "Consistent code generation"]
+      implementation: "Load full CLAUDE.md hierarchy, MCP configurations, and pattern libraries"
+      
+    validation_loops:
+      description: "Self-correction mechanisms with persistent memory"
+      benefits: ["Quality assurance", "Learning integration", "Pattern recognition"]
+      implementation: "Automated validation, error correction, feedback integration"
+      
+    pattern_driven_development:
+      description: "Show correct implementations through examples"
+      benefits: ["Consistent code style", "Reduced errors", "Faster development"]
+      implementation: "Curated pattern libraries, example code, template structures"
+      
+    persistent_memory_across_sessions:
+      description: "Context retention and learning across interactions"
+      benefits: ["Continuous improvement", "Context preservation", "Accumulated knowledge"]
+      implementation: "CLAUDE.md updates, pattern library growth, preference learning"
+  
+  # Implementation Framework
+  implementation_framework:
+    
+    phase1_context_provision:
+      duration: "Initial setup"
+      activities:
+        - "Load hierarchical CLAUDE.md files (enterprise -> project -> user -> directory)"
+        - "Initialize MCP server connections and resource mappings"
+        - "Import pattern libraries and code examples"
+        - "Validate context completeness and consistency"
+      deliverables:
+        - "Complete project context loaded (technology stack, coding standards)"
+        - "MCP integrations active (@mentions working)"
+        - "Pattern libraries accessible"
+        - "Validation criteria established"
+    
+    phase2_validation_setup:
+      duration: "Configuration phase"
+      activities:
+        - "Configure validation loops for code quality"
+        - "Set up self-correction mechanisms"
+        - "Establish success criteria and metrics"
+        - "Initialize feedback collection systems"
+      deliverables:
+        - "Automated validation active (linting, type checking, testing)"
+        - "Self-correction loops configured"
+        - "Quality metrics defined and tracked"
+        - "Feedback systems operational"
+    
+    phase3_pattern_integration:
+      duration: "Development workflow"
+      activities:
+        - "Apply code patterns consistently"
+        - "Use example-driven development"
+        - "Maintain pattern library currency"
+        - "Document new patterns discovered"
+      deliverables:
+        - "Consistent code generation following patterns"
+        - "New patterns documented and shared"
+        - "Example library expanded"
+        - "Code quality maintained"
+    
+    phase4_memory_persistence:
+      duration: "Ongoing operations"
+      activities:
+        - "Update CLAUDE.md files with learnings"
+        - "Expand pattern libraries"
+        - "Refine validation criteria"
+        - "Integrate user feedback"
+      deliverables:
+        - "CLAUDE.md files kept current"
+        - "Pattern libraries growing"
+        - "Validation improved continuously"
+        - "User preferences learned and applied"
+  
+  # Performance Optimization Strategies
+  optimization_strategies:
+    
+    ast_based_chunking:
+      description: "Intelligent code splitting using Abstract Syntax Trees"
+      implementation: "Parse code into semantic chunks for efficient processing"
+      benefits: ["Improved context relevance", "Reduced token waste", "Better code understanding"]
+      token_savings: "25-40%"
+      
+    vector_database_integration:
+      description: "Semantic code search using vector embeddings"
+      implementation: "Index codebase with vector database for semantic similarity search"
+      benefits: ["Scalable semantic search", "Relevant context retrieval", "Cross-project learning"]
+      tools: ["claude-context MCP server", "Embedding models", "Vector databases"]
+      
+    incremental_indexing:
+      description: "Efficient updates using Merkle trees"
+      implementation: "Track changes incrementally to avoid full re-indexing"
+      benefits: ["Fast context updates", "Minimal computational overhead", "Real-time relevance"]
+      performance_gain: "2.8-4.4x speed improvement"
+      
+    relevance_scoring:
+      description: "Prevent unnecessary context inclusion"
+      implementation: "Score context relevance and filter low-scoring content"
+      benefits: ["Focused context", "Reduced noise", "Improved accuracy"]
+      threshold: "0.7+ relevance score for inclusion"
+
+  # Workflow Patterns (Research-Validated)
+  workflow_patterns:
+    
+    explore_plan_code_commit:
+      description: "Standard feature development pattern"
+      phases:
+        explore: "Use MCP resources to understand codebase (@codebase/search)"
+        plan: "Create PRP with implementation blueprint"
+        code: "Implement following patterns and validation loops"
+        commit: "Validate, test, and commit with quality checks"
+      success_rate: "84.8% on SWE-Bench"
+      
+    write_design_doc_first:
+      description: "Architecture-first development approach"
+      phases:
+        design: "Create high-level design document"
+        plan: "Develop detailed implementation plan"
+        refine: "Collaborative refinement with validation"
+        implement: "Code with persistent memory updates"
+      benefits: ["Better architecture", "Reduced rework", "Clear communication"]
+      
+    test_driven_development:
+      description: "TDD with validation loops"
+      phases:
+        test_first: "Write tests based on requirements"
+        validate: "Ensure test coverage and quality"
+        implement: "Code to pass tests"
+        refactor: "Improve with pattern library"
+      integration: "Automated validation loops ensure quality"
+
+# Research-Based Template Structures
+# Aligned with Claude Code's actual architecture and proven methodologies
+
+# Product Requirements Prompts (PRP) Templates
+# Implementation blueprints for context engineering methodology
+prp_templates:
+  
+  feature_implementation_prp:
+    structure:
+      complete_documentation:
+        description: "Comprehensive feature specification and context"
+        max_tokens: 1500
+        required: true
+        sections:
+          requirements: "User stories, acceptance criteria, business logic"
+          architecture: "System design, component interactions, data flow"
+          implementation_plan: "Step-by-step development approach"
+          
+      step_by_step_implementation:
+        description: "Detailed implementation blueprint with validation"
+        max_tokens: 2000
+        required: true
+        sections:
+          setup: "Environment setup, dependencies, initial configuration"
+          core_implementation: "Main feature development with code patterns"
+          testing: "Test strategy, test cases, validation criteria"
+          deployment: "Deployment steps, rollback procedures, monitoring"
+          
+      error_handling_patterns:
+        description: "Comprehensive error scenarios and recovery strategies"
+        max_tokens: 1000
+        required: true
+        sections:
+          common_errors: "Anticipated error conditions and causes"
+          recovery_patterns: "Error recovery strategies and fallback mechanisms"
+          user_feedback: "User-facing error messages and guidance"
+          logging: "Error logging and monitoring integration"
+          
+      confidence_scoring:
+        description: "Quality assurance and completion tracking"
+        max_tokens: 500
+        required: true
+        sections:
+          completion_percentage: "Implementation progress tracking (0-100%)"
+          quality_score: "Code quality assessment (0.0-1.0)"
+          risk_assessment: "Identified risks and mitigation strategies"
+          validation_status: "Test coverage and validation results"
+    
+    example: |
+      # Feature Implementation PRP: User Authentication System
+      
+      ## Complete Documentation
+      
+      ### Requirements
+      - Users must be able to register with email/password
+      - Support for OAuth2 (Google, GitHub) integration
+      - JWT-based session management with refresh tokens
+      - Password reset via email verification
+      - Account lockout after 5 failed attempts
+      
+      ### Architecture
+      - Express.js backend with bcrypt password hashing
+      - JWT tokens with 15-minute access, 7-day refresh
+      - Redis for session storage and rate limiting
+      - PostgreSQL for user data persistence
+      - React frontend with protected route components
+      
+      ### Implementation Plan
+      1. Database schema design and migration
+      2. Authentication middleware development
+      3. API endpoints for auth operations
+      4. Frontend authentication components
+      5. Integration testing and security validation
+      
+      ## Step-by-Step Implementation
+      
+      ### Setup
+      ```bash
+      npm install express bcryptjs jsonwebtoken
+      npm install @types/bcryptjs @types/jsonwebtoken
+      ```
+      
+      ### Core Implementation
+      ```typescript
+      // Authentication middleware following project patterns
+      export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
+        
+        if (!token) {
+          return res.status(401).json({ error: 'Access token required' });
+        }
+        
+        jwt.verify(token, process.env.JWT_SECRET!, (err, user) => {
+          if (err) return res.status(403).json({ error: 'Invalid token' });
+          req.user = user;
+          next();
+        });
+      };
+      ```
+      
+      ## Confidence Scoring
+      - **Completion**: 85% (auth flow implemented, testing in progress)
+      - **Quality**: 0.92 (high test coverage, security best practices)
+      - **Risk**: Low (proven patterns, comprehensive validation)
+
+# CLAUDE.md Template Structures  
+# Hierarchical context templates for the CLAUDE.md memory system
+claude_md_templates:
+  
+  enterprise_claude_md:
+    file_path: "~/.claude/CLAUDE.md"
+    precedence: 1
+    structure:
+      organization_standards:
+        description: "Company-wide coding standards and policies"
+        max_tokens: 2000
+        required: true
+        sections:
+          security_policies: "Authentication, authorization, data protection standards"
+          coding_standards: "Language-specific style guides, naming conventions"
+          compliance_requirements: "Regulatory compliance, audit requirements"
+          tool_restrictions: "Approved tools, security constraints"
+          
+      enterprise_patterns:
+        description: "Reusable patterns across all projects"
+        max_tokens: 1500
+        required: true
+        sections:
+          architecture_patterns: "Microservices, event-driven, data patterns"
+          security_patterns: "Auth patterns, encryption, secure communication"
+          monitoring_patterns: "Logging, metrics, alerting, observability"
+          deployment_patterns: "CI/CD, infrastructure as code, rollback procedures"
+    
+    example: |
+      # Enterprise CLAUDE.md
+      
+      ## Organization Standards
+      
+      ### Security Policies
+      - All passwords must use bcrypt with salt rounds >= 12
+      - JWT tokens: 15-minute access, 7-day refresh maximum
+      - API keys stored in secure secret management systems
+      - All HTTP traffic must use TLS 1.2+
+      
+      ### Coding Standards
+      - TypeScript for all new JavaScript projects
+      - ES modules preferred over CommonJS
+      - 2-space indentation, semicolons required
+      - Prettier + ESLint configuration standardized
+      
+      ## Tool Restrictions
+      ```yaml
+      allowed_tools:
+        - Edit
+        - Bash(git:*)
+        - Read
+        - Grep
+      restricted_operations:
+        - No direct database modifications in production
+        - No sudo operations without approval
+      ```
+  
+  project_claude_md:
+    file_path: "./CLAUDE.md"
+    precedence: 2
+    structure:
+      technology_stack:
+        description: "Project-specific technology choices and versions"
+        max_tokens: 1000
+        required: true
+        sections:
+          runtime: "Node.js, Python, Java versions and requirements"
+          frameworks: "React, Express, Django framework choices"
+          databases: "PostgreSQL, Redis, MongoDB configurations"
+          infrastructure: "Docker, Kubernetes, cloud provider setup"
+          
+      project_structure:
+        description: "Directory organization and file naming conventions"
+        max_tokens: 800
+        required: true
+        sections:
+          directory_layout: "src/, tests/, docs/, config/ organization"
+          naming_conventions: "File naming, component naming patterns"
+          import_patterns: "Relative vs absolute imports, path mappings"
+          
+      development_workflow:
+        description: "Team-specific development processes"
+        max_tokens: 1200
+        required: true
+        sections:
+          branch_strategy: "Git flow, feature branches, PR requirements"
+          testing_strategy: "Unit, integration, e2e testing approach"
+          deployment_process: "CI/CD pipeline, environment promotion"
+          code_review: "Review requirements, approval processes"
+    
+    example: |
+      # Project CLAUDE.md
+      
+      ## Technology Stack
+      - **Runtime**: Node.js 18+, npm 9+
+      - **Framework**: React 18 with TypeScript
+      - **Backend**: Express.js with TypeScript
+      - **Database**: PostgreSQL 14+ with Prisma ORM
+      - **Caching**: Redis 6+ for sessions and rate limiting
+      - **Infrastructure**: Docker containers, deployed on AWS ECS
+      
+      ## Project Structure
+      ```
+      src/
+        components/     # Reusable React components
+        hooks/         # Custom React hooks
+        pages/         # Page components and routing
+        services/      # API clients and business logic
+        utils/         # Shared utility functions
+        types/         # TypeScript type definitions
+      ```
+      
+      ## Development Workflow
+      - Feature branches from `main`
+      - PR required with 2 approvals
+      - All tests must pass before merge
+      - Automated deployment to staging on merge
+      
+      @/docs/architecture.md
+      @/.claude/patterns/auth-patterns.md
+
+# MCP Configuration Templates
+# Model Context Protocol server and resource configuration
+mcp_templates:
+  
+  project_mcp_config:
+    file_path: "./.mcp.json"
+    structure:
+      servers:
+        description: "MCP server configurations for the project"
+        required: true
+        examples:
+          claude_context:
+            command: "claude-context-server"
+            args: ["--project-root", "./", "--index-extensions", ".ts,.tsx,.js,.jsx,.py"]
+            description: "Semantic code search and AST-based chunking"
+            
+          github_integration:
+            command: "github-mcp-server"
+            args: ["--repo", "owner/repo", "--token-env", "GITHUB_TOKEN"]
+            description: "GitHub issues, PRs, and repository access"
+            
+          database_access:
+            command: "database-mcp-server"
+            args: ["--connection-env", "DATABASE_URL", "--read-only"]
+            description: "Database schema and query capabilities"
+      
+      resource_mappings:
+        description: "@ mention resource access patterns"
+        required: true
+        examples:
+          "@codebase/search": "Semantic search through indexed codebase"
+          "@github/issues": "Access to GitHub issues and PRs"
+          "@db/schema": "Database schema information and queries"
+          "@docs/api": "API documentation and specifications"
+    
+    example: |
+      {
+        "servers": {
+          "claude-context": {
+            "command": "claude-context-server",
+            "args": [
+              "--project-root", "./",
+              "--index-extensions", ".ts,.tsx,.js,.jsx,.py,.md",
+              "--ignore-patterns", "node_modules/**,dist/**,*.test.*"
+            ]
+          },
+          "github": {
+            "command": "github-mcp-server", 
+            "args": ["--repo", "myorg/myproject"],
+            "env": {
+              "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+            }
+          }
+        },
+        "resources": {
+          "@codebase/search": {
+            "server": "claude-context",
+            "type": "semantic_search"
+          },
+          "@github/issues": {
+            "server": "github", 
+            "type": "issue_access"
+          }
+        }
+      }
+
+# Template Structures (Updated for Context Engineering)
+  strategic_context:
+    structure:
+      project_overview:
+        description: "Brief project description and primary objectives"
+        max_tokens: 200
+        required: true
+        
+      architecture_summary:
+        description: "High-level system architecture and component relationships"
+        max_tokens: 600
+        required: true
+        
+      success_criteria:
+        description: "Measurable success metrics and validation requirements"
+        max_tokens: 300
+        required: true
+        
+      constraints:
+        description: "Technical, business, and resource constraints"
+        max_tokens: 400
+        required: true
+        
+      coordination_strategy:
+        description: "Multi-agent coordination approach and dependencies"
+        max_tokens: 500
+        required: true
+        
+      risk_assessment:
+        description: "Identified risks and mitigation strategies"
+        max_tokens: 300
+        required: false
+        
+      timeline:
+        description: "High-level timeline and milestone expectations"
+        max_tokens: 200
+        required: false
+    
+    example: |
+      # Strategic Context Package
+      
+      ## Project Overview
+      Implement comprehensive graph visualization system with real-time data processing and interactive user interface.
+      
+      ## Architecture Summary
+      - Microservices architecture with API gateway
+      - React frontend with WebGL rendering
+      - PostgreSQL with Redis caching
+      - Container-based deployment
+      
+      ## Success Criteria
+      - Sub-200ms API response times
+      - 99.9% uptime
+      - Support for 10k concurrent users
+      - WCAG 2.1 AA compliance
+      
+      ## Constraints
+      - Must maintain existing API compatibility
+      - Budget limit: $50k/month infrastructure
+      - Launch deadline: Q2 2025
+      
+      ## Coordination Strategy
+      - Parallel stream development
+      - Redis scratch pad for cross-domain communication
+      - Weekly integration checkpoints
+      
+  technical_context:
+    structure:
+      current_architecture:
+        description: "Existing system architecture and technology stack"
+        max_tokens: 800
+        required: true
+        
+      implementation_details:
+        description: "Specific implementation requirements and patterns"
+        max_tokens: 1000
+        required: true
+        
+      dependencies:
+        description: "External dependencies and integration requirements"
+        max_tokens: 400
+        required: true
+        
+      configuration:
+        description: "Environment and configuration specifications"
+        max_tokens: 500
+        required: true
+        
+      data_flows:
+        description: "Data flow patterns and API specifications"
+        max_tokens: 600
+        required: true
+        
+      testing_requirements:
+        description: "Testing strategies and quality assurance needs"
+        max_tokens: 400
+        required: false
+        
+      deployment_specs:
+        description: "Deployment and infrastructure requirements"
+        max_tokens: 300
+        required: false
+    
+    example: |
+      # Technical Context Package
+      
+      ## Current Architecture
+      - Node.js backend with Express framework
+      - React frontend with TypeScript
+      - PostgreSQL primary database
+      - Redis for caching and sessions
+      - Docker containerization
+      - Nginx reverse proxy
+      
+      ## Implementation Details
+      - RESTful API with GraphQL subscriptions
+      - JWT authentication with refresh tokens
+      - Real-time updates via WebSocket
+      - File uploads to S3-compatible storage
+      - Elasticsearch for search functionality
+      
+      ## Dependencies
+      - PostgreSQL 14+
+      - Redis 6+
+      - Node.js 18+
+      - React 18+
+      - External APIs: Auth0, Stripe, SendGrid
+      
+      ## Configuration
+      - Environment variables for all secrets
+      - Docker Compose for local development
+      - Kubernetes manifests for production
+      - SSL/TLS termination at load balancer
+      
+      ## Data Flows
+      - API Gateway → Authentication → Service Router
+      - WebSocket connections for real-time data
+      - Async job processing with Redis Queue
+      - Database connection pooling
+      
+  frontend_context:
+    structure:
+      component_architecture:
+        description: "Component hierarchy and design system"
+        max_tokens: 600
+        required: true
+        
+      state_management:
+        description: "State management patterns and data flow"
+        max_tokens: 500
+        required: true
+        
+      styling_approach:
+        description: "CSS framework and styling methodology"
+        max_tokens: 300
+        required: true
+        
+      performance_requirements:
+        description: "Performance targets and optimization needs"
+        max_tokens: 400
+        required: true
+        
+      accessibility_needs:
+        description: "Accessibility requirements and compliance standards"
+        max_tokens: 300
+        required: true
+        
+      user_experience:
+        description: "UX patterns and interaction requirements"
+        max_tokens: 400
+        required: false
+        
+      browser_support:
+        description: "Browser compatibility and polyfill requirements"
+        max_tokens: 200
+        required: false
+    
+    example: |
+      # Frontend Context Package
+      
+      ## Component Architecture
+      - Atomic design pattern (atoms, molecules, organisms)
+      - Reusable component library with Storybook
+      - TypeScript for type safety
+      - React hooks for state and lifecycle
+      
+      ## State Management
+      - Redux Toolkit for global state
+      - React Query for server state
+      - Local state for component-specific data
+      - Context for theme and user preferences
+      
+      ## Styling Approach
+      - Tailwind CSS for utility classes
+      - CSS modules for component styles
+      - Design tokens for consistency
+      - Dark/light theme support
+      
+      ## Performance Requirements
+      - First Contentful Paint < 1.5s
+      - Largest Contentful Paint < 2.5s
+      - Bundle size < 500KB gzipped
+      - Cumulative Layout Shift < 0.1
+      
+      ## Accessibility Needs
+      - WCAG 2.1 AA compliance
+      - Screen reader support
+      - Keyboard navigation
+      - Focus management
+      - Color contrast ratios
+
+# Usage Guidelines
+
+usage_guidelines:
+  creation:
+    - "Always specify target agents for each package"
+    - "Include token count estimates for each section"
+    - "Validate against token limits before distribution"
+    - "Use clear, actionable language"
+    - "Include specific technical details when relevant"
+    
+  distribution:
+    - "Send only relevant packages to each agent"
+    - "Avoid redundant information across packages"
+    - "Update packages based on agent feedback"
+    - "Maintain package versioning for changes"
+    
+  validation:
+    - "Verify token limits are respected"
+    - "Ensure all required sections are completed" 
+    - "Check for technical accuracy and clarity"
+    - "Validate against current project state"
+    - "Validate dependency requirements are met"
+    - "Check for circular dependency issues"
+    - "Verify target agent compatibility"
+    - "Validate token allocation efficiency"
+    
+  maintenance:
+    - "Update packages as project evolves"
+    - "Remove outdated information regularly"
+    - "Consolidate related packages when possible"
+    - "Archive completed context packages"
+
+# Agent Feedback Loop System
+agent_feedback:
+  # Feedback Collection Structure
+  collection:
+    success_indicators:
+      - task_completion_rate: "percentage of tasks completed successfully"
+      - context_sufficiency: "agent reports context was adequate"
+      - execution_speed: "time to complete task vs baseline"
+      - error_reduction: "fewer errors compared to previous iterations"
+      
+    failure_patterns:
+      - insufficient_context: "agent requests additional information"
+      - token_overflow: "context package exceeds processing limits"
+      - dependency_missing: "required dependencies not provided"
+      - conflicting_requirements: "contradictory instructions in context"
+      
+    improvement_suggestions:
+      - context_refinement: "specific sections needing more detail"
+      - dependency_optimization: "better dependency ordering suggestions"
+      - token_allocation: "more efficient token distribution recommendations"
+      - template_updates: "suggested template structure improvements"
+  
+  # Automated Adjustment System
+  auto_adjustment:
+    enabled: true
+    success_threshold: 0.8 # Threshold for triggering adjustments
+    feedback_window: 10 # Number of recent executions to analyze
+    adjustment_types:
+      - token_reallocation: "redistribute tokens based on usage patterns"
+      - dependency_optimization: "adjust dependency requirements"
+      - template_refinement: "update template structure"
+      - priority_adjustment: "modify section priorities"
+    
+  # Learning Integration
+  learning_system:
+    pattern_recognition:
+      enabled: true
+      min_samples: 5 # Minimum feedback samples before pattern recognition
+      confidence_threshold: 0.75 # Confidence level for pattern identification
+      
+    template_evolution:
+      enabled: true
+      version_increment: "patch" # "major" | "minor" | "patch"
+      approval_required: false # Whether human approval needed for changes
+      backup_generations: 3 # Number of template versions to keep
+      
+    agent_profiling:
+      enabled: true
+      track_preferences: true # Track individual agent preferences
+      context_optimization: true # Optimize context per agent type
+      performance_monitoring: true # Monitor agent performance metrics
+
+# Quality Checklist
+
+quality_checklist:
+  content:
+    - "Is the information accurate and up-to-date?"
+    - "Are technical details specific and actionable?"
+    - "Is the language clear and unambiguous?"
+    - "Are all dependencies and constraints identified?"
+    
+  structure:
+    - "Does the package follow the template structure?"
+    - "Are token limits respected for each section?"
+    - "Is the overall package under the token limit?"
+    - "Are required sections completed?"
+    
+  targeting:
+    - "Is the package relevant to target agents?"
+    - "Does it provide sufficient context for task execution?"
+    - "Are coordination points clearly identified?"
+    - "Is the package appropriate for the workflow phase?"
+
+# Claude Code CLI Integration
+cli_integration:
+  # Command Structure for Context Package Management
+  commands:
+    create:
+      command: "claude-code context create"
+      options:
+        - "--type <package_type>": "Specify package type (strategic|technical|frontend|security|performance|database)"
+        - "--template <template_name>": "Use specific template variant (default|minimal|comprehensive)"
+        - "--target-agents <agent_list>": "Comma-separated list of target agents"
+        - "--auto-dependencies": "Automatically include required dependencies"
+        - "--token-limit <number>": "Override default token limit for package"
+        - "--output <file_path>": "Output file path (default: auto-generated)"
+      examples:
+        - "claude-code context create --type strategic --template default --target-agents project-orchestrator,enhanced-nexus-synthesis"
+        - "claude-code context create --type technical --auto-dependencies --token-limit 5000"
+    
+    validate:
+      command: "claude-code context validate"
+      options:
+        - "--package <file_path>": "Path to context package file"
+        - "--strict": "Use strict validation mode"
+        - "--check-dependencies": "Validate all package dependencies"
+        - "--token-analysis": "Analyze token usage and distribution"
+        - "--format json|yaml|table": "Output format for validation results"
+      examples:
+        - "claude-code context validate --package contexts/strategic.yaml --strict"
+        - "claude-code context validate --check-dependencies --format json"
+    
+    distribute:
+      command: "claude-code context distribute"
+      options:
+        - "--package <file_path>": "Path to context package file"
+        - "--agents <agent_list>": "Target agents for distribution"
+        - "--parallel": "Distribute to all agents in parallel"
+        - "--wait-for-ack": "Wait for agent acknowledgment"
+        - "--track-usage": "Enable usage tracking and feedback collection"
+      examples:
+        - "claude-code context distribute --package contexts/frontend.yaml --agents ui-architect,ux-architect --parallel"
+        - "claude-code context distribute --package contexts/security.yaml --track-usage"
+    
+    analyze:
+      command: "claude-code context analyze"
+      options:
+        - "--package <file_path>": "Analyze specific package"
+        - "--usage-patterns": "Analyze agent usage patterns"
+        - "--optimization-suggestions": "Generate optimization recommendations"
+        - "--performance-metrics": "Show performance metrics"
+        - "--feedback-summary": "Summarize agent feedback"
+      examples:
+        - "claude-code context analyze --package contexts/technical.yaml --optimization-suggestions"
+        - "claude-code context analyze --usage-patterns --performance-metrics"
+  
+  # Workflow Integration Points
+  workflow_integration:
+    phase_0:
+      - "Load existing context packages from .claude-code/contexts/"
+      - "Validate package compatibility with current task"
+      - "Auto-generate missing required dependencies"
+    
+    phase_2:
+      - "Create strategic context package for overall planning"
+      - "Generate technical context packages for each stream"
+      - "Set up dependency chains between packages"
+    
+    phase_3:
+      - "Distribute context packages to target agents"
+      - "Initialize feedback collection systems"
+      - "Enable real-time context updates via Redis"
+    
+    phase_8:
+      - "Archive completed context packages"
+      - "Generate usage analytics and optimization reports"
+      - "Update template definitions based on learnings"
+  
+  # Project Structure for Context Packages
+  project_structure:
+    directories:
+      base_path: ".claude-code/contexts/"
+      structure:
+        - "templates/": "Custom template definitions"
+        - "packages/": "Generated context packages"
+        - "archives/": "Completed/historical packages"
+        - "feedback/": "Agent feedback and analytics"
+        - "dependencies/": "Dependency resolution cache"
+    
+    file_naming:
+      pattern: "{package_type}_{target_phase}_{timestamp}.yaml"
+      examples:
+        - "strategic_phase2_20250822_120000.yaml"
+        - "technical_frontend_phase3_20250822_120500.yaml"
+        - "security_audit_phase6_20250822_121000.yaml"
+    
+    configuration:
+      global_config: ".claude-code/context-config.yaml"
+      project_overrides: ".claude-code/contexts/project-overrides.yaml"
+      agent_preferences: ".claude-code/contexts/agent-preferences.yaml"
+
+# Advanced Features
+advanced_features:
+  # Multi-Project Context Sharing
+  context_sharing:
+    enabled: true
+    scope: "organization" # "organization" | "team" | "project"
+    sharing_rules:
+      - "Strategic contexts can be shared across projects"
+      - "Technical contexts are project-specific"
+      - "Security contexts require approval for sharing"
+    
+  # Real-time Context Updates
+  real_time_updates:
+    enabled: true
+    transport: "redis" # "redis" | "websocket" | "mqtt"
+    channels:
+      - "context-updates": "General context package updates"
+      - "agent-feedback": "Real-time agent feedback"
+      - "dependency-changes": "Dependency relationship updates"
+    
+  # Context Package Marketplace
+  marketplace:
+    enabled: false # Future feature
+    public_templates: true
+    community_contributions: true
+    quality_ratings: true
+    usage_analytics: true
+
+# Validation and Distribution System
+validation_system:
+  # Comprehensive Validation Rules
+  validation_rules:
+    structure_validation:
+      required_sections: true
+      section_token_limits: true
+      metadata_completeness: true
+      yaml_syntax: true
+      
+    content_validation:
+      technical_accuracy: true
+      clarity_assessment: true
+      actionability_check: true
+      redundancy_detection: true
+      
+    dependency_validation:
+      required_dependencies: true
+      optional_dependencies: false # Warn only
+      circular_detection: true
+      version_compatibility: true
+      
+    agent_compatibility:
+      target_agent_validation: true
+      capability_matching: true
+      workload_assessment: true
+      parallel_execution_check: true
+      
+    token_optimization:
+      allocation_efficiency: true
+      priority_distribution: true
+      overflow_detection: true
+      compression_opportunities: true
+  
+  # Validation Levels
+  validation_levels:
+    minimal:
+      checks: ["yaml_syntax", "required_sections"]
+      performance: "fast"
+      use_case: "development"
+      
+    standard:
+      checks: ["structure_validation", "content_validation", "dependency_validation"]
+      performance: "moderate"
+      use_case: "production"
+      
+    comprehensive:
+      checks: ["all"]
+      performance: "thorough"
+      use_case: "critical_workflows"
+  
+  # Error Handling
+  error_handling:
+    validation_errors:
+      action: "fail" # "fail" | "warn" | "fix"
+      retry_attempts: 3
+      auto_fix: true
+      
+    warnings:
+      action: "continue" # "continue" | "prompt" | "fail"
+      log_level: "warn"
+      notification: true
+      
+    critical_errors:
+      action: "abort"
+      notification: "immediate"
+      escalation: true
+
+# Distribution System
+distribution_system:
+  # Distribution Strategies
+  strategies:
+    sequential:
+      description: "Distribute packages one by one"
+      use_case: "Dependencies must be resolved in order"
+      performance: "slow"
+      reliability: "high"
+      
+    parallel:
+      description: "Distribute all packages simultaneously"
+      use_case: "Independent packages, maximum speed"
+      performance: "fast"
+      reliability: "moderate"
+      
+    hybrid:
+      description: "Parallel within dependency levels"
+      use_case: "Balance of speed and dependency management"
+      performance: "moderate"
+      reliability: "high"
+  
+  # Distribution Channels
+  channels:
+    direct:
+      transport: "function_call"
+      latency: "immediate"
+      reliability: "high"
+      use_case: "Same session agents"
+      
+    redis_queue:
+      transport: "redis"
+      latency: "near_realtime"
+      reliability: "high"
+      use_case: "Cross-session coordination"
+      
+    memory_mcp:
+      transport: "mcp_storage"
+      latency: "persistent"
+      reliability: "very_high"
+      use_case: "Long-term context storage"
+  
+  # Acknowledgment System
+  acknowledgment:
+    required: true
+    timeout: 30 # seconds
+    retry_attempts: 3
+    fallback_strategy: "queue_for_later"
+    
+  # Load Balancing
+  load_balancing:
+    enabled: true
+    strategy: "round_robin" # "round_robin" | "least_loaded" | "capability_based"
+    agent_capacity_tracking: true
+    automatic_failover: true
+
+# Monitoring and Analytics
+monitoring_system:
+  # Performance Metrics
+  metrics:
+    package_creation_time: true
+    validation_duration: true
+    distribution_latency: true
+    agent_processing_time: true
+    success_rates: true
+    error_frequencies: true
+    
+  # Usage Analytics
+  analytics:
+    package_usage_patterns: true
+    agent_preferences: true
+    token_utilization: true
+    dependency_analysis: true
+    optimization_opportunities: true
+    
+  # Reporting
+  reporting:
+    real_time_dashboard: true
+    daily_summaries: true
+    weekly_optimization_reports: true
+    monthly_trend_analysis: true
+    
+  # Alerting
+  alerting:
+    performance_degradation: true
+    high_error_rates: true
+    agent_overload: true
+    dependency_issues: true
+    token_limit_breaches: true
+
+# Integration Hooks
+integration_hooks:
+  # Workflow Phase Integration
+  workflow_hooks:
+    pre_phase_0: "validate_environment_context"
+    post_phase_2: "distribute_strategic_contexts"
+    pre_phase_4: "distribute_execution_contexts"
+    post_phase_6: "collect_validation_feedback"
+    post_phase_8: "archive_completed_contexts"
+    
+  # Agent Lifecycle Hooks
+  agent_hooks:
+    pre_agent_spawn: "prepare_agent_context"
+    post_agent_completion: "collect_agent_feedback"
+    agent_error: "context_error_analysis"
+    agent_timeout: "context_adequacy_check"
+    
+  # System Events
+  system_hooks:
+    context_package_updated: "notify_dependent_agents"
+    dependency_resolved: "trigger_dependent_distributions"
+    validation_failed: "initiate_error_recovery"
+    performance_degraded: "optimize_token_allocation"

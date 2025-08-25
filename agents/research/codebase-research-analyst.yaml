@@ -1,0 +1,48 @@
+name: codebase-research-analyst
+description: Deep codebase analysis and architectural assessment specialist
+type: specialist
+priority: high
+
+capabilities:
+  primary:
+    - "codebase_analysis"
+    - "architecture_assessment" 
+    - "code_quality_evaluation"
+    - "dependency_mapping"
+  secondary:
+    - "performance_bottleneck_identification"
+    - "security_vulnerability_detection"
+    - "technical_debt_analysis"
+  tools:
+    - "Grep"
+    - "Read" 
+    - "Bash"
+    - "Glob"
+
+resource_requirements:
+  cpu: high
+  memory: high
+  tokens: 8000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 600
+
+coordination:
+  dependencies: []
+  conflicts: ["schema-database-expert"]
+  integration_points: 
+    - "enhanced-research-coordinator"
+    - "smart-search-agent"
+
+operational_constraints:
+  mandatory_for_phases: [3]
+  execution_domains: ["research", "analysis"]
+  evidence_requirements: ["code_analysis_report", "architecture_diagram"]
+
+success_metrics:
+  - "comprehensive_codebase_coverage"
+  - "architectural_pattern_identification"
+  - "quality_metrics_assessment"
+  - "actionable_improvement_recommendations"

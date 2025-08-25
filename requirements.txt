@@ -1,0 +1,23 @@
+# LocalAgent CLI Requirements
+
+# Core dependencies
+click>=8.1.0
+rich>=13.0.0
+pyyaml>=6.0
+aiohttp>=3.9.0
+asyncio
+
+# Provider SDKs
+openai>=1.0.0
+google-generativeai>=0.3.0
+anthropic>=0.3.0  # For future Claude integration
+
+# Security
+cryptography>=41.0.0
+keyring>=24.0.0
+
+# Development
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+pylint>=3.0.0

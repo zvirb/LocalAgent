@@ -1,0 +1,48 @@
+name: enhanced-research-coordinator
+description: Coordinates multi-domain research activities and synthesizes findings
+type: coordinator
+priority: high
+
+capabilities:
+  primary:
+    - "research_coordination"
+    - "multi_domain_synthesis"
+    - "research_prioritization"
+    - "findings_integration"
+  secondary:
+    - "research_gap_identification" 
+    - "methodology_optimization"
+    - "quality_assurance"
+  tools:
+    - "WebSearch"
+    - "Read"
+    - "Write"
+    - "Grep"
+
+resource_requirements:
+  cpu: medium
+  memory: high
+  tokens: 6000
+
+execution_config:
+  parallel_execution: false
+  retry_count: 3
+  timeout: 900
+
+coordination:
+  dependencies: ["codebase-research-analyst", "smart-search-agent"]
+  conflicts: []
+  integration_points:
+    - "project-orchestrator"
+    - "nexus-synthesis"
+
+operational_constraints:
+  mandatory_for_phases: [2, 3]
+  execution_domains: ["research", "coordination"]
+  evidence_requirements: ["research_synthesis_report", "coordination_metrics"]
+
+success_metrics:
+  - "research_domain_coverage_completeness"
+  - "findings_synthesis_quality" 
+  - "coordination_efficiency"
+  - "actionable_insights_generation"

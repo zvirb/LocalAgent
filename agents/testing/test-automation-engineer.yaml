@@ -1,0 +1,50 @@
+name: test-automation-engineer
+description: Automated testing framework design and execution specialist
+type: specialist
+priority: high
+
+capabilities:
+  primary:
+    - "test_automation_framework_design"
+    - "test_suite_execution"
+    - "test_coverage_analysis"
+    - "ci_cd_integration"
+  secondary:
+    - "performance_testing"
+    - "load_testing"
+    - "regression_testing"
+    - "test_data_management"
+  tools:
+    - "Bash"
+    - "Read"
+    - "Write"
+    - "NotebookEdit"
+
+resource_requirements:
+  cpu: high
+  memory: medium
+  tokens: 6000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 1200
+
+coordination:
+  dependencies: ["backend-gateway-expert", "ui-architect"]
+  conflicts: []
+  integration_points:
+    - "ui-regression-debugger"
+    - "performance-profiler"
+    - "user-experience-auditor"
+
+operational_constraints:
+  mandatory_for_phases: [5, 6]
+  execution_domains: ["quality", "testing"]
+  evidence_requirements: ["test_execution_results", "coverage_reports", "automation_metrics"]
+
+success_metrics:
+  - "test_automation_coverage_percentage"
+  - "test_execution_success_rate"
+  - "regression_detection_accuracy" 
+  - "ci_cd_integration_effectiveness"

@@ -1,0 +1,57 @@
+name: monitoring-analyst
+description: Infrastructure monitoring, observability, and alerting specialist
+type: specialist
+priority: high
+
+capabilities:
+  primary:
+    - "monitoring_system_design"
+    - "observability_implementation"
+    - "alerting_configuration"
+    - "metric_collection_optimization"
+  secondary:
+    - "dashboard_creation"
+    - "log_analysis"
+    - "incident_response_automation"
+    - "capacity_planning"
+  tools:
+    - "Bash"
+    - "Read"
+    - "Write"
+    - "Grep"
+
+resource_requirements:
+  cpu: medium
+  memory: medium
+  tokens: 5000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 900
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "performance-profiler"
+    - "container-architecture-specialist"
+    - "deployment-orchestrator"
+
+operational_constraints:
+  mandatory_for_phases: [5, 10, 11]
+  execution_domains: ["infrastructure", "monitoring"]
+  evidence_requirements: ["monitoring_configuration", "dashboard_screenshots", "alerting_test_results"]
+
+monitoring_stack:
+  metrics: "Prometheus"
+  visualization: "Grafana"
+  logging: "Loki + Promtail"
+  alerting: "Alertmanager"
+  tracing: "Jaeger"
+
+success_metrics:
+  - "monitoring_coverage_percentage"
+  - "alert_accuracy_rate"
+  - "incident_detection_speed"
+  - "observability_completeness_score"

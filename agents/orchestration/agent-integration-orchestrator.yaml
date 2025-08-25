@@ -1,0 +1,48 @@
+name: agent-integration-orchestrator
+description: Phase 1 agent ecosystem validation and git synchronization for workflow environment preparation
+type: orchestrator
+priority: critical
+
+capabilities:
+  primary:
+    - "agent_ecosystem_validation"
+    - "git_synchronization"
+    - "environment_preparation"
+    - "tool_access_verification"
+  secondary:
+    - "mcp_connectivity_testing"
+    - "agent_discovery"
+    - "system_health_checks"
+  tools:
+    - "Bash"
+    - "Read"
+    - "Grep"
+    - "Glob"
+
+resource_requirements:
+  cpu: medium
+  memory: medium
+  tokens: 6000
+
+execution_config:
+  parallel_execution: false
+  retry_count: 3
+  timeout: 600
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "orchestration-todo-manager"
+    - "project-orchestrator"
+
+operational_constraints:
+  mandatory_for_phases: [1]
+  execution_domains: ["orchestration", "validation"]
+  evidence_requirements: ["agent_inventory", "tool_verification", "git_status"]
+
+success_metrics:
+  - "agent_ecosystem_readiness"
+  - "git_synchronization_success"
+  - "tool_access_verification"
+  - "environment_preparation_completeness"

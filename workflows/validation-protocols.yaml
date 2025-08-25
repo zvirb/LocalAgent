@@ -1,0 +1,532 @@
+# Validation Protocols for UnifiedWorkflow
+# Evidence-based validation requirements for each phase
+
+metadata:
+  name: validation-protocols
+  version: "2.0"
+  description: "Comprehensive validation requirements for orchestration workflow"
+  created: "2025-01-19"
+
+# Global Validation Standards
+global_standards:
+  evidence_requirement: "mandatory"
+  evidence_types:
+    - "execution_logs"
+    - "screenshots" 
+    - "performance_metrics"
+    - "test_results"
+    - "configuration_outputs"
+  
+  success_criteria:
+    - "concrete_evidence_collected"
+    - "measurable_results_achieved"
+    - "user_perspective_validated"
+    - "error_handling_verified"
+    - "rollback_capability_confirmed"
+
+# Phase-Specific Validation Protocols
+
+phase_validations:
+  phase_0_todo_integration:
+    validation_agent: "orchestration-todo-manager"
+    evidence_required:
+      - type: "file_verification"
+        description: "Verify .claude/orchestration_todos.json exists and is valid JSON"
+        command: "cat .claude/orchestration_todos.json | jq '.'"
+      - type: "priority_analysis"
+        description: "Screenshot of todo priority analysis and integration decision"
+        format: "screenshot"
+    
+    success_criteria:
+      - "todo_file_accessible"
+      - "priority_scores_calculated"
+      - "high_priority_todos_identified"
+      - "current_context_integration_complete"
+    
+    failure_conditions:
+      - "todo_file_corrupted_or_missing"
+      - "priority_calculation_errors"
+      - "context_integration_timeout"
+
+  phase_1_ecosystem_validation:
+    validation_agent: "agent-integration-orchestrator"
+    evidence_required:
+      - type: "agent_inventory"
+        description: "Complete list of available agents and their capabilities"
+        command: "find .claude/agents -name '*.yaml' | wc -l"
+      - type: "tool_access_verification" 
+        description: "Test each major tool category (Read, Write, Bash, etc.)"
+        commands:
+          - "echo 'Tool access test' > /tmp/test_file && cat /tmp/test_file"
+          - "curl --version"
+          - "git --version"
+      - type: "mcp_connectivity"
+        description: "Verify MCP server connections if configured"
+        optional: true
+    
+    success_criteria:
+      - "minimum_35_agents_available"
+      - "core_tools_accessible"
+      - "file_system_permissions_verified"
+      - "git_repository_accessible"
+    
+    failure_conditions:
+      - "insufficient_agent_count"
+      - "critical_tool_access_denied"
+      - "git_repository_inaccessible"
+
+  phase_2_strategic_planning:
+    validation_agent: "project-orchestrator"
+    evidence_required:
+      - type: "strategic_plan_document"
+        description: "Comprehensive implementation strategy document"
+        max_tokens: 3000
+      - type: "coordination_matrix"
+        description: "Agent coordination and dependency mapping"
+        format: "structured_data"
+      - type: "success_criteria_definition"
+        description: "Measurable success criteria for implementation"
+        format: "checklist"
+    
+    success_criteria:
+      - "implementation_strategy_complete"
+      - "agent_assignments_clear"
+      - "dependencies_identified"
+      - "success_metrics_defined"
+      - "risk_mitigation_planned"
+    
+    failure_conditions:
+      - "strategy_lacks_detail"
+      - "agent_assignments_ambiguous"
+      - "success_criteria_unmeasurable"
+
+  phase_3_research_discovery:
+    validation_agents: 
+      - "codebase-research-analyst"
+      - "schema-database-expert"
+      - "security-validator"
+      - "performance-profiler"
+    evidence_required:
+      - type: "research_findings"
+        description: "Detailed findings from each research domain"
+        agents: "all_parallel"
+      - type: "codebase_analysis"
+        description: "Current architecture and code quality assessment"
+        commands:
+          - "find . -name '*.py' -o -name '*.js' -o -name '*.ts' | head -20"
+          - "git log --oneline -10"
+      - type: "database_schema"
+        description: "Current database structure and relationships"
+        optional_if_no_database: true
+      - type: "security_assessment"
+        description: "Security audit findings and vulnerability report"
+        format: "security_report"
+      - type: "performance_baseline"
+        description: "Current performance metrics and bottlenecks"
+        format: "performance_metrics"
+    
+    success_criteria:
+      - "all_research_domains_covered"
+      - "current_state_documented"
+      - "improvement_opportunities_identified"
+      - "technical_constraints_understood"
+    
+    failure_conditions:
+      - "research_domain_incomplete"
+      - "critical_information_missing"
+      - "analysis_contradictions"
+
+  phase_4_context_synthesis:
+    validation_agents:
+      - "nexus-synthesis"
+      - "context-compression"
+    evidence_required:
+      - type: "context_packages"
+        description: "Compressed context packages for each domain"
+        token_limits:
+          strategic_context: 3000
+          technical_context: 4000
+          frontend_context: 3000
+          security_context: 3000
+          performance_context: 3000
+          database_context: 3500
+      - type: "integration_map"
+        description: "Cross-domain integration points and dependencies"
+        format: "dependency_graph"
+      - type: "token_optimization"
+        description: "Evidence of token usage optimization and compression"
+        metrics: "token_count_reduction"
+    
+    success_criteria:
+      - "all_context_packages_under_limits"
+      - "cross_domain_integration_mapped"
+      - "information_preservation_verified"
+      - "agent_targeting_appropriate"
+    
+    failure_conditions:
+      - "context_packages_exceed_limits"
+      - "critical_information_lost"
+      - "integration_points_unclear"
+
+  phase_5_parallel_implementation:
+    validation_approach: "multi_stream"
+    stream_validations:
+      backend_stream:
+        agents: ["backend-gateway-expert", "schema-database-expert", "performance-profiler"]
+        evidence_required:
+          - type: "api_endpoints"
+            description: "Working API endpoints with health checks"
+            commands:
+              - "curl -I http://localhost:8000/health || echo 'API not running'"
+              - "curl -I http://localhost:8000/api/v1/status || echo 'API endpoints not available'"
+          - type: "database_connectivity"
+            description: "Database connection and query execution"
+            optional_if_no_database: true
+          - type: "performance_metrics"
+            description: "Backend performance benchmarks"
+            format: "performance_data"
+      
+      frontend_stream:
+        agents: ["ui-architect", "ux-architect", "ui-debugger"]
+        evidence_required:
+          - type: "ui_screenshots"
+            description: "Screenshots of implemented UI components"
+            format: "visual_evidence"
+          - type: "responsive_design"
+            description: "Mobile and desktop layout verification"
+            commands:
+              - "npx playwright test responsive.spec.ts --headed"
+          - type: "accessibility_compliance"
+            description: "WCAG compliance testing results"
+            format: "accessibility_report"
+      
+      security_stream:
+        agents: ["security-validator", "fullstack-communication-auditor"]
+        evidence_required:
+          - type: "security_scan"
+            description: "Automated security vulnerability scan"
+            commands:
+              - "npm audit --audit-level moderate"
+              - "safety check || echo 'Safety check not available'"
+          - type: "authentication_testing"
+            description: "Authentication flow validation"
+            format: "security_test_results"
+      
+      infrastructure_stream:
+        agents: ["monitoring-analyst", "container-architecture-specialist", "deployment-orchestrator"]
+        evidence_required:
+          - type: "container_health"
+            description: "Container status and health checks"
+            commands:
+              - "docker ps || echo 'Docker not running'"
+              - "docker-compose ps || echo 'Docker Compose not configured'"
+          - type: "monitoring_setup"
+            description: "Monitoring and alerting configuration"
+            format: "monitoring_config"
+      
+      quality_stream:
+        agents: ["test-automation-engineer", "user-experience-auditor", "code-quality-guardian"]
+        evidence_required:
+          - type: "test_execution"
+            description: "Automated test suite execution results"
+            commands:
+              - "npm test || echo 'No npm tests configured'"
+              - "python -m pytest || echo 'No pytest tests'"
+          - type: "code_quality"
+            description: "Code quality metrics and lint results"
+            commands:
+              - "npx eslint . || echo 'ESLint not configured'"
+              - "flake8 . || echo 'Flake8 not configured'"
+      
+      documentation_stream:
+        agents: ["documentation-specialist", "project-structure-mapper", "project-janitor"]
+        evidence_required:
+          - type: "documentation_coverage"
+            description: "Documentation completeness verification"
+            commands:
+              - "find . -name '*.md' | wc -l"
+              - "find . -name 'README*' | head -5"
+          - type: "project_organization"
+            description: "File organization and structure validation"
+            commands:
+              - "tree -L 3 || ls -la"
+    
+    coordination_validation:
+      - type: "redis_scratch_pad"
+        description: "Cross-stream communication via Redis scratch pad"
+        optional: true
+      - type: "dependency_resolution"
+        description: "Inter-stream dependency completion verification"
+        format: "dependency_matrix"
+    
+    success_criteria:
+      - "all_streams_complete_successfully"
+      - "cross_stream_integration_verified"
+      - "no_blocking_dependencies_remaining"
+      - "quality_gates_passed"
+    
+    failure_conditions:
+      - "critical_stream_failure"
+      - "unresolved_integration_conflicts"
+      - "quality_standards_not_met"
+
+  phase_6_evidence_validation:
+    validation_agents:
+      - "production-endpoint-validator"
+      - "user-experience-auditor" 
+      - "ui-regression-debugger"
+    evidence_required:
+      - type: "production_accessibility"
+        description: "Production endpoint accessibility verification"
+        commands:
+          - "curl -I $PRODUCTION_URL/health || curl -I http://localhost:8000/health"
+          - "curl -I $PRODUCTION_URL/api/v1/status || curl -I http://localhost:8000/api/v1/status"
+      - type: "user_perspective_validation"
+        description: "User experience validation with Playwright evidence"
+        format: "playwright_evidence"
+        requirements:
+          - "screenshots_of_user_flows"
+          - "performance_metrics_collection"
+          - "accessibility_compliance_verification"
+      - type: "visual_regression"
+        description: "UI regression testing and visual comparison"
+        format: "visual_comparison"
+      - type: "integration_testing"
+        description: "End-to-end integration test execution"
+        commands:
+          - "npx playwright test integration/ || echo 'No integration tests'"
+    
+    success_criteria:
+      - "production_endpoints_accessible"
+      - "user_flows_validated_with_evidence"
+      - "no_visual_regressions_detected"
+      - "integration_tests_passing"
+      - "performance_requirements_met"
+    
+    failure_conditions:
+      - "production_endpoints_inaccessible"
+      - "critical_user_flows_broken"
+      - "visual_regressions_detected"
+      - "performance_degradation"
+
+  phase_7_iteration_control:
+    validation_agent: "orchestration-auditor-v2"
+    evidence_required:
+      - type: "evidence_analysis"
+        description: "Comprehensive analysis of all collected evidence"
+        format: "evidence_summary"
+      - type: "success_criteria_evaluation"
+        description: "Evaluation against defined success criteria"
+        format: "criteria_checklist"
+      - type: "iteration_decision"
+        description: "Decision rationale for continue/iterate/escalate"
+        format: "decision_matrix"
+    
+    iteration_limits:
+      max_iterations: 3
+      escalation_triggers:
+        - "critical_evidence_missing"
+        - "success_criteria_consistently_unmet"
+        - "resource_constraints_exceeded"
+    
+    success_criteria:
+      - "all_evidence_collected_and_validated"
+      - "success_criteria_met_or_acceptable_exceptions"
+      - "iteration_decision_well_justified"
+    
+    failure_conditions:
+      - "insufficient_evidence_quality"
+      - "success_criteria_repeatedly_unmet"
+      - "iteration_limit_exceeded"
+
+  phase_8_version_control:
+    validation_agent: "atomic-git-synchronizer"
+    evidence_required:
+      - type: "git_status"
+        description: "Git repository status and staged changes"
+        commands:
+          - "git status --porcelain"
+          - "git diff --staged --stat"
+      - type: "commit_creation"
+        description: "Atomic commit with comprehensive message"
+        commands:
+          - "git log -1 --oneline"
+          - "git show --stat HEAD"
+      - type: "remote_synchronization"
+        description: "Remote repository synchronization if configured"
+        commands:
+          - "git remote -v || echo 'No remote configured'"
+          - "git branch -a"
+        optional: true
+    
+    success_criteria:
+      - "all_changes_committed_atomically"
+      - "commit_message_comprehensive"
+      - "remote_sync_successful_if_configured"
+      - "repository_state_clean"
+    
+    failure_conditions:
+      - "uncommitted_changes_remaining"
+      - "commit_creation_failed"
+      - "remote_sync_failed"
+
+  phase_9_meta_audit:
+    validation_agent: "orchestration-auditor"
+    evidence_required:
+      - type: "workflow_performance_analysis"
+        description: "Complete workflow execution analysis"
+        format: "performance_report"
+      - type: "learning_extraction"
+        description: "Patterns and learnings for future workflows"
+        format: "learning_summary"
+      - type: "improvement_recommendations"
+        description: "Specific recommendations for system improvement"
+        format: "recommendation_list"
+    
+    mandatory_execution: true
+    success_criteria:
+      - "workflow_analysis_complete"
+      - "learnings_documented"
+      - "improvements_identified"
+      - "patterns_captured_for_reuse"
+    
+    failure_conditions:
+      - "analysis_incomplete"
+      - "learnings_extraction_failed"
+
+  phase_10_deployment:
+    validation_agent: "deployment-orchestrator"
+    evidence_required:
+      - type: "deployment_execution"
+        description: "Blue-green deployment process execution"
+        format: "deployment_log"
+      - type: "health_check_validation"
+        description: "Post-deployment health verification"
+        commands:
+          - "curl -f $PRODUCTION_URL/health"
+          - "curl -f $PRODUCTION_URL/api/v1/status"
+      - type: "rollback_readiness"
+        description: "Rollback capability verification"
+        format: "rollback_test"
+    
+    success_criteria:
+      - "deployment_completed_successfully"
+      - "health_checks_passing"
+      - "rollback_capability_verified"
+      - "zero_downtime_achieved"
+    
+    failure_conditions:
+      - "deployment_failed"
+      - "health_checks_failing"
+      - "rollback_capability_unavailable"
+
+  phase_11_production_validation:
+    validation_requirements:
+      - type: "production_accessibility"
+        description: "Production system accessibility verification"
+        commands:
+          - "curl -f $PRODUCTION_URL || curl -f http://localhost:8000"
+          - "ping -c 3 $PRODUCTION_HOST || ping -c 3 localhost"
+        mandatory: true
+      - type: "infrastructure_validation"
+        description: "Infrastructure health and monitoring verification"
+        commands:
+          - "docker ps | grep -E '(healthy|up)' || echo 'Container health check'"
+          - "systemctl status $SERVICE_NAME || echo 'Service status check'"
+        optional_if_no_infrastructure: true
+      - type: "database_connectivity"
+        description: "Database connection and query execution"
+        optional_if_no_database: true
+      - type: "monitoring_systems"
+        description: "Monitoring and alerting system verification"
+        optional: true
+    
+    loop_control_logic:
+      validation_success: "Continue to phase_12"
+      validation_failure: "Return to phase_0 with production failure context"
+    
+    success_criteria:
+      - "production_system_accessible"
+      - "core_functionality_operational"
+      - "monitoring_systems_active"
+      - "no_critical_errors_detected"
+    
+    failure_conditions:
+      - "production_system_inaccessible"
+      - "core_functionality_broken"
+      - "critical_errors_detected"
+
+  phase_12_loop_control:
+    validation_agent: "orchestration-todo-manager"
+    evidence_required:
+      - type: "todo_status_assessment"
+        description: "Current todo priority and completion analysis"
+        commands:
+          - "cat .claude/orchestration_todos.json | jq '[.[] | select(.status != \"completed\")]'"
+      - type: "loop_decision_rationale"
+        description: "Clear rationale for continue/complete decision"
+        format: "decision_document"
+    
+    loop_control_logic:
+      high_priority_todos_present: "Return to phase_0 with updated context"
+      no_high_priority_todos: "Complete workflow"
+      blocked_todos_only: "Generate resolution strategy"
+    
+    mandatory_execution: true
+    success_criteria:
+      - "todo_assessment_complete"
+      - "loop_decision_well_justified"
+      - "context_prepared_for_next_iteration_if_continuing"
+    
+    failure_conditions:
+      - "todo_assessment_failed"
+      - "loop_decision_unclear"
+
+# Evidence Quality Standards
+evidence_quality_standards:
+  screenshots:
+    minimum_resolution: "1920x1080"
+    format: "PNG"
+    compression: "lossless"
+    annotations: "optional"
+  
+  performance_metrics:
+    required_metrics:
+      - "response_time"
+      - "throughput"
+      - "error_rate"
+      - "resource_utilization"
+    measurement_duration: "minimum_30_seconds"
+    statistical_significance: "required"
+  
+  test_results:
+    formats: ["junit_xml", "json", "html"]
+    coverage_reporting: "required_if_tests_exist"
+    failure_analysis: "mandatory_for_failures"
+  
+  logs:
+    retention_period: "7_days_minimum"
+    log_levels: ["error", "warn", "info"]
+    structured_format: "preferred"
+
+# Validation Tools Configuration
+validation_tools:
+  browser_automation:
+    playwright: "preferred"
+    selenium: "fallback"
+    cypress: "optional"
+  
+  performance_testing:
+    lighthouse: "required"
+    web_vitals: "required"
+    load_testing: "optional"
+  
+  accessibility_testing:
+    axe_core: "required"
+    wave: "optional"
+    manual_testing: "required_for_critical_flows"
+  
+  security_testing:
+    npm_audit: "required_for_node_projects"
+    safety: "required_for_python_projects"
+    custom_security_scans: "optional"

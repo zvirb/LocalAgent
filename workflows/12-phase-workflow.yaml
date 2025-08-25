@@ -1,0 +1,243 @@
+# 12-Phase Unified Orchestration Workflow
+# Based on the Claude Code AI Workflow Engine
+
+metadata:
+  name: unified-orchestration-workflow
+  version: "2.0"
+  description: "Complete 12-phase agentic orchestration system"
+  author: "Claude Code AI Workflow Engine"
+  created: "2025-01-19"
+
+workflow:
+  phases:
+    phase_0:
+      name: "Todo Context Integration"
+      description: "Cross-session todo management and context continuity"
+      agents:
+        - orchestration-todo-manager
+      triggers:
+        - "start flow"
+        - "orchestration"
+        - "agentic flow"
+        - "start agent(s)"
+      requirements:
+        - Read .claude/orchestration_todos.json
+        - Analyze relevance to current context
+        - Prioritize based on urgency and impact
+        - Integrate high-priority items into current iteration
+      
+    phase_1:
+      name: "Agent Ecosystem Validation"
+      description: "Agent discovery and integration verification"
+      agents:
+        - agent-integration-orchestrator
+      requirements:
+        - Validate agent availability
+        - Check tool access permissions
+        - Verify MCP connections
+        - Establish communication channels
+      
+    phase_2:
+      name: "Strategic Intelligence Planning"
+      description: "High-level planning and coordination strategy"
+      agents:
+        - project-orchestrator
+        - enhanced-nexus-synthesis
+      requirements:
+        - Create implementation strategy
+        - Design coordination patterns
+        - Establish success criteria
+        - Resource allocation planning
+      
+    phase_3:
+      name: "Multi-Domain Research Discovery"
+      description: "Parallel research across all domains"
+      execution: parallel
+      agents:
+        - codebase-research-analyst
+        - schema-database-expert
+        - security-validator
+        - performance-profiler
+        - smart-search-agent
+      requirements:
+        - Comprehensive codebase analysis
+        - Database schema validation
+        - Security audit and assessment
+        - Performance baseline establishment
+      
+    phase_4:
+      name: "Context Synthesis & Compression"
+      description: "Cross-domain integration and token management"
+      agents:
+        - nexus-synthesis
+        - context-compression
+      requirements:
+        - Maximum 4000 tokens per package
+        - Cross-domain integration
+        - Context package creation
+        - Token management optimization
+      
+    phase_5:
+      name: "Parallel Implementation Execution"
+      description: "Multi-stream parallel implementation"
+      execution: multi-stream
+      streams:
+        backend:
+          agents:
+            - backend-gateway-expert
+            - schema-database-expert
+            - performance-profiler
+        frontend:
+          agents:
+            - ui-architect
+            - ux-architect
+            - ui-debugger
+        security:
+          agents:
+            - security-validator
+            - fullstack-communication-auditor
+        infrastructure:
+          agents:
+            - monitoring-analyst
+            - container-architecture-specialist
+        quality:
+          agents:
+            - test-automation-engineer
+            - user-experience-auditor
+            - code-quality-guardian
+        documentation:
+          agents:
+            - documentation-specialist
+            - project-structure-mapper
+      mandatory_agents:
+        - project-janitor
+      
+    phase_6:
+      name: "Evidence-Based Validation"
+      description: "Concrete evidence collection and validation"
+      agents:
+        - production-endpoint-validator
+        - user-experience-auditor
+        - ui-regression-debugger
+      requirements:
+        - Screenshots and visual evidence
+        - Execution logs and outputs
+        - curl/ping accessibility tests
+        - User perspective validation
+      
+    phase_7:
+      name: "Decision & Iteration Control"
+      description: "Evidence analysis and iteration decision"
+      agents:
+        - orchestration-auditor-v2
+      requirements:
+        - Maximum 3 iterations
+        - Evidence-based decision making
+        - Success criteria validation
+        - Escalation protocols
+      
+    phase_8:
+      name: "Atomic Version Control Synchronization"
+      description: "Atomic commits and remote synchronization"
+      agents:
+        - atomic-git-synchronizer
+      requirements:
+        - Atomic commit generation
+        - Remote repository sync
+        - Branch management
+        - Rollback capability
+      
+    phase_9:
+      name: "Meta-Orchestration Audit & Learning"
+      description: "Workflow analysis and improvement (ALWAYS EXECUTES)"
+      agents:
+        - orchestration-auditor
+      mandatory: true
+      requirements:
+        - Workflow performance analysis
+        - Learning extraction
+        - Pattern identification
+        - System improvement recommendations
+      
+    phase_10:
+      name: "Production Deployment & Release"
+      description: "Blue-green deployment with rollback"
+      agents:
+        - deployment-orchestrator
+      requirements:
+        - Blue-green deployment
+        - Health check validation
+        - Rollback readiness
+        - Production readiness verification
+      
+    phase_11:
+      name: "Production Validation & Health Monitoring"
+      description: "Production accessibility and health verification"
+      requirements:
+        - Production accessibility (curl/ping evidence)
+        - Infrastructure validation
+        - Database connectivity
+        - Monitoring system verification
+      loop_control:
+        success: "Continue to phase_12"
+        failure: "Return to phase_0 with production failure context"
+      
+    phase_12:
+      name: "Todo Loop Control"
+      description: "Todo status evaluation and loop decision (ALWAYS EXECUTES)"
+      agents:
+        - orchestration-todo-manager
+      mandatory: true
+      loop_control:
+        high_priority_todos: "Return to phase_0 with updated context"
+        no_todos: "Complete workflow"
+
+# Stream Coordination Rules
+coordination:
+  independence: "Streams progress independently unless explicit dependencies exist"
+  communication: "Redis scratch pad system for cross-domain communication"
+  failure_handling:
+    single_stream: "Single stream failures don't block other streams"
+    cross_domain: "Cross-domain failures trigger coordinated recovery"
+    critical: "Critical failures return all streams to planning phase"
+  synchronization_points:
+    - "Planning completion: Negotiate cross-domain dependencies"
+    - "Implementation milestones: Integration testing across domains"
+    - "Pre-production: Comprehensive validation and rollback alignment"
+
+# Context Package Limits
+context_limits:
+  memory_mcp_entities: 8000  # tokens
+  context_packages: 4000     # tokens
+  strategic_packages: 3000   # tokens
+  
+package_types:
+  strategic_context: 3000    # High-level architecture
+  technical_context: 4000    # Implementation details
+  frontend_context: 3000     # UI patterns and components
+  security_context: 3000     # Auth patterns and vulnerabilities
+  performance_context: 3000  # Bottlenecks and optimization
+  database_context: 3500     # Schema and query patterns
+
+# Success Metrics
+success_criteria:
+  flow_completion:
+    - "All 12 phases completed (including production deployment/validation)"
+    - "No recursion or circular calls"
+    - "Context packages under size limits"
+    - "Appropriate tool usage"
+  
+  validation_requirements:
+    - "Production accessibility verified (curl/ping evidence)"
+    - "Infrastructure validation (monitoring, metrics, database)"
+    - "Concrete evidence (curl outputs, health checks)"
+    - "User perspective validation with evidence"
+    - "Atomic commits and remote synchronization"
+    - "Phase 9 audit ALWAYS executed"
+  
+  agent_success:
+    - "Domain boundary compliance"
+    - "Efficient context package usage"
+    - "Multiple tool leverage"
+    - "Quantitative, evidence-based results"
+    - "Actionable findings returned"

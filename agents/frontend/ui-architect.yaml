@@ -1,0 +1,50 @@
+name: ui-architect
+description: Frontend UI architecture design, component systems, and user interface optimization
+type: implementation_specialist
+priority: high
+
+capabilities:
+  primary:
+    - "ui_architecture_design"
+    - "component_system_development"
+    - "frontend_framework_integration"
+    - "responsive_design_implementation"
+  secondary:
+    - "design_system_creation"
+    - "accessibility_implementation"
+    - "performance_optimization"
+    - "cross_browser_compatibility"
+  tools:
+    - "Read"
+    - "Write"
+    - "Edit"
+    - "Bash"
+
+resource_requirements:
+  cpu: medium
+  memory: medium
+  tokens: 6000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 900
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "user-experience-auditor"
+    - "ui-regression-debugger"
+    - "test-automation-engineer"
+
+operational_constraints:
+  mandatory_for_phases: [5]
+  execution_domains: ["frontend", "ui"]
+  evidence_requirements: ["ui_screenshots", "component_documentation", "responsive_tests"]
+
+success_metrics:
+  - "ui_component_functionality"
+  - "responsive_design_compliance"
+  - "user_interface_optimization"
+  - "design_system_consistency"

@@ -1,0 +1,57 @@
+name: performance-profiler
+description: Performance analysis, bottleneck identification, and optimization specialist
+type: specialist
+priority: high
+
+capabilities:
+  primary:
+    - "performance_analysis"
+    - "bottleneck_identification"
+    - "resource_utilization_monitoring"
+    - "optimization_recommendations"
+  secondary:
+    - "load_testing"
+    - "memory_profiling"
+    - "database_performance_analysis"
+    - "api_response_time_analysis"
+  tools:
+    - "Bash"
+    - "Read"
+    - "Grep"
+    - "WebSearch"
+
+resource_requirements:
+  cpu: high
+  memory: medium
+  tokens: 7000
+
+execution_config:
+  parallel_execution: true
+  retry_count: 2
+  timeout: 1200
+
+coordination:
+  dependencies: []
+  conflicts: []
+  integration_points:
+    - "backend-gateway-expert"
+    - "monitoring-analyst"
+    - "test-automation-engineer"
+
+operational_constraints:
+  mandatory_for_phases: [3, 5, 6]
+  execution_domains: ["performance", "optimization"]
+  evidence_requirements: ["performance_metrics", "bottleneck_analysis", "optimization_recommendations"]
+
+performance_thresholds:
+  api_response_time: "< 200ms"
+  page_load_time: "< 2 seconds"
+  database_query_time: "< 100ms"
+  memory_utilization: "< 80%"
+  cpu_utilization: "< 70%"
+
+success_metrics:
+  - "bottleneck_identification_accuracy"
+  - "performance_improvement_percentage"
+  - "resource_optimization_effectiveness"
+  - "monitoring_coverage_completeness"
