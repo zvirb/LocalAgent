@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LocalAgent Comprehensive Performance Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+        .section { background: white; margin: 20px 0; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .metric { display: inline-block; margin: 10px; padding: 15px; background: #ecf0f1; border-radius: 5px; min-width: 150px; text-align: center; }
+        .metric-value { font-size: 1.4em; font-weight: bold; color: #2c3e50; }
+        .metric-label { font-size: 0.9em; color: #7f8c8d; margin-top: 5px; }
+        .grade-excellent { background-color: #2ecc71; color: white; }
+        .grade-good { background-color: #3498db; color: white; }
+        .grade-fair { background-color: #f39c12; color: white; }
+        .grade-poor { background-color: #e74c3c; color: white; }
+        .recommendations { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; }
+        .recommendation { margin: 5px 0; padding: 5px; }
+        .high { border-left: 3px solid #dc3545; }
+        .medium { border-left: 3px solid #ffc107; }
+        .good { border-left: 3px solid #28a745; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LocalAgent Comprehensive Performance Report</h1>
+        <p>Generated on: 2025-08-26T13:32:54.915594</p>
+        <p>System: 8 cores, 15.4 GB RAM</p>
+    </div>
+
+    <div class="section">
+        <h2>Performance Analysis</h2>
+        <div class="metric grade-excellent">
+            <div class="metric-value">Excellent</div>
+            <div class="metric-label">Overall Grade</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">1748.1</div>
+            <div class="metric-label">Peak Throughput (ops/sec)</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">10.3ms</div>
+            <div class="metric-label">Best Response Time</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">0.1MB</div>
+            <div class="metric-label">Peak Memory Usage</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">Low</div>
+            <div class="metric-label">Memory Leak Risk</div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Performance Recommendations</h2>
+        <div class="recommendations"><div class="recommendation good">GOOD: No critical performance issues detected</div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Load Test Results</h2>
+        <table>
+            <tr>
+                <th>Test Name</th>
+                <th>Requests/sec</th>
+                <th>Avg Response (ms)</th>
+                <th>P95 Response (ms)</th>
+                <th>Error Rate</th>
+                <th>Total Requests</th>
+            </tr>
+            <tr>
+                <td>light_load</td>
+                <td>95.39</td>
+                <td>10.26</td>
+                <td>10.53</td>
+                <td>0.00%</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>moderate_load</td>
+                <td>439.07</td>
+                <td>10.73</td>
+                <td>11.14</td>
+                <td>0.00%</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>heavy_load</td>
+                <td>806.34</td>
+                <td>11.28</td>
+                <td>11.86</td>
+                <td>0.00%</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>stress_load</td>
+                <td>1748.09</td>
+                <td>10.73</td>
+                <td>11.46</td>
+                <td>0.00%</td>
+                <td>500</td>
+            </tr>
+        </table>
+    </div>
+    <div class="section">
+        <h2>Memory Test Results</h2>
+        <table>
+            <tr>
+                <th>Test Name</th>
+                <th>Duration (s)</th>
+                <th>Memory Growth (MB)</th>
+                <th>Memory Peak (MB)</th>
+                <th>Successful Requests</th>
+                <th>Error Rate</th>
+            </tr>
+            <tr>
+                <td>provider_lifecycle_memory</td>
+                <td>1.28</td>
+                <td>0.00</td>
+                <td>0.04</td>
+                <td>50</td>
+                <td>0.00%</td>
+            </tr>
+            <tr>
+                <td>concurrent_memory_usage</td>
+                <td>1.11</td>
+                <td>0.00</td>
+                <td>0.09</td>
+                <td>100</td>
+                <td>0.00%</td>
+            </tr>
+            <tr>
+                <td>longrunning_memory_stability</td>
+                <td>30.10</td>
+                <td>0.00</td>
+                <td>0.13</td>
+                <td>270</td>
+                <td>0.00%</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

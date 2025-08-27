@@ -1,0 +1,138 @@
+# Development and Testing Dependencies - Testing frameworks, linting, and development tools
+# For development, testing, and code quality in UnifiedWorkflow
+# Install with: pip install -r requirements-dev.txt
+
+# Core testing framework
+pytest>=8.4.1
+pytest-asyncio>=1.1.0
+pytest-cov>=6.2.1
+pytest-mock>=3.15.0
+pytest-timeout>=2.5.0
+pytest-benchmark>=5.1.0
+pytest-xdist>=4.0.0  # Parallel test execution
+pytest-html>=4.2.0  # HTML test reports
+pytest-parallel>=0.1.0
+pytest-json-report>=1.5.0
+
+# HTTP and API testing
+httpx>=0.28.1
+pytest-httpx>=1.1.0
+requests-mock>=1.11.0
+responses>=0.26.0
+aioresponses>=0.7.8
+
+# Database testing
+pytest-postgresql>=6.2.0
+pytest-redis>=3.3.1
+alembic>=1.16.4
+
+# Async testing utilities
+asyncio-throttle>=1.0.2
+pytest-asyncio-cooperative>=0.36.0
+asynctest>=0.13.0
+
+# Mock and factory utilities
+factory-boy>=3.4.1
+faker>=38.3.0
+pydantic-factories>=1.19.3
+
+# Performance and load testing
+locust>=2.34.0
+memory-profiler>=0.65.0
+pympler>=0.9.0
+
+# Security testing
+bandit>=1.7.12
+safety>=3.3.1
+semgrep>=1.25.0
+
+# Code quality and formatting
+black>=25.3.0
+isort>=5.13.2
+flake8>=8.0.0
+mypy>=1.14.1
+pylint>=2.17.0
+autopep8>=2.0.0
+pre-commit>=4.0.1
+
+# Static analysis
+radon>=6.0.0
+vulture>=2.7.0
+xenon>=0.9.0
+
+# Coverage reporting
+coverage>=7.10.3
+
+# Browser automation and UI testing
+selenium>=4.10.0
+selenium-wire>=5.1.0
+playwright>=1.35.0
+undetected-chromedriver>=3.5.0
+
+# Data handling for tests
+pillow>=11.1.0
+numpy>=2.3.2
+
+# Test data generation
+mimesis>=11.0.0
+hypothesis>=6.80.0
+freezegun>=1.2.0
+
+# Performance profiling
+gevent>=22.10.0
+greenlet>=3.2.0
+
+# Report generation
+reportlab>=4.0.0
+weasyprint>=59.0.0
+allure-pytest>=2.13.0
+pytest-html-merger>=0.1.0
+
+# API testing and mocking
+jsonschema>=4.17.0
+openapi-spec-validator>=0.5.0
+wiremock>=2.6.0
+betamax>=0.8.0
+
+# Network testing
+tcping>=0.1.0
+
+# Test environment management
+tox>=4.6.0
+virtualenv>=20.23.0
+
+# CI/CD integration
+junit-xml>=1.9.0
+
+# Documentation generation
+sphinx>=7.0.0
+sphinx-rtd-theme>=1.2.0
+doctest
+
+# File monitoring for development
+watchdog>=3.0.0
+
+# CLI testing utilities
+click>=8.2.0
+typer>=0.9.0
+
+# Environment isolation and configuration
+python-dotenv>=1.1.1
+
+# Monitoring for tests
+prometheus-client>=0.22.1
+
+# Time manipulation in tests
+arrow>=1.2.0
+python-dateutil>=2.8.2
+
+# Async utilities for testing
+aiofiles>=23.2.1
+
+# Package management
+packaging>=25.0
+pluggy>=1.6.0
+iniconfig>=2.1.0
+
+# Syntax highlighting for reports
+pygments>=2.19.2

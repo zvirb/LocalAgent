@@ -1,0 +1,255 @@
+Metadata-Version: 2.4
+Name: localagent-cli
+Version: 2.0.0
+Summary: Modern multi-provider LLM orchestration CLI with plugin architecture
+Home-page: https://github.com/localagent/localagent-cli
+Author: LocalAgent Team
+Author-email: team@localagent.dev
+Project-URL: Bug Reports, https://github.com/localagent/localagent-cli/issues
+Project-URL: Source, https://github.com/localagent/localagent-cli
+Project-URL: Documentation, https://localagent.readthedocs.io
+Project-URL: Changelog, https://github.com/localagent/localagent-cli/blob/main/CHANGELOG.md
+Keywords: cli,llm,ai,orchestration,typer,rich,plugin,automation,workflow,ollama,openai,gemini,perplexity,multi-provider
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Systems Administration
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Classifier: Environment :: Console
+Classifier: Framework :: FastAPI
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: typer[all]>=0.16.0
+Requires-Dist: rich>=13.6.0
+Requires-Dist: click>=8.1.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: aiohttp>=3.9.0
+Requires-Dist: inquirerpy>=0.3.4
+Requires-Dist: questionary>=2.0.0
+Requires-Dist: aiofiles>=23.0.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: keyring>=24.0.0
+Requires-Dist: openai>=1.0.0
+Requires-Dist: google-generativeai>=0.3.0
+Requires-Dist: anthropic>=0.3.0
+Requires-Dist: cryptography>=41.0.0
+Requires-Dist: setuptools>=68.0.0
+Requires-Dist: importlib-metadata>=6.0.0
+Requires-Dist: pytest>=7.0.0
+Requires-Dist: pytest-asyncio>=0.21.0
+Requires-Dist: black>=23.0.0
+Requires-Dist: pylint>=3.0.0
+Requires-Dist: mypy>=1.5.0
+Requires-Dist: mkdocs>=1.5.0
+Requires-Dist: mkdocs-material>=9.0.0
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: typing-extensions>=4.5.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: pytest-typer>=0.0.14; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: pylint>=3.0.0; extra == "dev"
+Requires-Dist: mypy>=1.5.0; extra == "dev"
+Requires-Dist: pre-commit>=3.0.0; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: mkdocs>=1.5.0; extra == "docs"
+Requires-Dist: mkdocs-material>=9.0.0; extra == "docs"
+Requires-Dist: mkdocs-typer>=0.0.3; extra == "docs"
+Provides-Extra: monitoring
+Requires-Dist: prometheus-client>=0.18.0; extra == "monitoring"
+Requires-Dist: grafana-api>=1.0.3; extra == "monitoring"
+Provides-Extra: all
+Requires-Dist: pytest>=7.0.0; extra == "all"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "all"
+Requires-Dist: pytest-typer>=0.0.14; extra == "all"
+Requires-Dist: black>=23.0.0; extra == "all"
+Requires-Dist: pylint>=3.0.0; extra == "all"
+Requires-Dist: mypy>=1.5.0; extra == "all"
+Requires-Dist: pre-commit>=3.0.0; extra == "all"
+Requires-Dist: mkdocs>=1.5.0; extra == "all"
+Requires-Dist: mkdocs-material>=9.0.0; extra == "all"
+Requires-Dist: mkdocs-typer>=0.0.3; extra == "all"
+Requires-Dist: prometheus-client>=0.18.0; extra == "all"
+Requires-Dist: grafana-api>=1.0.3; extra == "all"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# LocalAgent - Multi-Provider LLM Orchestration CLI
+
+A powerful, Claude Code-compatible CLI that provides unified access to multiple LLM providers including Ollama (local), OpenAI, Google Gemini, and Perplexity.
+
+## Features
+
+- **Multi-Provider Support**: Seamlessly switch between Ollama, OpenAI, Gemini, and Perplexity
+- **Local-First Design**: Defaults to Ollama for privacy and cost-efficiency
+- **Claude Code Compatible**: Familiar interface and workflow patterns
+- **12-Phase Unified Workflow**: Advanced orchestration system from UnifiedWorkflow
+- **Streaming Responses**: Real-time output with rich terminal formatting
+- **Automatic Fallback**: Intelligent provider failover on errors
+- **API Key Management**: Secure credential storage with OS keyring integration
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/zvirb/LocalAgent.git
+cd LocalAgent
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Make CLI executable
+chmod +x scripts/localagent
+
+# Add to PATH (optional)
+ln -s $(pwd)/scripts/localagent /usr/local/bin/localagent
+```
+
+## Quick Start
+
+### 1. Initialize Configuration
+
+```bash
+localagent init
+```
+
+This will guide you through setting up:
+- Ollama server URL (default: http://localhost:11434)
+- OpenAI API key (optional)
+- Google Gemini API key (optional)
+- Perplexity API key (optional)
+
+### 2. Start Ollama Server
+
+If using Ollama (recommended for local execution):
+
+```bash
+# Install Ollama if not already installed
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Start Ollama server
+ollama serve
+
+# Pull a model
+ollama pull llama3.2
+```
+
+### 3. Use LocalAgent
+
+#### Interactive Mode (Default)
+```bash
+localagent
+```
+
+#### Direct Completion
+```bash
+localagent complete "Explain quantum computing" --provider ollama
+```
+
+#### Check Provider Status
+```bash
+localagent providers
+```
+
+## Available Commands
+
+- `localagent` - Launch interactive chat mode
+- `localagent init` - Initialize configuration
+- `localagent providers` - List provider status
+- `localagent complete <prompt>` - Generate completion
+- `localagent models --provider <name>` - List available models
+
+## Interactive Mode Commands
+
+- `/help` - Show available commands
+- `/provider <name>` - Switch active provider
+- `/models` - List models for current provider
+- `/clear` - Clear screen
+- `/exit` - Exit interactive mode
+
+## Provider Configuration
+
+### Ollama (Local)
+- No API key required
+- Runs entirely on your machine
+- Supports all Ollama models
+
+### OpenAI
+- Requires API key from https://platform.openai.com
+- Supports GPT-4o, GPT-4-turbo, GPT-3.5-turbo
+- Includes cost tracking
+
+### Google Gemini
+- Requires API key from Google AI Studio
+- Supports Gemini Pro and Flash models
+- Large context windows (up to 1M tokens)
+
+### Perplexity
+- Requires API key from Perplexity
+- Provides search-grounded responses
+- Includes citations and sources
+
+## Architecture
+
+LocalAgent is built on the UnifiedWorkflow orchestration system, providing:
+
+- **40+ Specialized Agents**: Domain-specific capabilities
+- **12-Phase Workflow**: Comprehensive task execution pipeline
+- **Parallel Execution**: Multi-stream coordination
+- **Context Management**: Sophisticated token optimization
+- **MCP Integration**: Memory and coordination servers
+
+## Development
+
+### Project Structure
+```
+LocalAgent/
+├── app/
+│   └── llm_providers/      # Provider implementations
+├── agents/                 # Agent definitions (from UnifiedWorkflow)
+├── workflows/              # Workflow configurations
+├── scripts/
+│   └── localagent         # CLI entry point
+├── config/                # Configuration templates
+└── docs/                  # Documentation
+```
+
+### Adding a New Provider
+
+1. Create provider class inheriting from `BaseProvider`
+2. Implement required methods (initialize, complete, stream_complete, etc.)
+3. Register in `ProviderManager`
+4. Update CLI configuration options
+
+## Security
+
+- API keys stored securely using OS keyring when available
+- Fallback to encrypted file storage with master password
+- Environment variable support for CI/CD
+- No credentials stored in plain text
+
+## License
+
+MIT License - See LICENSE file for details
+
+## Acknowledgments
+
+Built on the UnifiedWorkflow orchestration framework, incorporating best practices from Claude Code CLI and modern LLM integration patterns.

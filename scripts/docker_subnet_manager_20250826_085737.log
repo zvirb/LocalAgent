@@ -1,0 +1,13 @@
+[0;32m[INFO][0m Starting Docker Subnet Manager
+[0;32m[INFO][0m Base directory: .
+[0;32m[INFO][0m Default subnet size: /24
+[0;32m[INFO][0m Dry run mode: false
+[0;33m[WARN][0m Missing optional tools: yq
+[0;33m[WARN][0m Some features may not be available
+[0;33m[WARN][0m Install with: sudo apt-get install yq (Ubuntu/Debian)
+[0;33m[WARN][0m Or: brew install yq (macOS)
+[0;32m[INFO][0m Finding next available /24 subnet in 172.16.0.0/12
+[DEBUG] Checking subnets with increment 256 from 172.16.0.0 to 172.31.255.255
+[DEBUG] Checking candidate subnet: 172.16.0.0/24
+[0;32m[INFO][0m Found available subnet: 172.16.0.0/24
+[0;32m[INFO][0m Docker Subnet Manager completed

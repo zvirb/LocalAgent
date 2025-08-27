@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LocalAgent Performance Benchmark Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; }
+        .benchmark { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .metric { background: #f8f9fa; padding: 10px; border-radius: 3px; }
+        .metric-value { font-size: 1.2em; font-weight: bold; color: #2c3e50; }
+        .error { color: #e74c3c; }
+        .success { color: #27ae60; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LocalAgent Performance Benchmark Report</h1>
+        <p>Generated on: 2025-08-26 13:29:24</p>
+    </div>
+
+    <div class="benchmark">
+        <h2>completion_latency</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div>Operations</div>
+                <div class="metric-value">30/30</div>
+            </div>
+            <div class="metric">
+                <div>Throughput</div>
+                <div class="metric-value">94.69 ops/sec</div>
+            </div>
+            <div class="metric">
+                <div>Avg Duration</div>
+                <div class="metric-value">10.30 ms</div>
+            </div>
+            <div class="metric">
+                <div>P95 Duration</div>
+                <div class="metric-value">10.62 ms</div>
+            </div>
+            <div class="metric">
+                <div>Memory Peak</div>
+                <div class="metric-value">0.04 MB</div>
+            </div>
+            <div class="metric">
+                <div>Error Rate</div>
+                <div class="metric-value success">0.00%</div>
+            </div>
+        </div>
+        
+        <h3>Duration Distribution</h3>
+        <table>
+            <tr><th>Metric</th><th>Value (ms)</th></tr>
+            <tr><td>Minimum</td><td>10.22</td></tr>
+            <tr><td>P50 (Median)</td><td>10.25</td></tr>
+            <tr><td>P95</td><td>10.62</td></tr>
+            <tr><td>P99</td><td>10.69</td></tr>
+            <tr><td>Maximum</td><td>10.69</td></tr>
+        </table>
+    </div>
+
+    <div class="benchmark">
+        <h2>streaming_performance</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div>Operations</div>
+                <div class="metric-value">20/20</div>
+            </div>
+            <div class="metric">
+                <div>Throughput</div>
+                <div class="metric-value">78.56 ops/sec</div>
+            </div>
+            <div class="metric">
+                <div>Avg Duration</div>
+                <div class="metric-value">12.47 ms</div>
+            </div>
+            <div class="metric">
+                <div>P95 Duration</div>
+                <div class="metric-value">12.67 ms</div>
+            </div>
+            <div class="metric">
+                <div>Memory Peak</div>
+                <div class="metric-value">0.04 MB</div>
+            </div>
+            <div class="metric">
+                <div>Error Rate</div>
+                <div class="metric-value success">0.00%</div>
+            </div>
+        </div>
+        
+        <h3>Duration Distribution</h3>
+        <table>
+            <tr><th>Metric</th><th>Value (ms)</th></tr>
+            <tr><td>Minimum</td><td>11.83</td></tr>
+            <tr><td>P50 (Median)</td><td>12.54</td></tr>
+            <tr><td>P95</td><td>12.67</td></tr>
+            <tr><td>P99</td><td>12.67</td></tr>
+            <tr><td>Maximum</td><td>12.67</td></tr>
+        </table>
+    </div>
+
+    <div class="benchmark">
+        <h2>memory_efficiency</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div>Operations</div>
+                <div class="metric-value">25/25</div>
+            </div>
+            <div class="metric">
+                <div>Throughput</div>
+                <div class="metric-value">31.99 ops/sec</div>
+            </div>
+            <div class="metric">
+                <div>Avg Duration</div>
+                <div class="metric-value">31.00 ms</div>
+            </div>
+            <div class="metric">
+                <div>P95 Duration</div>
+                <div class="metric-value">32.11 ms</div>
+            </div>
+            <div class="metric">
+                <div>Memory Peak</div>
+                <div class="metric-value">0.00 MB</div>
+            </div>
+            <div class="metric">
+                <div>Error Rate</div>
+                <div class="metric-value success">0.00%</div>
+            </div>
+        </div>
+        
+        <h3>Duration Distribution</h3>
+        <table>
+            <tr><th>Metric</th><th>Value (ms)</th></tr>
+            <tr><td>Minimum</td><td>30.70</td></tr>
+            <tr><td>P50 (Median)</td><td>30.83</td></tr>
+            <tr><td>P95</td><td>32.11</td></tr>
+            <tr><td>P99</td><td>32.25</td></tr>
+            <tr><td>Maximum</td><td>32.25</td></tr>
+        </table>
+    </div>
+
+</body>
+</html>

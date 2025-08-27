@@ -1,0 +1,32 @@
+[console_scripts]
+cli = scripts.localagent_interactive_simple:interactive_simple
+clix = scripts.localagent_interactive_enhanced:interactive_enhanced
+la = app.cli.core.app:main
+localagent = app.cli.core.app:main
+localagent-dev = app.cli.core.app:main
+
+[localagent.plugins.commands]
+config-manager = app.cli.plugins.builtin.builtin_plugins:ConfigurationPlugin
+system-info = app.cli.plugins.builtin.builtin_plugins:SystemInfoPlugin
+
+[localagent.plugins.integrations]
+mcp-memory = app.orchestration.mcp_integration:MCPIntegration
+workflow-engine = app.orchestration.workflow_engine:WorkflowEngine
+
+[localagent.plugins.providers]
+gemini = app.llm_providers.gemini_provider:GeminiProvider
+ollama = app.llm_providers.ollama_provider:OllamaProvider
+openai = app.llm_providers.openai_provider:OpenAIProvider
+perplexity = app.llm_providers.perplexity_provider:PerplexityProvider
+
+[localagent.plugins.tools]
+command-registry = app.cli.core.enhanced_command_registration:EnhancedCommandRegistry
+provider-integration = app.cli.integration.enhanced_provider_integration:EnhancedProviderIntegration
+
+[localagent.plugins.ui]
+display-manager = app.cli.ui.display:create_display_manager
+progress-manager = app.cli.ui.display:WorkflowProgressManager
+
+[localagent.plugins.workflow]
+orchestration-bridge = app.cli.integration.enhanced_orchestration_bridge:EnhancedOrchestrationBridge
+workflow-debug = app.cli.plugins.builtin.builtin_plugins:WorkflowDebugPlugin

@@ -1,0 +1,40 @@
+{
+  "security_notice": "This configuration file uses secure credential storage",
+  "credential_storage": {
+    "method": "os_keyring_with_encryption",
+    "service_name": "localagent",
+    "encryption": "AES-256-GCM"
+  },
+  "providers": {
+    "openai": {
+      "base_url": "https://api.openai.com/v1",
+      "default_model": "gpt-3.5-turbo",
+      "api_key": "USE_SECURE_STORAGE",
+      "timeout": 120
+    },
+    "gemini": {
+      "base_url": "https://generativelanguage.googleapis.com/v1",
+      "default_model": "gemini-pro",
+      "api_key": "USE_SECURE_STORAGE",
+      "timeout": 120
+    },
+    "perplexity": {
+      "base_url": "https://api.perplexity.ai",
+      "default_model": "llama-3-sonar-small-32k-chat",
+      "api_key": "USE_SECURE_STORAGE",
+      "timeout": 120
+    },
+    "ollama": {
+      "base_url": "http://localhost:11434",
+      "default_model": "llama2",
+      "api_key": null,
+      "timeout": 120
+    }
+  },
+  "security_settings": {
+    "enable_input_validation": true,
+    "enable_audit_logging": true,
+    "enable_encryption": true,
+    "max_retry_attempts": 3
+  }
+}

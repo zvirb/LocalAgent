@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+"""
+LocalAgent Simple CLI - Test basic Ollama connectivity
+"""
+
+import click
+import requests
+import json
+from rich.console import Console
+from rich.markdown import Markdown
+
+console = Console()
+
+@click.group()
+def cli():
+    """LocalAgent CLI - Multi-provider LLM interface"""
+    pass
+
+@cli.command()
+def providers():
+    """List available LLM providers"""
+    console.print("[bold cyan]Available Providers:[/bold cyan]")
+    console.print("• Ollama (local) - http://ollama:11434")
+    console.print("• OpenAI (requires API key)")
+    console.print("• Gemini (requires API key)")
+    console.print("• Perplexity (requires API key)")
+
+@cli.command()
+@click.argument('prompt')
+def chat(prompt):
+    """Chat with Ollama"""
+    try:
+        # Check if Ollama is available
+        response = requests.get("http://ollama:11434/api/tags")
+        models = response.json().get('models', [])
+        
+        if not models:
+            console.print("[red]No models installed. Run: docker exec localagent-ollama ollama pull llama3.2:1b[/red]")
+            return
+        
+        model = models[0]['name']
+        console.print(f"[cyan]Using model: {model}[/cyan]")
+        
+        # Send chat request
+        chat_response = requests.post("http://ollama:11434/api/generate", 
+            json={
+                "model": model,
+                "prompt": prompt,
+                "stream": False
+            }
+        )
+        
+        if chat_response.status_code == 200:
+            result = chat_response.json()
+            console.print(Markdown(result['response']))
+        else:
+            console.print(f"[red]Error: {chat_response.text}[/red]")
+            
+    except Exception as e:
+        console.print(f"[red]Error connecting to Ollama: {e}[/red]")
+
+@cli.command()
+def test():
+    """Test Ollama connectivity"""
+    try:
+        response = requests.get("http://ollama:11434/api/tags")
+        if response.status_code == 200:
+            models = response.json().get('models', [])
+            console.print("[green]✓ Ollama is running[/green]")
+            if models:
+                console.print(f"[green]✓ Models available: {', '.join([m['name'] for m in models])}[/green]")
+            else:
+                console.print("[yellow]! No models installed yet[/yellow]")
+        else:
+            console.print("[red]✗ Ollama API error[/red]")
+    except Exception as e:
+        console.print(f"[red]✗ Cannot connect to Ollama: {e}[/red]")
+
+if __name__ == '__main__':
+    cli()

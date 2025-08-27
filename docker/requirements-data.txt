@@ -1,0 +1,63 @@
+# Data Science and ML Dependencies - Machine learning, data processing, and analytics
+# For perception, learning, and data analysis services in UnifiedWorkflow
+# Install with: pip install -r requirements-data.txt
+
+# Core scientific computing
+numpy>=2.3.2
+scipy>=1.11.1
+pandas>=2.1.4
+
+# Machine learning
+scikit-learn>=1.3.2
+joblib>=1.3.2
+
+# Deep learning and transformers
+torch>=2.0.0
+transformers>=4.30.0
+einops>=0.6.0
+flash-attn>=2.0.0  # Optional, for faster attention
+
+# Computer vision and image processing
+pillow>=11.1.0
+opencv-python-headless>=4.10.0.84
+
+# Data visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Audio processing
+librosa>=0.10.1
+soundfile>=0.12.1
+pydub>=0.25.1
+pyaudio>=0.2.11
+gtts>=2.5.0
+speechrecognition>=3.10.0
+vosk>=0.3.45
+
+# Document processing
+openpyxl>=3.1.0
+xlsxwriter>=3.1.0
+
+# Graph databases and vector stores
+neo4j>=5.13.0
+qdrant-client>=1.15.1
+pgvector>=0.4.1
+
+# Recommendation systems
+lightfm>=1.17
+
+# GPU monitoring and acceleration
+nvidia-ml-py>=12.535.133
+gputil>=1.4.0
+
+# Data validation with email support
+pydantic[email]>=2.10.1
+
+# Time zone and date utilities
+tzdata>=2025.2
+
+# Coverage tools for data analysis
+coverage[toml]>=7.10.3
+
+# Factory pattern for data generation
+pydantic-factories>=1.19.3

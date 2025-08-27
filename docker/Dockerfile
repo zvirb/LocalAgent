@@ -19,8 +19,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
     ca-certificates \
+    wget \
+    build-essential \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
+
+# Install Go for Mangle support
+RUN wget -q -O go.tar.gz https://go.dev/dl/go1.21.6.linux-amd64.tar.gz \
+    && tar -C /usr/local -xzf go.tar.gz \
+    && rm go.tar.gz
+ENV PATH="/usr/local/go/bin:${PATH}"
+ENV GOPATH="/app/go"
+ENV PATH="${GOPATH}/bin:${PATH}"
+
+# Install Mangle interpreter
+RUN go install github.com/google/mangle/interpreter/mg@latest
 
 # Create dedicated user for security
 RUN groupadd --system --gid 1000 localagent \
@@ -31,8 +44,8 @@ WORKDIR /app
 
 # Copy dependency files first for better caching
 COPY requirements.txt ./
-COPY UnifiedWorkflow/requirements-core.txt ./requirements-core.txt
-COPY UnifiedWorkflow/requirements-web.txt ./requirements-web.txt
+COPY docker/requirements-core.txt ./requirements-core.txt
+COPY docker/requirements-web.txt ./requirements-web.txt
 
 # Install Python dependencies with pinned versions
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
@@ -69,20 +82,20 @@ RUN mkdir -p /app/config /app/.cache /app/logs \
     && chown -R localagent:localagent /app
 
 # Make CLI executable
-RUN chmod +x /app/scripts/localagent
+RUN chmod +x /app/scripts/localagent-simple
 
 # Switch to non-root user
 USER localagent
 
 # Create symbolic link for global access
-RUN ln -sf /app/scripts/localagent /app/localagent
+RUN ln -sf /app/scripts/localagent-simple /app/localagent
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD /app/scripts/localagent providers --provider ollama || exit 1
+    CMD python3 /app/scripts/localagent-simple test || exit 1
 
-# Default command - interactive mode
-ENTRYPOINT ["/app/scripts/localagent"]
+# Default command - keep container running
+ENTRYPOINT ["tail", "-f", "/dev/null"]
 CMD []
 
 # Expose ports for potential web interface

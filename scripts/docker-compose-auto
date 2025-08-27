@@ -1,0 +1,227 @@
+#!/bin/bash
+#
+# docker-compose-auto: Wrapper script for Docker Compose with automatic network assignment
+# Prevents subnet conflicts by dynamically assigning available subnets
+#
+
+set -euo pipefail
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DYNAMIC_NETWORK_SCRIPT="${SCRIPT_DIR}/docker-dynamic-network.py"
+
+# Default compose file
+COMPOSE_FILE="${COMPOSE_FILE:-docker-compose.yml}"
+
+# Function to print colored output
+print_color() {
+    local color=$1
+    shift
+    echo -e "${color}$*${NC}"
+}
+
+# Function to check dependencies
+check_dependencies() {
+    local missing_deps=()
+    
+    # Check for Docker
+    if ! command -v docker &> /dev/null; then
+        missing_deps+=("docker")
+    fi
+    
+    # Check for Docker Compose (v2)
+    if ! docker compose version &> /dev/null; then
+        # Try v1
+        if ! command -v docker-compose &> /dev/null; then
+            missing_deps+=("docker-compose")
+        fi
+    fi
+    
+    # Check for Python 3
+    if ! command -v python3 &> /dev/null; then
+        missing_deps+=("python3")
+    fi
+    
+    # Check for Python dependencies
+    if ! python3 -c "import yaml, ipaddress" 2>/dev/null; then
+        missing_deps+=("python3-yaml")
+    fi
+    
+    if [ ${#missing_deps[@]} -gt 0 ]; then
+        print_color "$RED" "Error: Missing dependencies: ${missing_deps[*]}"
+        print_color "$YELLOW" "Install with: sudo apt-get install ${missing_deps[*]}"
+        exit 1
+    fi
+}
+
+# Function to generate override file with dynamic network
+generate_dynamic_override() {
+    local compose_file=$1
+    local override_file="docker-compose.override.yml"
+    
+    print_color "$BLUE" "🔍 Scanning existing Docker networks..."
+    
+    # Generate override with dynamic network
+    if python3 "$DYNAMIC_NETWORK_SCRIPT" --generate-override "$compose_file"; then
+        print_color "$GREEN" "✅ Generated $override_file with dynamic network configuration"
+        return 0
+    else
+        print_color "$RED" "❌ Failed to generate override file"
+        return 1
+    fi
+}
+
+# Function to update compose file in-place
+update_compose_file() {
+    local compose_file=$1
+    
+    print_color "$BLUE" "🔍 Finding available subnet..."
+    
+    # Update compose file with available subnet
+    if python3 "$DYNAMIC_NETWORK_SCRIPT" --update-compose "$compose_file"; then
+        print_color "$GREEN" "✅ Updated $compose_file with available subnet"
+        return 0
+    else
+        print_color "$RED" "❌ Failed to update compose file"
+        return 1
+    fi
+}
+
+# Function to show network status
+show_status() {
+    python3 "$DYNAMIC_NETWORK_SCRIPT" --status
+}
+
+# Function to run docker compose with dynamic network
+run_compose() {
+    local action=$1
+    shift
+    local compose_args=("$@")
+    
+    # Check if override file exists
+    if [ -f "docker-compose.override.yml" ]; then
+        print_color "$BLUE" "📋 Using existing docker-compose.override.yml"
+    else
+        # Generate override file
+        if [ -f "$COMPOSE_FILE" ]; then
+            print_color "$YELLOW" "⚠️  No override file found. Generating dynamic network configuration..."
+            generate_dynamic_override "$COMPOSE_FILE" || {
+                print_color "$YELLOW" "⚠️  Proceeding without dynamic network assignment"
+            }
+        fi
+    fi
+    
+    # Run docker compose command
+    print_color "$BLUE" "🚀 Running: docker compose $action ${compose_args[*]}"
+    
+    # Use docker compose v2 if available, fallback to v1
+    if docker compose version &> /dev/null; then
+        docker compose "$action" "${compose_args[@]}"
+    else
+        docker-compose "$action" "${compose_args[@]}"
+    fi
+}
+
+# Main function
+main() {
+    local action=""
+    local mode="auto"
+    
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --status)
+                show_status
+                exit 0
+                ;;
+            --update)
+                mode="update"
+                shift
+                ;;
+            --override)
+                mode="override"
+                shift
+                ;;
+            --help|-h)
+                cat << EOF
+Docker Compose with Automatic Network Assignment
+
+Usage: $(basename "$0") [OPTIONS] [DOCKER_COMPOSE_ARGS]
+
+Options:
+    --status        Show Docker network usage status
+    --update        Update compose file in-place with available subnet
+    --override      Generate docker-compose.override.yml (default behavior)
+    --help, -h      Show this help message
+
+Docker Compose Commands:
+    All standard docker-compose commands are supported:
+    up, down, start, stop, restart, logs, ps, etc.
+
+Examples:
+    # Start services with automatic network assignment
+    $(basename "$0") up -d
+    
+    # Show network status
+    $(basename "$0") --status
+    
+    # Update compose file with available subnet
+    $(basename "$0") --update up -d
+    
+    # View logs
+    $(basename "$0") logs -f
+
+Environment Variables:
+    COMPOSE_FILE    Path to compose file (default: docker-compose.yml)
+
+This script automatically assigns non-conflicting Docker network subnets
+to prevent "Pool overlaps with other one on this address space" errors.
+
+EOF
+                exit 0
+                ;;
+            *)
+                # First non-option argument is the action
+                if [ -z "$action" ]; then
+                    action=$1
+                else
+                    # Pass remaining arguments to docker compose
+                    break
+                fi
+                shift
+                ;;
+        esac
+    done
+    
+    # Check dependencies
+    check_dependencies
+    
+    # Handle different modes
+    case $mode in
+        update)
+            update_compose_file "$COMPOSE_FILE"
+            ;;
+        override)
+            # This is handled in run_compose if needed
+            ;;
+    esac
+    
+    # If action provided, run docker compose
+    if [ -n "$action" ]; then
+        run_compose "$action" "$@"
+    else
+        # No action provided, show help
+        print_color "$YELLOW" "No command specified. Use --help for usage information."
+        exit 1
+    fi
+}
+
+# Run main function
+main "$@"

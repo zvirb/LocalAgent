@@ -1,0 +1,106 @@
+{
+  "system_info": {
+    "cpu_count": 8,
+    "cpu_count_logical": 16,
+    "memory_total_gb": 15.43539810180664,
+    "disk_space_gb": 465.3633728027344,
+    "python_version": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+    "timestamp": "2025-08-26T13:32:20.698584"
+  },
+  "test_summary": {
+    "total_tests": 7,
+    "memory_tests": 3,
+    "load_tests": 4,
+    "timestamp": "2025-08-26T13:32:54.915594"
+  },
+  "memory_test_results": [
+    {
+      "test_name": "provider_lifecycle_memory",
+      "duration": 1.2804951667785645,
+      "memory_growth_mb": 0.0,
+      "memory_peak_mb": 0.040457725524902344,
+      "successful_requests": 50,
+      "error_rate": 0.0,
+      "custom_metrics": {}
+    },
+    {
+      "test_name": "concurrent_memory_usage",
+      "duration": 1.1114475727081299,
+      "memory_growth_mb": 0.0,
+      "memory_peak_mb": 0.08507156372070312,
+      "successful_requests": 100,
+      "error_rate": 0.0,
+      "custom_metrics": {}
+    },
+    {
+      "test_name": "longrunning_memory_stability",
+      "duration": 30.09892201423645,
+      "memory_growth_mb": 0.0,
+      "memory_peak_mb": 0.1311779022216797,
+      "successful_requests": 270,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "memory_trend": "stable",
+        "memory_measurements_count": 270,
+        "memory_variance": 0.0
+      }
+    }
+  ],
+  "load_test_results": [
+    {
+      "test_name": "light_load",
+      "requests_per_second": 95.39403477968168,
+      "avg_response_time_ms": 10.255141258239746,
+      "p95_response_time_ms": 10.52546501159668,
+      "p99_response_time_ms": 10.598897933959961,
+      "error_rate": 0.0,
+      "total_requests": 50
+    },
+    {
+      "test_name": "moderate_load",
+      "requests_per_second": 439.0686222681893,
+      "avg_response_time_ms": 10.734386444091797,
+      "p95_response_time_ms": 11.144876480102539,
+      "p99_response_time_ms": 11.355400085449219,
+      "error_rate": 0.0,
+      "total_requests": 100
+    },
+    {
+      "test_name": "heavy_load",
+      "requests_per_second": 806.3418399371737,
+      "avg_response_time_ms": 11.278963088989258,
+      "p95_response_time_ms": 11.858463287353516,
+      "p99_response_time_ms": 12.389183044433594,
+      "error_rate": 0.0,
+      "total_requests": 200
+    },
+    {
+      "test_name": "stress_load",
+      "requests_per_second": 1748.0899104929474,
+      "avg_response_time_ms": 10.733506679534912,
+      "p95_response_time_ms": 11.457443237304688,
+      "p99_response_time_ms": 12.534618377685547,
+      "error_rate": 0.0,
+      "total_requests": 500
+    }
+  ],
+  "performance_analysis": {
+    "memory_analysis": {
+      "max_memory_growth_mb": 0.0,
+      "avg_memory_growth_mb": 0.0,
+      "max_memory_peak_mb": 0.1311779022216797,
+      "memory_leak_risk": "low"
+    },
+    "load_analysis": {
+      "max_throughput_ops_sec": 1748.0899104929474,
+      "avg_throughput_ops_sec": 772.223601869498,
+      "min_response_time_ms": 10.255141258239746,
+      "max_response_time_ms": 11.278963088989258,
+      "max_error_rate": 0.0,
+      "performance_grade": "excellent"
+    }
+  },
+  "recommendations": [
+    "GOOD: No critical performance issues detected"
+  ]
+}

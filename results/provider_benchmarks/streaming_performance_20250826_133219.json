@@ -1,0 +1,353 @@
+{
+  "name": "streaming_performance",
+  "timestamp": "20250826_133219",
+  "summary": {
+    "total_operations": 20,
+    "successful_operations": 20,
+    "failed_operations": 0,
+    "total_duration": 0.25647926330566406,
+    "avg_duration": 0.012569820880889893,
+    "min_duration": 0.011907815933227539,
+    "max_duration": 0.012865781784057617,
+    "p50_duration": 0.01262521743774414,
+    "p95_duration": 0.012865781784057617,
+    "p99_duration": 0.012865781784057617,
+    "throughput_ops_sec": 77.97901375038113,
+    "memory_peak": 45823,
+    "memory_avg": 8525,
+    "cpu_avg": 4.055,
+    "error_rate": 0.0
+  },
+  "monitor_summary": {
+    "duration": 0.20186519622802734,
+    "samples": 3,
+    "cpu_avg": 6.6000000000000005,
+    "cpu_max": 9.9,
+    "memory_avg_mb": 110.84765625,
+    "memory_max_mb": 110.84765625,
+    "memory_peak_tracemalloc": 0,
+    "memory_current_tracemalloc": 0
+  },
+  "individual_metrics": [
+    {
+      "operation": "streaming_performance_seq_0",
+      "duration": 0.012865781784057617,
+      "memory_peak": 45823,
+      "memory_current": 3336,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.830996",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004477977752685547,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_1",
+      "duration": 0.012593269348144531,
+      "memory_peak": 2184,
+      "memory_current": 816,
+      "cpu_percent": 39.45,
+      "timestamp": "2025-08-26T13:32:18.843811",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004210233688354492,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_2",
+      "duration": 0.01268148422241211,
+      "memory_peak": 2024,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.856747",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004191875457763672,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_3",
+      "duration": 0.01262664794921875,
+      "memory_peak": 2024,
+      "memory_current": 776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.869648",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.0042154788970947266,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_4",
+      "duration": 0.012572526931762695,
+      "memory_peak": 2184,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.882457",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004217624664306641,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_5",
+      "duration": 0.012528657913208008,
+      "memory_peak": 2024,
+      "memory_current": 776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.895211",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004178524017333984,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_6",
+      "duration": 0.012651205062866211,
+      "memory_peak": 2184,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.908108",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.0041961669921875,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_7",
+      "duration": 0.011907815933227539,
+      "memory_peak": 44503,
+      "memory_current": 2360,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.920177",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.0041773319244384766,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_8",
+      "duration": 0.012573003768920898,
+      "memory_peak": 2024,
+      "memory_current": 776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.932945",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.0041713714599609375,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_9",
+      "duration": 0.012566566467285156,
+      "memory_peak": 2184,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.945786",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004172801971435547,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_10",
+      "duration": 0.01262521743774414,
+      "memory_peak": 2024,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.958737",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004205942153930664,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_11",
+      "duration": 0.012553930282592773,
+      "memory_peak": 2024,
+      "memory_current": 776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.971548",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004175662994384766,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_12",
+      "duration": 0.012621402740478516,
+      "memory_peak": 2184,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.984453",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004238128662109375,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_13",
+      "duration": 0.01269674301147461,
+      "memory_peak": 2024,
+      "memory_current": 776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:18.997406",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.0041849613189697266,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_14",
+      "duration": 0.012674808502197266,
+      "memory_peak": 2184,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:19.010340",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004203319549560547,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_15",
+      "duration": 0.011930227279663086,
+      "memory_peak": 44055,
+      "memory_current": 1912,
+      "cpu_percent": 41.65,
+      "timestamp": "2025-08-26T13:32:19.022476",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004201412200927734,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_16",
+      "duration": 0.012814044952392578,
+      "memory_peak": 2024,
+      "memory_current": 776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:19.035500",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.00424504280090332,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_17",
+      "duration": 0.012631893157958984,
+      "memory_peak": 2184,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:19.048395",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004207611083984375,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_18",
+      "duration": 0.012602806091308594,
+      "memory_peak": 2024,
+      "memory_current": 936,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:19.061235",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004186868667602539,
+        "avg_chunk_size": 6.333333333333333
+      }
+    },
+    {
+      "operation": "streaming_performance_seq_19",
+      "duration": 0.012678384780883789,
+      "memory_peak": 2632,
+      "memory_current": 1384,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:32:19.074138",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "chunk_count": 3,
+        "total_length": 19,
+        "first_chunk_latency": 0.004212617874145508,
+        "avg_chunk_size": 6.333333333333333
+      }
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "timestamp": "20250826_133731",
+  "docker_available": true,
+  "total_tests": 6,
+  "results": [
+    {
+      "test_name": "memory_limit_compliance",
+      "container_name": "memory_test_128mb",
+      "duration_seconds": 10.289151906967163,
+      "memory_limit_mb": 128,
+      "memory_peak_mb": 104.1,
+      "memory_avg_mb": 104.1,
+      "cpu_peak_percent": 4.37,
+      "cpu_avg_percent": 4.37,
+      "startup_time_seconds": 6.0838539600372314,
+      "cleanup_successful": true,
+      "resource_compliance": true,
+      "custom_metrics": {
+        "memory_efficiency": 0.81328125,
+        "memory_measurements_count": 1,
+        "memory_limit_exceeded": false
+      }
+    },
+    {
+      "test_name": "memory_limit_compliance",
+      "container_name": "memory_test_256mb",
+      "duration_seconds": 10.47766661643982,
+      "memory_limit_mb": 256,
+      "memory_peak_mb": 104.1,
+      "memory_avg_mb": 104.1,
+      "cpu_peak_percent": 5.25,
+      "cpu_avg_percent": 5.25,
+      "startup_time_seconds": 0.14119482040405273,
+      "cleanup_successful": true,
+      "resource_compliance": true,
+      "custom_metrics": {
+        "memory_efficiency": 0.406640625,
+        "memory_measurements_count": 1,
+        "memory_limit_exceeded": false
+      }
+    },
+    {
+      "test_name": "memory_limit_compliance",
+      "container_name": "memory_test_512mb",
+      "duration_seconds": 10.187198877334595,
+      "memory_limit_mb": 512,
+      "memory_peak_mb": 491.7,
+      "memory_avg_mb": 296.76666666666665,
+      "cpu_peak_percent": 5.21,
+      "cpu_avg_percent": 4.6066666666666665,
+      "startup_time_seconds": 0.1390233039855957,
+      "cleanup_successful": true,
+      "resource_compliance": true,
+      "custom_metrics": {
+        "memory_efficiency": 0.5796223958333333,
+        "memory_measurements_count": 3,
+        "memory_limit_exceeded": false
+      }
+    },
+    {
+      "test_name": "startup_performance",
+      "container_name": "python_slim",
+      "duration_seconds": 0.2429271697998047,
+      "memory_limit_mb": null,
+      "memory_peak_mb": 0,
+      "memory_avg_mb": 0,
+      "cpu_peak_percent": 0,
+      "cpu_avg_percent": 0,
+      "startup_time_seconds": 0.2429271697998047,
+      "cleanup_successful": true,
+      "resource_compliance": true,
+      "custom_metrics": {
+        "successful_starts": 5,
+        "total_attempts": 5,
+        "min_startup_time": 0.23498892784118652,
+        "max_startup_time": 0.24998211860656738,
+        "startup_time_variance": 0.01499319076538086
+      }
+    },
+    {
+      "test_name": "startup_performance",
+      "container_name": "python_alpine",
+      "duration_seconds": 1.8414824962615968,
+      "memory_limit_mb": null,
+      "memory_peak_mb": 0,
+      "memory_avg_mb": 0,
+      "cpu_peak_percent": 0,
+      "cpu_avg_percent": 0,
+      "startup_time_seconds": 1.8414824962615968,
+      "cleanup_successful": true,
+      "resource_compliance": true,
+      "custom_metrics": {
+        "successful_starts": 5,
+        "total_attempts": 5,
+        "min_startup_time": 0.22903704643249512,
+        "max_startup_time": 8.24605417251587,
+        "startup_time_variance": 8.017017126083374
+      }
+    },
+    {
+      "test_name": "process_memory_optimization",
+      "container_name": "python_process",
+      "duration_seconds": 1.0634710788726807,
+      "memory_limit_mb": null,
+      "memory_peak_mb": 51.90625,
+      "memory_avg_mb": 43.1551171875,
+      "cpu_peak_percent": 0,
+      "cpu_avg_percent": 0,
+      "startup_time_seconds": 0,
+      "cleanup_successful": true,
+      "resource_compliance": true,
+      "custom_metrics": {
+        "initial_memory_mb": 22.015625,
+        "final_memory_mb": 50.89453125,
+        "memory_growth_mb": 28.87890625,
+        "memory_cleaned_up": true,
+        "chunks_processed": 100
+      }
+    }
+  ]
+}

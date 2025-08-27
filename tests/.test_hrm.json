@@ -1,0 +1,12 @@
+{
+  "history": [
+    {
+      "timestamp": "2025-08-27T09:54:42.376327",
+      "query": "Implement user authentication with JWT tokens",
+      "decision": "Design and implement new functionality with testing",
+      "confidence": 0.9,
+      "level": 0
+    }
+  ],
+  "timestamp": "2025-08-27T09:54:42.376344"
+}

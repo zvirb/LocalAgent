@@ -1,0 +1,69 @@
+# Web Services Dependencies - FastAPI, HTTP clients, and web infrastructure
+# For web services and API endpoints in UnifiedWorkflow
+# Install with: pip install -r requirements-web.txt
+
+# Core web framework
+fastapi>=0.116.0
+uvicorn[standard]>=0.32.0
+starlette>=0.47.2
+
+# HTTP clients and networking - Updated aiohttp as requested
+aiohttp>=3.11.0
+httpx[http2]>=0.28.1
+httpcore>=1.0.9
+requests>=2.32.3
+
+# HTTP/2 and WebSocket support
+h11>=0.16.0
+h2>=4.2.0
+hpack>=4.1.0
+hyperframe>=6.1.0
+websockets>=15.0.1
+
+# ASGI server optimizations
+uvloop>=0.21.0; sys_platform != "win32"
+httptools>=0.6.4
+watchfiles>=1.1.0
+
+# Request handling and file uploads
+python-multipart>=0.0.20
+urllib3>=2.5.0
+
+# Authentication and security for web services
+python-jose[cryptography]>=3.5.0
+ecdsa>=0.19.1
+rsa>=4.9.1
+pyasn1>=0.6.1
+six>=1.17.0
+
+# Background task processing
+celery>=5.3.4
+
+# API documentation and validation
+openapi-spec-validator>=0.5.0
+
+# Google Cloud APIs (for voice/cloud services)
+google-api-python-client>=2.105.0
+google-auth-httplib2>=0.2.0
+google-auth-oauthlib>=1.2.0
+google-cloud-speech>=2.21.0
+google-cloud-texttospeech>=2.16.3
+firebase-admin>=6.2.0
+
+# Message queuing
+kafka-python>=2.0.2
+
+# Unix socket communication
+requests-unixsocket>=0.3.0
+
+# Additional networking utilities
+aiodns>=3.1.1
+aiohappyeyeballs>=2.6.1
+aiosignal>=1.4.0
+
+# Graph and workflow processing
+langgraph>=0.0.69
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-core>=0.1.0
+networkx>=3.2.1

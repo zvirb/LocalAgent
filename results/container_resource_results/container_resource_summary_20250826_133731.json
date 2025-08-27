@@ -1,0 +1,16 @@
+{
+  "memory_compliance": {
+    "total_tests": 3,
+    "compliant_containers": 3,
+    "avg_memory_efficiency": 0.5998480902777777
+  },
+  "startup_performance": {
+    "total_tests": 2,
+    "avg_startup_time": 1.0422048330307008,
+    "fastest_startup": 0.2429271697998047
+  },
+  "process_optimization": {
+    "total_tests": 1,
+    "memory_cleaned_up": 1
+  }
+}

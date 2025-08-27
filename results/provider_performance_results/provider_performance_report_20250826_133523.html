@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLM Provider Performance Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #34495e; color: white; padding: 20px; border-radius: 5px; }
+        .provider { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .provider h3 { margin-top: 0; color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; }
+        .best { background-color: #d4edda; }
+        .worst { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>LLM Provider Performance Report</h1>
+        <p>Generated on: 20250826_133523</p>
+        <p>Total tests: 12</p>
+    </div>
+
+    <div class="provider">
+        <h3>Fast Provider</h3>
+        <table>
+            <tr>
+                <th>Test</th>
+                <th>Requests</th>
+                <th>Success Rate</th>
+                <th>Avg Response (ms)</th>
+                <th>P95 Response (ms)</th>
+                <th>Throughput (rps)</th>
+                <th>Error Rate</th>
+            </tr>
+            <tr>
+                <td>initialization</td>
+                <td>20</td>
+                <td>100.0%</td>
+                <td>10.18</td>
+                <td>10.30</td>
+                <td>98.2</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>completion_comparison</td>
+                <td>30</td>
+                <td>100.0%</td>
+                <td>10.17</td>
+                <td>10.23</td>
+                <td>98.3</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>concurrent_load_1</td>
+                <td>10</td>
+                <td>100.0%</td>
+                <td>10.26</td>
+                <td>10.27</td>
+                <td>957.0</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>concurrent_load_5</td>
+                <td>50</td>
+                <td>100.0%</td>
+                <td>10.49</td>
+                <td>10.51</td>
+                <td>4508.4</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>concurrent_load_10</td>
+                <td>100</td>
+                <td>100.0%</td>
+                <td>10.75</td>
+                <td>10.76</td>
+                <td>8042.5</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>concurrent_load_20</td>
+                <td>200</td>
+                <td>100.0%</td>
+                <td>11.48</td>
+                <td>11.53</td>
+                <td>15525.3</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>concurrent_load_50</td>
+                <td>500</td>
+                <td>100.0%</td>
+                <td>11.19</td>
+                <td>11.42</td>
+                <td>30972.1</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>streaming_performance</td>
+                <td>20</td>
+                <td>100.0%</td>
+                <td>50.76</td>
+                <td>50.84</td>
+                <td>19.7</td>
+                <td>0.0%</td>
+            </tr>
+        </table>
+    </div>
+    <div class="provider">
+        <h3>Slow Provider</h3>
+        <table>
+            <tr>
+                <th>Test</th>
+                <th>Requests</th>
+                <th>Success Rate</th>
+                <th>Avg Response (ms)</th>
+                <th>P95 Response (ms)</th>
+                <th>Throughput (rps)</th>
+                <th>Error Rate</th>
+            </tr>
+            <tr>
+                <td>initialization</td>
+                <td>20</td>
+                <td>100.0%</td>
+                <td>1000.98</td>
+                <td>1001.14</td>
+                <td>1.0</td>
+                <td>0.0%</td>
+            </tr>
+            <tr>
+                <td>completion_comparison</td>
+                <td>30</td>
+                <td>100.0%</td>
+                <td>1000.98</td>
+                <td>1001.12</td>
+                <td>1.0</td>
+                <td>0.0%</td>
+            </tr>
+        </table>
+    </div>
+    <div class="provider">
+        <h3>Failing Provider</h3>
+        <table>
+            <tr>
+                <th>Test</th>
+                <th>Requests</th>
+                <th>Success Rate</th>
+                <th>Avg Response (ms)</th>
+                <th>P95 Response (ms)</th>
+                <th>Throughput (rps)</th>
+                <th>Error Rate</th>
+            </tr>
+            <tr>
+                <td>initialization</td>
+                <td>20</td>
+                <td>100.0%</td>
+                <td>100.23</td>
+                <td>100.27</td>
+                <td>10.0</td>
+                <td>0.0%</td>
+            </tr>
+        </table>
+    </div>
+    <div class="provider">
+        <h3>Ultra Fast Provider</h3>
+        <table>
+            <tr>
+                <th>Test</th>
+                <th>Requests</th>
+                <th>Success Rate</th>
+                <th>Avg Response (ms)</th>
+                <th>P95 Response (ms)</th>
+                <th>Throughput (rps)</th>
+                <th>Error Rate</th>
+            </tr>
+            <tr>
+                <td>completion_comparison</td>
+                <td>30</td>
+                <td>100.0%</td>
+                <td>1.09</td>
+                <td>1.11</td>
+                <td>918.0</td>
+                <td>0.0%</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

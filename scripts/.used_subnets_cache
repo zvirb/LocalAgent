@@ -1,0 +1,7 @@
+bridge:172.17.0.0/16
+localprogramming_localagent-network:172.22.0.0/16
+songnodes_musicdb-backend:172.28.0.0/16
+songnodes_musicdb-frontend:172.18.0.0/16
+songnodes_musicdb-monitoring:172.19.0.0/16
+unifiedworkflow_ai_workflow_engine_net:172.21.0.0/16
+webdevelopment_default:172.20.0.0/16

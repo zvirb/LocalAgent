@@ -1,0 +1,113 @@
+{
+  "name": "concurrent_requests",
+  "timestamp": "20250826_132924",
+  "summary": {
+    "total_operations": 5,
+    "successful_operations": 5,
+    "failed_operations": 0,
+    "total_duration": 0.16925811767578125,
+    "avg_duration": 0.033425760269165036,
+    "min_duration": 0.033197641372680664,
+    "max_duration": 0.033638954162597656,
+    "p50_duration": 0.03348112106323242,
+    "p95_duration": 0.033638954162597656,
+    "p99_duration": 0.033638954162597656,
+    "throughput_ops_sec": 29.54068064007212,
+    "memory_peak": 135401,
+    "memory_avg": 102369,
+    "cpu_avg": 2.9699999999999998,
+    "error_rate": 0.0
+  },
+  "monitor_summary": {
+    "duration": 0.10157990455627441,
+    "samples": 2,
+    "cpu_avg": 4.9,
+    "cpu_max": 9.8,
+    "memory_avg_mb": 104.171875,
+    "memory_max_mb": 104.171875,
+    "memory_peak_tracemalloc": 0,
+    "memory_current_tracemalloc": 0
+  },
+  "individual_metrics": [
+    {
+      "operation": "concurrent_requests_seq_0",
+      "duration": 0.033638954162597656,
+      "memory_peak": 95063,
+      "memory_current": 52687,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:24.693692",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "batch_size": 50,
+        "successful_requests": 50,
+        "batch_duration": 0.033384084701538086,
+        "requests_per_second": 1497.7196603415152
+      }
+    },
+    {
+      "operation": "concurrent_requests_seq_1",
+      "duration": 0.03330683708190918,
+      "memory_peak": 91266,
+      "memory_current": 56473,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:24.727364",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "batch_size": 50,
+        "successful_requests": 50,
+        "batch_duration": 0.033005475997924805,
+        "requests_per_second": 1514.9001336367248
+      }
+    },
+    {
+      "operation": "concurrent_requests_seq_2",
+      "duration": 0.033197641372680664,
+      "memory_peak": 94570,
+      "memory_current": 58473,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:24.760877",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "batch_size": 50,
+        "successful_requests": 50,
+        "batch_duration": 0.032834529876708984,
+        "requests_per_second": 1522.7871447450586
+      }
+    },
+    {
+      "operation": "concurrent_requests_seq_3",
+      "duration": 0.03348112106323242,
+      "memory_peak": 135401,
+      "memory_current": 59617,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:24.794680",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "batch_size": 50,
+        "successful_requests": 50,
+        "batch_duration": 0.03323078155517578,
+        "requests_per_second": 1504.6290716028125
+      }
+    },
+    {
+      "operation": "concurrent_requests_seq_4",
+      "duration": 0.03350424766540527,
+      "memory_peak": 95546,
+      "memory_current": 59177,
+      "cpu_percent": 14.85,
+      "timestamp": "2025-08-26T13:29:24.828500",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "batch_size": 50,
+        "successful_requests": 50,
+        "batch_duration": 0.03314638137817383,
+        "requests_per_second": 1508.4602880036828
+      }
+    }
+  ]
+}

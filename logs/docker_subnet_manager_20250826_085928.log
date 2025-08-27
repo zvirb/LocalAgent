@@ -1,0 +1,22 @@
+2025-08-26 08:59:28,204 - __main__ - INFO - Initialized DockerSubnetManager with base_dir=., subnet_size=/16, dry_run=False
+2025-08-26 08:59:28,204 - __main__ - INFO - Generating comprehensive subnet report
+2025-08-26 08:59:28,204 - __main__ - INFO - Scanning existing Docker networks...
+2025-08-26 08:59:28,219 - __main__ - INFO - Found 9 Docker networks: ['bridge', 'host', 'localprogramming_localagent-network', 'none', 'songnodes_musicdb-backend', 'songnodes_musicdb-frontend', 'songnodes_musicdb-monitoring', 'unifiedworkflow_ai_workflow_engine_net', 'webdevelopment_default']
+2025-08-26 08:59:28,233 - __main__ - INFO - Network 'bridge' uses subnet 172.17.0.0/16
+2025-08-26 08:59:28,262 - __main__ - INFO - Network 'localprogramming_localagent-network' uses subnet 172.22.0.0/16
+2025-08-26 08:59:28,290 - __main__ - INFO - Network 'songnodes_musicdb-backend' uses subnet 172.28.0.0/16
+2025-08-26 08:59:28,305 - __main__ - INFO - Network 'songnodes_musicdb-frontend' uses subnet 172.18.0.0/16
+2025-08-26 08:59:28,318 - __main__ - INFO - Network 'songnodes_musicdb-monitoring' uses subnet 172.19.0.0/16
+2025-08-26 08:59:28,333 - __main__ - INFO - Network 'unifiedworkflow_ai_workflow_engine_net' uses subnet 172.21.0.0/16
+2025-08-26 08:59:28,346 - __main__ - INFO - Network 'webdevelopment_default' uses subnet 172.20.0.0/16
+2025-08-26 08:59:28,346 - __main__ - INFO - Total used subnets found: 7
+2025-08-26 08:59:28,346 - __main__ - INFO - Scanning for docker-compose files in /home/marku/Documents/programming/LocalProgramming...
+2025-08-26 08:59:28,461 - __main__ - INFO - Found 35 docker-compose files
+2025-08-26 08:59:28,641 - __main__ - INFO - Finding next available /16 subnet in 172.16.0.0/12
+2025-08-26 08:59:28,641 - __main__ - INFO - Found available subnet: 172.16.0.0/16
+2025-08-26 08:59:28,641 - __main__ - INFO - Finding next available /24 subnet in 172.16.0.0/12
+2025-08-26 08:59:28,645 - __main__ - INFO - Found available subnet: 172.16.0.0/24
+2025-08-26 08:59:28,645 - __main__ - INFO - Finding next available /25 subnet in 172.16.0.0/12
+2025-08-26 08:59:28,653 - __main__ - INFO - Found available subnet: 172.16.0.0/25
+2025-08-26 08:59:28,653 - __main__ - INFO - Finding next available /26 subnet in 172.16.0.0/12
+2025-08-26 08:59:28,672 - __main__ - INFO - Found available subnet: 172.16.0.0/26

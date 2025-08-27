@@ -1,0 +1,67 @@
+{
+  "tasks": [
+    {
+      "task_id": "task_62ac2a12",
+      "title": "Implement JWT authentication",
+      "description": "Add JWT-based authentication to the API",
+      "status": "in_progress",
+      "priority": "high",
+      "created_at": "2025-08-27T09:54:42.381780",
+      "updated_at": "2025-08-27T09:54:42.381815",
+      "due_date": null,
+      "completed_at": null,
+      "assigned_to": null,
+      "tags": [],
+      "dependencies": [],
+      "subtasks": [],
+      "metadata": {}
+    },
+    {
+      "task_id": "task_e0bcdb5e",
+      "title": "Write unit tests for auth",
+      "description": "Test the authentication system",
+      "status": "todo",
+      "priority": "medium",
+      "created_at": "2025-08-27T09:54:42.381797",
+      "updated_at": "2025-08-27T09:54:42.381797",
+      "due_date": null,
+      "completed_at": null,
+      "assigned_to": null,
+      "tags": [],
+      "dependencies": [
+        "task_62ac2a12"
+      ],
+      "subtasks": [],
+      "metadata": {}
+    }
+  ],
+  "history": [
+    {
+      "timestamp": "2025-08-27T09:54:42.381787",
+      "action": "create",
+      "task_id": "task_62ac2a12",
+      "details": {
+        "title": "Implement JWT authentication",
+        "priority": "high"
+      }
+    },
+    {
+      "timestamp": "2025-08-27T09:54:42.381801",
+      "action": "create",
+      "task_id": "task_e0bcdb5e",
+      "details": {
+        "title": "Write unit tests for auth",
+        "priority": "medium"
+      }
+    },
+    {
+      "timestamp": "2025-08-27T09:54:42.381817",
+      "action": "update",
+      "task_id": "task_62ac2a12",
+      "details": {
+        "status": "in_progress"
+      }
+    }
+  ],
+  "timestamp": "2025-08-27T09:54:42.381895"
+}

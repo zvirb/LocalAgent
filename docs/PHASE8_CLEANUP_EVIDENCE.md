@@ -37,9 +37,9 @@
 3. .gitignore (Git exclusions)
 4. .gitmodules (Submodule configuration)
 5. requirements.txt (Basic dependencies)
-6. requirements-production.txt (Production dependencies)
+6. config/requirements-production.txt (Production dependencies)
 7. docker-compose.yml (Container orchestration)
-8. localagent-orchestration (Executable CLI)
+8. scripts/localagent-orchestration (Executable CLI)
 9. Makefile (Build automation)
 
 ### Essential Directories (10):

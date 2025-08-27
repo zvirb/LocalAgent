@@ -1,0 +1,204 @@
+{
+  "timestamp": "20250826_133523",
+  "total_tests": 12,
+  "results": [
+    {
+      "provider_name": "fast_provider",
+      "test_name": "initialization",
+      "total_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "avg_response_time_ms": 10.183489322662354,
+      "p95_response_time_ms": 10.302305221557617,
+      "p99_response_time_ms": 10.302305221557617,
+      "throughput_rps": 98.19816845829045,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "init_success_rate": 1.0,
+        "avg_init_time_ms": 10.183489322662354
+      }
+    },
+    {
+      "provider_name": "slow_provider",
+      "test_name": "initialization",
+      "total_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "avg_response_time_ms": 1000.9765148162842,
+      "p95_response_time_ms": 1001.1382102966309,
+      "p99_response_time_ms": 1001.1382102966309,
+      "throughput_rps": 0.9990244378346245,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "init_success_rate": 1.0,
+        "avg_init_time_ms": 1000.9765148162842
+      }
+    },
+    {
+      "provider_name": "failing_provider",
+      "test_name": "initialization",
+      "total_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "avg_response_time_ms": 100.23294687271118,
+      "p95_response_time_ms": 100.26741027832031,
+      "p99_response_time_ms": 100.26741027832031,
+      "throughput_rps": 9.976759450861302,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "init_success_rate": 1.0,
+        "avg_init_time_ms": 100.23294687271118
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "completion_comparison",
+      "total_requests": 30,
+      "successful_requests": 30,
+      "failed_requests": 0,
+      "avg_response_time_ms": 10.168965657552084,
+      "p95_response_time_ms": 10.230064392089844,
+      "p99_response_time_ms": 10.249614715576172,
+      "throughput_rps": 98.33841844645626,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "avg_response_length": 19.0,
+        "response_time_std": 0.023135028207736188
+      }
+    },
+    {
+      "provider_name": "slow_provider",
+      "test_name": "completion_comparison",
+      "total_requests": 30,
+      "successful_requests": 30,
+      "failed_requests": 0,
+      "avg_response_time_ms": 1000.9786685307821,
+      "p95_response_time_ms": 1001.1169910430908,
+      "p99_response_time_ms": 1001.1210441589355,
+      "throughput_rps": 0.9990222883248666,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "avg_response_length": 30.0,
+        "response_time_std": 0.12893871045072544
+      }
+    },
+    {
+      "provider_name": "ultra_fast_provider",
+      "test_name": "completion_comparison",
+      "total_requests": 30,
+      "successful_requests": 30,
+      "failed_requests": 0,
+      "avg_response_time_ms": 1.0893503824869792,
+      "p95_response_time_ms": 1.1136531829833984,
+      "p99_response_time_ms": 1.1205673217773438,
+      "throughput_rps": 917.9782887825377,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "avg_response_length": 19.0,
+        "response_time_std": 0.013188356982333064
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "concurrent_load_1",
+      "total_requests": 10,
+      "successful_requests": 10,
+      "failed_requests": 0,
+      "avg_response_time_ms": 10.255122184753418,
+      "p95_response_time_ms": 10.269880294799805,
+      "p99_response_time_ms": 10.269880294799805,
+      "throughput_rps": 956.9918773386876,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "concurrency_level": 1,
+        "total_duration_sec": 0.010449409484863281,
+        "requests_per_concurrency": 10
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "concurrent_load_5",
+      "total_requests": 50,
+      "successful_requests": 50,
+      "failed_requests": 0,
+      "avg_response_time_ms": 10.487747192382812,
+      "p95_response_time_ms": 10.5133056640625,
+      "p99_response_time_ms": 10.522842407226562,
+      "throughput_rps": 4508.356084872197,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "concurrency_level": 5,
+        "total_duration_sec": 0.011090517044067383,
+        "requests_per_concurrency": 10
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "concurrent_load_10",
+      "total_requests": 100,
+      "successful_requests": 100,
+      "failed_requests": 0,
+      "avg_response_time_ms": 10.747475624084473,
+      "p95_response_time_ms": 10.758399963378906,
+      "p99_response_time_ms": 10.759592056274414,
+      "throughput_rps": 8042.460500076699,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "concurrency_level": 10,
+        "total_duration_sec": 0.012434005737304688,
+        "requests_per_concurrency": 10
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "concurrent_load_20",
+      "total_requests": 200,
+      "successful_requests": 200,
+      "failed_requests": 0,
+      "avg_response_time_ms": 11.482526063919067,
+      "p95_response_time_ms": 11.525630950927734,
+      "p99_response_time_ms": 11.53254508972168,
+      "throughput_rps": 15525.259105715131,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "concurrency_level": 20,
+        "total_duration_sec": 0.012882232666015625,
+        "requests_per_concurrency": 10
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "concurrent_load_50",
+      "total_requests": 500,
+      "successful_requests": 500,
+      "failed_requests": 0,
+      "avg_response_time_ms": 11.18530797958374,
+      "p95_response_time_ms": 11.420965194702148,
+      "p99_response_time_ms": 11.453628540039062,
+      "throughput_rps": 30972.102021828065,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "concurrency_level": 50,
+        "total_duration_sec": 0.0161435604095459,
+        "requests_per_concurrency": 10
+      }
+    },
+    {
+      "provider_name": "fast_provider",
+      "test_name": "streaming_performance",
+      "total_requests": 20,
+      "successful_requests": 20,
+      "failed_requests": 0,
+      "avg_response_time_ms": 50.76477527618408,
+      "p95_response_time_ms": 50.8420467376709,
+      "p99_response_time_ms": 50.8420467376709,
+      "throughput_rps": 19.698698449063016,
+      "error_rate": 0.0,
+      "custom_metrics": {
+        "avg_first_chunk_time_ms": 10.16014814376831,
+        "avg_chunk_count": 5,
+        "streaming_efficiency": 0.2001416944818993
+      }
+    }
+  ]
+}

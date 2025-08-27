@@ -1,0 +1,1733 @@
+{
+  "name": "memory_efficiency",
+  "timestamp": "20250826_132818",
+  "summary": {
+    "total_operations": 50,
+    "successful_operations": 50,
+    "failed_operations": 0,
+    "total_duration": 1.567044973373413,
+    "avg_duration": 0.031072964668273927,
+    "min_duration": 0.03068685531616211,
+    "max_duration": 0.032353878021240234,
+    "p50_duration": 0.030853748321533203,
+    "p95_duration": 0.03217196464538574,
+    "p99_duration": 0.032353878021240234,
+    "throughput_ops_sec": 31.90718891262187,
+    "memory_peak": 0,
+    "memory_avg": 0,
+    "cpu_avg": 1.292,
+    "error_rate": 0.0
+  },
+  "monitor_summary": {
+    "duration": 1.5146162509918213,
+    "samples": 16,
+    "cpu_avg": 3.09375,
+    "cpu_max": 9.9,
+    "memory_avg_mb": 101.6171875,
+    "memory_max_mb": 101.921875,
+    "memory_peak_tracemalloc": 0,
+    "memory_current_tracemalloc": 0
+  },
+  "individual_metrics": [
+    {
+      "operation": "memory_efficiency_seq_0",
+      "duration": 0.031131267547607422,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 16.0,
+      "timestamp": "2025-08-26T13:28:17.260540",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 45756,
+            "memory_current": 3805,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1368,
+            "memory_current": 776,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1336,
+            "memory_current": 744,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 48460,
+        "avg_memory_per_char": 153.06506666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_1",
+      "duration": 0.03078937530517578,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.291610",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1805,
+            "memory_current": 1213,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1176,
+            "memory_current": 584,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1176,
+            "memory_current": 584,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4157,
+        "avg_memory_per_char": 6.487066666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_2",
+      "duration": 0.030825376510620117,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.322654",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1805,
+            "memory_current": 1213,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1336,
+            "memory_current": 744,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1176,
+            "memory_current": 584,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4317,
+        "avg_memory_per_char": 6.540400000000001
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_3",
+      "duration": 0.03127145767211914,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.354175",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 44076,
+            "memory_current": 2141,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1176,
+            "memory_current": 584,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1336,
+            "memory_current": 744,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46588,
+        "avg_memory_per_char": 147.40106666666665
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_4",
+      "duration": 0.03078436851501465,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.385253",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1805,
+            "memory_current": 1213,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1176,
+            "memory_current": 584,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1176,
+            "memory_current": 584,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4157,
+        "avg_memory_per_char": 6.487066666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_5",
+      "duration": 0.030834674835205078,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.416447",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1805,
+            "memory_current": 1213,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1336,
+            "memory_current": 808,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1496,
+            "memory_current": 968,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4637,
+        "avg_memory_per_char": 6.561733333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_6",
+      "duration": 0.03134298324584961,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.448078",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1805,
+            "memory_current": 1213,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 43439,
+            "memory_current": 1504,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1392,
+            "memory_current": 864,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46636,
+        "avg_memory_per_char": 20.589133333333333
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_7",
+      "duration": 0.030786752700805664,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.479125",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1325,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_8",
+      "duration": 0.030819416046142578,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.510200",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1808,
+            "memory_current": 1400,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4957,
+        "avg_memory_per_char": 7.074800000000001
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_9",
+      "duration": 0.032353878021240234,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.542844",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 43439,
+            "memory_current": 1904,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46588,
+        "avg_memory_per_char": 9.6966
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_10",
+      "duration": 0.030853748321533203,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.573935",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_11",
+      "duration": 0.03076934814453125,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 16.2,
+      "timestamp": "2025-08-26T13:28:17.604951",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 6.936133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_12",
+      "duration": 0.031333208084106445,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.636487",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1744,
+            "memory_current": 1336,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 43439,
+            "memory_current": 2016,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 47100,
+        "avg_memory_per_char": 9.867266666666668
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_13",
+      "duration": 0.030800342559814453,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.667519",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_14",
+      "duration": 0.030838727951049805,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.698607",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 6.936133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_15",
+      "duration": 0.0319058895111084,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.730801",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_16",
+      "duration": 0.03150177001953125,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.762570",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 44156,
+            "memory_current": 2509,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1840,
+            "memory_current": 1432,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 47228,
+        "avg_memory_per_char": 147.88213333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_17",
+      "duration": 0.03087925910949707,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.793695",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 6.936133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_18",
+      "duration": 0.030747652053833008,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.824653",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_19",
+      "duration": 0.0310819149017334,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.855943",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 44228,
+            "memory_current": 2509,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46692,
+        "avg_memory_per_char": 147.91946666666666
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_20",
+      "duration": 0.030834436416625977,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 16.2,
+      "timestamp": "2025-08-26T13:28:17.886999",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 2128,
+            "memory_current": 1720,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 5277,
+        "avg_memory_per_char": 7.181466666666668
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_21",
+      "duration": 0.03090214729309082,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.918163",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_22",
+      "duration": 0.03121495246887207,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.949621",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 43439,
+            "memory_current": 1792,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46748,
+        "avg_memory_per_char": 21.485133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_23",
+      "duration": 0.03080296516418457,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:17.980685",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 6.936133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_24",
+      "duration": 0.031159400939941406,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.012139",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 760,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_25",
+      "duration": 0.03137540817260742,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.043817",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 44303,
+            "memory_current": 2784,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 47612,
+        "avg_memory_per_char": 10.287533333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_26",
+      "duration": 0.030782461166381836,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.074848",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 6.936133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_27",
+      "duration": 0.030794143676757812,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.105937",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_28",
+      "duration": 0.030874967575073242,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.137087",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 7.416133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_29",
+      "duration": 0.03217363357543945,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.169537",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 43996,
+            "memory_current": 2349,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46620,
+        "avg_memory_per_char": 147.19946666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_30",
+      "duration": 0.03077983856201172,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.200551",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_31",
+      "duration": 0.030765533447265625,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.231560",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 3101,
+            "memory_current": 2629,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 5565,
+        "avg_memory_per_char": 10.829466666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_32",
+      "duration": 0.03123021125793457,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.263064",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 43996,
+            "memory_current": 2349,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46620,
+        "avg_memory_per_char": 147.19946666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_33",
+      "duration": 0.03089284896850586,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.294250",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_34",
+      "duration": 0.031812429428100586,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.326384",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 7.416133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_35",
+      "duration": 0.03150439262390137,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.358156",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 43439,
+            "memory_current": 1952,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46588,
+        "avg_memory_per_char": 20.951800000000002
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_36",
+      "duration": 0.030789852142333984,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.389170",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_37",
+      "duration": 0.03068685531616211,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.420061",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 2416,
+            "memory_current": 2008,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 5725,
+        "avg_memory_per_char": 7.495066666666666
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_38",
+      "duration": 0.031087398529052734,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.451398",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1304,
+            "memory_current": 896,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 43399,
+            "memory_current": 1952,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46620,
+        "avg_memory_per_char": 9.717933333333333
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_39",
+      "duration": 0.030715227127075195,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.482363",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_40",
+      "duration": 0.030757665634155273,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.513355",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 7.416133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_41",
+      "duration": 0.0314176082611084,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.545039",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 43599,
+            "memory_current": 1952,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46748,
+        "avg_memory_per_char": 9.707266666666667
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_42",
+      "duration": 0.030888080596923828,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.576237",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4381,
+        "avg_memory_per_char": 6.8828000000000005
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_43",
+      "duration": 0.0308382511138916,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.607334",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 7.416133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_44",
+      "duration": 0.03080272674560547,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 16.2,
+      "timestamp": "2025-08-26T13:28:18.638415",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 2608,
+            "memory_current": 2200,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 5917,
+        "avg_memory_per_char": 7.3521333333333345
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_45",
+      "duration": 0.031560420989990234,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.670284",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 43996,
+            "memory_current": 2349,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46460,
+        "avg_memory_per_char": 147.14613333333332
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_46",
+      "duration": 0.03077864646911621,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.701380",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 7.416133333333334
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_47",
+      "duration": 0.030846357345581055,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.732533",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1392,
+            "memory_current": 984,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 6.893466666666668
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_48",
+      "duration": 0.03217196464538574,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.764980",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 1917,
+            "memory_current": 1445,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 43439,
+            "memory_current": 1792,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 46588,
+        "avg_memory_per_char": 20.951800000000002
+      }
+    },
+    {
+      "operation": "memory_efficiency_seq_49",
+      "duration": 0.030755996704101562,
+      "memory_peak": 0,
+      "memory_current": 0,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:18.795952",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "size_tests": [
+          {
+            "message_size": 100,
+            "memory_peak": 2077,
+            "memory_current": 1605,
+            "response_length": 19
+          },
+          {
+            "message_size": 1000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          },
+          {
+            "message_size": 5000,
+            "memory_peak": 1232,
+            "memory_current": 824,
+            "response_length": 19
+          }
+        ],
+        "total_peak_memory": 4541,
+        "avg_memory_per_char": 7.416133333333334
+      }
+    }
+  ]
+}

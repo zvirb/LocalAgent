@@ -1,3 +1,6 @@
 [submodule "UnifiedWorkflow"]
 	path = UnifiedWorkflow
 	url = https://github.com/zvirb/UnifiedWorkflow.git
+[submodule "libs/mangle"]
+	path = libs/mangle
+	url = https://github.com/google/mangle

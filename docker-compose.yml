@@ -1,5 +1,3 @@
-version: '3.8'
-
 # LocalAgent Multi-Provider LLM Orchestration Platform
 # Production-ready deployment with Ollama, Redis, and monitoring
 
@@ -81,7 +79,7 @@ services:
     #   - NVIDIA_VISIBLE_DEVICES=all
     
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      test: ["CMD-SHELL", "ollama list || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -185,4 +183,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
+        - subnet: 172.22.0.0/16

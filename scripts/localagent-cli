@@ -1,0 +1,26 @@
+#!/bin/bash
+"""
+LocalAgent CLI Launcher
+Activates virtual environment and runs the interactive CLI
+"""
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Activate virtual environment if it exists
+if [ -d "$PROJECT_ROOT/.venv" ]; then
+    echo "🔧 Activating virtual environment..."
+    source "$PROJECT_ROOT/.venv/bin/activate"
+fi
+
+# Check if dependencies are installed
+if ! python -c "import typer, rich, inquirerpy" 2>/dev/null; then
+    echo "⚠️  Some dependencies are missing. Installing..."
+    pip install typer[all] "rich>=14.0.0" inquirerpy cffi rapidfuzz
+fi
+
+# Run the CLI
+echo "🚀 Starting LocalAgent CLI..."
+cd "$PROJECT_ROOT"
+python localagent_cli.py "$@"

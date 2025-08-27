@@ -1,0 +1,36 @@
+[0;32m[INFO][0m Starting Docker Subnet Manager
+[0;32m[INFO][0m Base directory: .
+[0;32m[INFO][0m Default subnet size: /16
+[0;32m[INFO][0m Dry run mode: false
+[0;33m[WARN][0m Missing optional tools: yq
+[0;33m[WARN][0m Some features may not be available
+[0;33m[WARN][0m Install with: sudo apt-get install yq (Ubuntu/Debian)
+[0;33m[WARN][0m Or: brew install yq (macOS)
+[0;32m[INFO][0m Scanning existing Docker networks...
+[0;34m[DEBUG][0m Docker check passed
+[0;34m[DEBUG][0m Found 9 Docker networks
+[0;34m[DEBUG][0m Inspecting network: bridge
+[0;34m[DEBUG][0m Network bridge uses subnet 172.17.0.0/16
+[0;34m[DEBUG][0m Inspecting network: host
+[0;34m[DEBUG][0m Inspecting network: localprogramming_localagent-network
+[0;34m[DEBUG][0m Network localprogramming_localagent-network uses subnet 172.22.0.0/16
+[0;34m[DEBUG][0m Inspecting network: none
+[0;34m[DEBUG][0m Inspecting network: songnodes_musicdb-backend
+[0;34m[DEBUG][0m Network songnodes_musicdb-backend uses subnet 172.28.0.0/16
+[0;34m[DEBUG][0m Inspecting network: songnodes_musicdb-frontend
+[0;34m[DEBUG][0m Network songnodes_musicdb-frontend uses subnet 172.18.0.0/16
+[0;34m[DEBUG][0m Inspecting network: songnodes_musicdb-monitoring
+[0;34m[DEBUG][0m Network songnodes_musicdb-monitoring uses subnet 172.19.0.0/16
+[0;34m[DEBUG][0m Inspecting network: unifiedworkflow_ai_workflow_engine_net
+[0;34m[DEBUG][0m Network unifiedworkflow_ai_workflow_engine_net uses subnet 172.21.0.0/16
+[0;34m[DEBUG][0m Inspecting network: webdevelopment_default
+[0;34m[DEBUG][0m Network webdevelopment_default uses subnet 172.20.0.0/16
+[0;32m[INFO][0m Found 7 networks using managed subnets:
+[0;32m[INFO][0m   • bridge: 172.17.0.0/16
+[0;32m[INFO][0m   • localprogramming_localagent-network: 172.22.0.0/16
+[0;32m[INFO][0m   • songnodes_musicdb-backend: 172.28.0.0/16
+[0;32m[INFO][0m   • songnodes_musicdb-frontend: 172.18.0.0/16
+[0;32m[INFO][0m   • songnodes_musicdb-monitoring: 172.19.0.0/16
+[0;32m[INFO][0m   • unifiedworkflow_ai_workflow_engine_net: 172.21.0.0/16
+[0;32m[INFO][0m   • webdevelopment_default: 172.20.0.0/16
+[0;32m[INFO][0m Docker Subnet Manager completed

@@ -1,0 +1,733 @@
+{
+  "name": "completion_latency",
+  "timestamp": "20250826_132921",
+  "summary": {
+    "total_operations": 50,
+    "successful_operations": 50,
+    "failed_operations": 0,
+    "total_duration": 50.054936170578,
+    "avg_duration": 1.0008160400390624,
+    "min_duration": 1.0002360343933105,
+    "max_duration": 1.0038268566131592,
+    "p50_duration": 1.0007309913635254,
+    "p95_duration": 1.0013353824615479,
+    "p99_duration": 1.0038268566131592,
+    "throughput_ops_sec": 0.9989024824566594,
+    "memory_peak": 50583,
+    "memory_avg": 46896,
+    "cpu_avg": 0.22,
+    "error_rate": 0.0
+  },
+  "monitor_summary": {
+    "duration": 50.01466226577759,
+    "samples": 498,
+    "cpu_avg": 0.47730923694779115,
+    "cpu_max": 10.0,
+    "memory_avg_mb": 103.671875,
+    "memory_max_mb": 103.671875,
+    "memory_peak_tracemalloc": 0,
+    "memory_current_tracemalloc": 0
+  },
+  "individual_metrics": [
+    {
+      "operation": "completion_latency_seq_0",
+      "duration": 1.0005793571472168,
+      "memory_peak": 46848,
+      "memory_current": 4689,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:32.744556",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_1",
+      "duration": 1.0013353824615479,
+      "memory_peak": 45975,
+      "memory_current": 3816,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:33.746203",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_2",
+      "duration": 1.0006258487701416,
+      "memory_peak": 46039,
+      "memory_current": 3880,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:34.747102",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_3",
+      "duration": 1.000669240951538,
+      "memory_peak": 46103,
+      "memory_current": 3944,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:35.748026",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_4",
+      "duration": 1.0012812614440918,
+      "memory_peak": 46839,
+      "memory_current": 4680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:36.749611",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_5",
+      "duration": 1.0006284713745117,
+      "memory_peak": 46935,
+      "memory_current": 4776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:37.750472",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_6",
+      "duration": 1.0008420944213867,
+      "memory_peak": 47223,
+      "memory_current": 5064,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:38.751537",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_7",
+      "duration": 1.0004332065582275,
+      "memory_peak": 47159,
+      "memory_current": 5000,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:39.752252",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_8",
+      "duration": 1.0008251667022705,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:40.753426",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_9",
+      "duration": 1.000730037689209,
+      "memory_peak": 47287,
+      "memory_current": 5128,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:41.754434",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_10",
+      "duration": 1.0002853870391846,
+      "memory_peak": 47447,
+      "memory_current": 5288,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:42.754973",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_11",
+      "duration": 1.0005593299865723,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:43.755786",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_12",
+      "duration": 1.0005550384521484,
+      "memory_peak": 47607,
+      "memory_current": 5448,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:44.756580",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_13",
+      "duration": 1.0002360343933105,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:45.757068",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_14",
+      "duration": 1.0010638236999512,
+      "memory_peak": 48055,
+      "memory_current": 5896,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:46.758401",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_15",
+      "duration": 1.0006592273712158,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:47.759446",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_16",
+      "duration": 1.0015101432800293,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:48.761235",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_17",
+      "duration": 1.0007457733154297,
+      "memory_peak": 48023,
+      "memory_current": 5864,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:49.762250",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_18",
+      "duration": 1.0004818439483643,
+      "memory_peak": 46391,
+      "memory_current": 4264,
+      "cpu_percent": 1.0,
+      "timestamp": "2025-08-26T13:28:50.762911",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_19",
+      "duration": 1.001006841659546,
+      "memory_peak": 46167,
+      "memory_current": 4008,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:51.764210",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_20",
+      "duration": 1.0010440349578857,
+      "memory_peak": 48191,
+      "memory_current": 6032,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:52.765519",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_21",
+      "duration": 1.0012357234954834,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:53.767030",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_22",
+      "duration": 1.0012803077697754,
+      "memory_peak": 46743,
+      "memory_current": 4584,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:54.768605",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_23",
+      "duration": 1.000749111175537,
+      "memory_peak": 48567,
+      "memory_current": 6408,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:55.769644",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_24",
+      "duration": 1.0012211799621582,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:56.771125",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_25",
+      "duration": 1.0003042221069336,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:57.771662",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_26",
+      "duration": 1.0007679462432861,
+      "memory_peak": 46423,
+      "memory_current": 6728,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:28:58.772684",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_27",
+      "duration": 1.0004322528839111,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:28:59.773375",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_28",
+      "duration": 1.0003056526184082,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:00.773908",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_29",
+      "duration": 1.0008885860443115,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:01.775036",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_30",
+      "duration": 1.000983715057373,
+      "memory_peak": 46839,
+      "memory_current": 7496,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:02.776302",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_31",
+      "duration": 1.0038268566131592,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:03.780492",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_32",
+      "duration": 1.0006535053253174,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:04.781409",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_33",
+      "duration": 1.0007309913635254,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:05.782439",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_34",
+      "duration": 1.0012094974517822,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 1.0,
+      "timestamp": "2025-08-26T13:29:06.783931",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_35",
+      "duration": 1.0009808540344238,
+      "memory_peak": 49623,
+      "memory_current": 7464,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:07.785190",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_36",
+      "duration": 1.0005884170532227,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:08.786006",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_37",
+      "duration": 1.0008034706115723,
+      "memory_peak": 46167,
+      "memory_current": 4008,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:09.787069",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_38",
+      "duration": 1.001075029373169,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:10.788539",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_39",
+      "duration": 1.0003840923309326,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:11.789193",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_40",
+      "duration": 1.0003676414489746,
+      "memory_peak": 50071,
+      "memory_current": 7912,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:12.789859",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_41",
+      "duration": 1.0003623962402344,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:13.790634",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_42",
+      "duration": 1.0004050731658936,
+      "memory_peak": 46935,
+      "memory_current": 4776,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:14.791395",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_43",
+      "duration": 1.0006077289581299,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:15.792242",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_44",
+      "duration": 1.0006489753723145,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:16.793223",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_45",
+      "duration": 1.0009644031524658,
+      "memory_peak": 50583,
+      "memory_current": 8424,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:17.794463",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_46",
+      "duration": 1.0003564357757568,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:18.795083",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_47",
+      "duration": 1.0011303424835205,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:19.796450",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_48",
+      "duration": 1.0003688335418701,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.5,
+      "timestamp": "2025-08-26T13:29:20.797053",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    },
+    {
+      "operation": "completion_latency_seq_49",
+      "duration": 1.0010712146759033,
+      "memory_peak": 46423,
+      "memory_current": 4264,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:29:21.798400",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "response_length": 30,
+        "usage_tokens": 200
+      }
+    }
+  ]
+}

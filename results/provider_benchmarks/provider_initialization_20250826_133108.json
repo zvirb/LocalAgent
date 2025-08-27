@@ -1,0 +1,683 @@
+{
+  "name": "provider_initialization",
+  "timestamp": "20250826_133108",
+  "summary": {
+    "total_operations": 50,
+    "successful_operations": 50,
+    "failed_operations": 0,
+    "total_duration": 0.06401252746582031,
+    "avg_duration": 0.0011534643173217772,
+    "min_duration": 0.0011191368103027344,
+    "max_duration": 0.0013763904571533203,
+    "p50_duration": 0.0011417865753173828,
+    "p95_duration": 0.001251220703125,
+    "p99_duration": 0.0013763904571533203,
+    "throughput_ops_sec": 781.0971067608235,
+    "memory_peak": 46725,
+    "memory_avg": 3389,
+    "cpu_avg": 8.496,
+    "error_rate": 0.0
+  },
+  "monitor_summary": {
+    "duration": 0.0,
+    "samples": 1,
+    "cpu_avg": 0.0,
+    "cpu_max": 0.0,
+    "memory_avg_mb": 109.97265625,
+    "memory_max_mb": 109.97265625,
+    "memory_peak_tracemalloc": 0,
+    "memory_current_tracemalloc": 0
+  },
+  "individual_metrics": [
+    {
+      "operation": "provider_initialization_seq_0",
+      "duration": 0.0013763904571533203,
+      "memory_peak": 46725,
+      "memory_current": 3542,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.003141",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_1",
+      "duration": 0.0011546611785888672,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.004417",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_2",
+      "duration": 0.0011386871337890625,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.005667",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_3",
+      "duration": 0.0011317729949951172,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.006902",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_4",
+      "duration": 0.0011353492736816406,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.008140",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_5",
+      "duration": 0.0011303424835205078,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.009370",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_6",
+      "duration": 0.0011391639709472656,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.010622",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_7",
+      "duration": 0.0011968612670898438,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.011978",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_8",
+      "duration": 0.001155853271484375,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.013263",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_9",
+      "duration": 0.0011348724365234375,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.014562",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_10",
+      "duration": 0.0011489391326904297,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.015828",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_11",
+      "duration": 0.0011284351348876953,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.017056",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_12",
+      "duration": 0.0011227130889892578,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.018286",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_13",
+      "duration": 0.00113677978515625,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.019545",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_14",
+      "duration": 0.0011475086212158203,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.020812",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_15",
+      "duration": 0.0011484622955322266,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.022083",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_16",
+      "duration": 0.0011298656463623047,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.023316",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_17",
+      "duration": 0.001140594482421875,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.024568",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_18",
+      "duration": 0.0011339187622070312,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.025807",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_19",
+      "duration": 0.001142740249633789,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.027067",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_20",
+      "duration": 0.001150369644165039,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.028360",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_21",
+      "duration": 0.0011298656463623047,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.029602",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_22",
+      "duration": 0.0011441707611083984,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.030850",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_23",
+      "duration": 0.0011355876922607422,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.032091",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_24",
+      "duration": 0.0011487007141113281,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.033357",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_25",
+      "duration": 0.0011391639709472656,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.034606",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_26",
+      "duration": 0.0011281967163085938,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.035833",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_27",
+      "duration": 0.0011680126190185547,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.037139",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_28",
+      "duration": 0.0012881755828857422,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.038610",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_29",
+      "duration": 0.001157999038696289,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.039897",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_30",
+      "duration": 0.0011601448059082031,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.041191",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_31",
+      "duration": 0.0011594295501708984,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.042494",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_32",
+      "duration": 0.0011324882507324219,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.043730",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_33",
+      "duration": 0.0011391639709472656,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.044985",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_34",
+      "duration": 0.0011448860168457031,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.046252",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_35",
+      "duration": 0.0011785030364990234,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.047571",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_36",
+      "duration": 0.0011548995971679688,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.048891",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_37",
+      "duration": 0.0011415481567382812,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.050149",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_38",
+      "duration": 0.0011191368103027344,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.051389",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_39",
+      "duration": 0.001123189926147461,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.052608",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_40",
+      "duration": 0.0011417865753173828,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.053865",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_41",
+      "duration": 0.0011403560638427734,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.055123",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_42",
+      "duration": 0.0011491775512695312,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.056386",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_43",
+      "duration": 0.0011506080627441406,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.057667",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_44",
+      "duration": 0.0011372566223144531,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 424.8,
+      "timestamp": "2025-08-26T13:31:08.058917",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_45",
+      "duration": 0.0011279582977294922,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.060142",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_46",
+      "duration": 0.001251220703125,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.061506",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_47",
+      "duration": 0.00115203857421875,
+      "memory_peak": 2632,
+      "memory_current": 680,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.062777",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_48",
+      "duration": 0.00113677978515625,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.064019",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    },
+    {
+      "operation": "provider_initialization_seq_49",
+      "duration": 0.0011684894561767578,
+      "memory_peak": 2472,
+      "memory_current": 520,
+      "cpu_percent": 0.0,
+      "timestamp": "2025-08-26T13:31:08.065329",
+      "success": true,
+      "error": null,
+      "custom_metrics": {
+        "success": true
+      }
+    }
+  ]
+}

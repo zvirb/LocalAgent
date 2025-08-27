@@ -1,0 +1,5 @@
+# Requirements for atomic operations module
+aiofiles>=23.0.0
+rich>=13.0.0
+pyyaml>=6.0
+jsonschema>=4.0.0  # Optional, for schema validation

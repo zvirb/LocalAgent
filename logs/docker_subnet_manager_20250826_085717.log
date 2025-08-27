@@ -1,0 +1,6 @@
+2025-08-26 08:57:17,425 - __main__ - INFO - Initialized DockerSubnetManager with base_dir=., subnet_size=/16, dry_run=False
+2025-08-26 08:57:17,426 - __main__ - INFO - Generating comprehensive subnet report
+2025-08-26 08:57:17,426 - __main__ - INFO - Scanning existing Docker networks...
+2025-08-26 08:57:17,440 - __main__ - INFO - Found 9 Docker networks: ['bridge', 'host', 'localprogramming_localagent-network', 'none', 'songnodes_musicdb-backend', 'songnodes_musicdb-frontend', 'songnodes_musicdb-monitoring', 'unifiedworkflow_ai_workflow_engine_net', 'webdevelopment_default']
+2025-08-26 08:57:17,454 - __main__ - INFO - Network 'bridge' uses subnet 172.17.0.0/16
+2025-08-26 08:57:17,467 - root - ERROR - Unexpected error: 'NoneType' object is not iterable
