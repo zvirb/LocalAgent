@@ -16,6 +16,9 @@ anthropic>=0.3.0  # For future Claude integration
 cryptography>=41.0.0
 keyring>=24.0.0
 
+# MCP servers
+computer-control-mcp>=0.3.0
+
 # Development
 pytest>=7.0.0
 pytest-asyncio>=0.21.0
