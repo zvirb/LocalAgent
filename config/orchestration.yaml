@@ -18,6 +18,8 @@ mcp:
   redis:
     redis_url: redis://localhost:6379
   memory: {}
+  computer_control:
+    command: computer-control-mcp
 
 providers:
   ollama:

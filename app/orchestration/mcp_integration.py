@@ -330,6 +330,36 @@ class RedisMCP:
         except Exception as e:
             return {'healthy': False, 'error': str(e)}
 
+
+class ComputerControlMCP:
+    """Manage external computer-control-mcp server"""
+
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        self.process: Optional[asyncio.subprocess.Process] = None
+        self.logger = logging.getLogger(__name__)
+
+    async def start(self) -> bool:
+        command = self.config.get('command', 'computer-control-mcp')
+        args = self.config.get('args', [])
+        try:
+            self.process = await asyncio.create_subprocess_exec(
+                command, *args,
+                stdout=asyncio.subprocess.DEVNULL,
+                stderr=asyncio.subprocess.DEVNULL,
+            )
+            self.logger.info('Computer Control MCP server started')
+            return True
+        except Exception as e:
+            self.logger.error(f'Failed to start Computer Control MCP: {e}')
+            return False
+
+    async def stop(self) -> None:
+        if self.process:
+            self.process.terminate()
+            await self.process.wait()
+            self.logger.info('Computer Control MCP server stopped')
+
 class OrchestrationMCP:
     """
     Orchestration MCP for workflow management and agent coordination

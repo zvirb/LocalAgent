@@ -113,6 +113,12 @@ localagent providers
 - Provides search-grounded responses
 - Includes citations and sources
 
+### Computer Control MCP
+- Optional [computer-control-mcp](https://github.com/AB498/computer-control-mcp) server for mouse and keyboard automation
+- Install with `pip install computer-control-mcp`
+- Start the server with `computer-control-mcp`
+- Configure `mcp.computer_control` in `config/orchestration.yaml`
+
 ## Architecture
 
 LocalAgent is built on the UnifiedWorkflow orchestration system, providing:

@@ -57,6 +57,7 @@ jupyter>=1.0.0
 # MCP integration
 websockets>=11.0.0
 jsonschema>=4.17.0
+computer-control-mcp>=0.3.0
 
 # Token counting
 tiktoken>=0.5.0

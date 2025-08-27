@@ -5,7 +5,7 @@ Complete 12-phase workflow execution system with agent orchestration
 
 from .agent_adapter import AgentProviderAdapter, AgentRequest, AgentResponse
 from .workflow_engine import WorkflowEngine, WorkflowExecution, PhaseStatus
-from .mcp_integration import OrchestrationMCP, MemoryMCP, RedisMCP
+from .mcp_integration import OrchestrationMCP, MemoryMCP, RedisMCP, ComputerControlMCP
 from .context_manager import ContextManager, ContextPackage, TokenCounter
 from .orchestration_integration import LocalAgentOrchestrator, create_orchestrator
 from .cli_interface import LocalAgentCLI, main as cli_main
@@ -32,6 +32,7 @@ __all__ = [
     # MCP components
     "MemoryMCP",
     "RedisMCP",
+    "ComputerControlMCP",
     
     # Utilities
     "TokenCounter",
