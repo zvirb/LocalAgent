@@ -6,7 +6,7 @@ Extensible plugin system with entry points and dynamic loading
 import asyncio
 import importlib
 import importlib.util
-import pkg_resources
+from importlib.metadata import entry_points, distributions
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Type, Union
@@ -201,7 +201,10 @@ class PluginManager:
         """Discover plugins through setuptools entry points"""
         for group_name in self.entry_point_groups:
             try:
-                for entry_point in pkg_resources.iter_entry_points(group_name):
+                # Use importlib.metadata instead of pkg_resources
+                eps = entry_points()
+                group_eps = eps.get(group_name, []) if hasattr(eps, 'get') else getattr(eps, group_name, [])
+                for entry_point in group_eps:
                     try:
                         plugin_class = entry_point.load()
                         
@@ -279,9 +282,9 @@ class PluginManager:
         except Exception as e:
             console.print(f"[red]Error loading plugin from {plugin_file}: {e}[/red]")
     
-    async def load_enabled_plugins(self) -> None:
+    async def load_plugins(self) -> None:
         """Load all enabled plugins"""
-        if self.context.config.plugins.auto_load_plugins:
+        if hasattr(self.context.config.plugins, 'auto_load_plugins') and self.context.config.plugins.auto_load_plugins:
             enabled_plugins = [
                 name for name, info in self.discovered_plugins.items() 
                 if info.enabled
@@ -298,6 +301,10 @@ class PluginManager:
                 console.print(f"[green]✓[/green] Loaded plugin: {plugin_name}")
             else:
                 console.print(f"[red]✗[/red] Failed to load plugin: {plugin_name}")
+    
+    async def load_enabled_plugins(self) -> None:
+        """Alias for load_plugins for backwards compatibility"""
+        await self.load_plugins()
     
     def _resolve_plugin_dependencies(self, plugin_names: List[str]) -> List[str]:
         """Resolve plugin loading order based on dependencies"""
@@ -331,6 +338,10 @@ class PluginManager:
                 break
         
         return resolved
+    
+    async def _load_plugin(self, plugin_name: str) -> bool:
+        """Internal method to load a plugin (used by hot reload)"""
+        return await self.load_plugin(plugin_name)
     
     async def load_plugin(self, plugin_name: str) -> bool:
         """Load a specific plugin"""
@@ -384,6 +395,13 @@ class PluginManager:
         except Exception as e:
             console.print(f"[red]Failed to unload plugin '{plugin_name}': {e}[/red]")
             return False
+    
+    async def cleanup_plugins(self) -> None:
+        """Cleanup all loaded plugins"""
+        plugin_names = list(self.loaded_plugins.keys())
+        for plugin_name in plugin_names:
+            await self.unload_plugin(plugin_name)
+        console.print(f"[green]Cleaned up {len(plugin_names)} plugins[/green]")
     
     async def enable_plugin(self, plugin_name: str) -> bool:
         """Enable a plugin"""
@@ -538,7 +556,8 @@ class PluginManager:
             builtin_plugins = [
                 ('system-info', 'SystemInfoPlugin'),
                 ('workflow-debug', 'WorkflowDebugPlugin'), 
-                ('config-manager', 'ConfigurationPlugin')
+                ('config-manager', 'ConfigurationPlugin'),
+                ('shell', 'ShellCommandPlugin')
             ]
             
             for plugin_name, class_name in builtin_plugins:

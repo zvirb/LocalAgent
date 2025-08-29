@@ -102,7 +102,7 @@ def workflow(
     parallel: bool = typer.Option(True, "--parallel/--sequential", help="Run agents in parallel"),
     max_agents: int = typer.Option(10, "--max-agents", help="Maximum parallel agents"),
 ):
-    """⚡ Execute 12-phase UnifiedWorkflow"""
+    """⚡ Execute 12-phase workflow"""
     console.print(f"\n[bold blue]🔄 Executing Workflow:[/bold blue] {prompt}")
     console.print(f"[cyan]Provider:[/cyan] {format_provider(provider)}")
     console.print(f"[cyan]Parallel:[/cyan] {'✓' if parallel else '✗'}")

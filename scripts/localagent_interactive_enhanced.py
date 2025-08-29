@@ -496,7 +496,7 @@ User question: {prompt}
                     "prompt": context_prompt,
                     "stream": False
                 },
-                timeout=60
+                timeout=180  # Increased timeout for complex prompts
             )
             
             if response.status_code == 200:

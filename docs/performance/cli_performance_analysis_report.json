@@ -1,0 +1,140 @@
+{
+  "analysis_timestamp": "2025-08-27T21:53:48.415407",
+  "system_info": {
+    "cpu_count": 16,
+    "cpu_freq": {
+      "current": 3768.4470625000004,
+      "min": 1097.0,
+      "max": 4553.0
+    },
+    "memory_total": 16573624320,
+    "memory_available": 4866940928,
+    "disk_io": {
+      "read_count": 3576626,
+      "write_count": 29327960,
+      "read_bytes": 52237452800,
+      "write_bytes": 1050458219520,
+      "read_time": 1638058,
+      "write_time": 1027693837,
+      "read_merged_count": 141451,
+      "write_merged_count": 2488136,
+      "busy_time": 7380021
+    },
+    "python_version": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+    "platform": "linux"
+  },
+  "performance_areas": {
+    "plugin_loading": {
+      "error": "No module named 'typer'",
+      "traceback": "Traceback (most recent call last):\n  File \"/media/marku/Ubuntu-Extra1/programming/LocalProgramming/scripts/comprehensive_cli_performance_analysis.py\", line 95, in _benchmark_plugin_loading\n    spec.loader.exec_module(plugin_module)\n  File \"<frozen importlib._bootstrap_external>\", line 995, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/media/marku/Ubuntu-Extra1/programming/LocalProgramming/app/cli/plugins/framework.py\", line 13, in <module>\n    import typer\nModuleNotFoundError: No module named 'typer'\n"
+    },
+    "websocket_performance": {
+      "connection_overhead": {
+        "connection_attempts": 5,
+        "successful_connections": 5,
+        "avg_connection_time_ms": 4.186815397406463,
+        "connection_errors": []
+      },
+      "message_throughput": {
+        "messages_sent": 1000,
+        "total_time_ms": 1140.145121004025,
+        "messages_per_second": 877.0813307690064,
+        "avg_latency_ms": 1.140145121004025
+      },
+      "performance_grade": "poor",
+      "note": "Simulated - actual WebSocket libraries not available"
+    },
+    "memory_usage": {
+      "initial_memory_mb": 31.65625,
+      "final_memory_mb": 31.65625,
+      "memory_growth_mb": 0.0,
+      "max_memory_mb": 31.65625,
+      "leak_detected": false,
+      "snapshots_count": 10,
+      "performance_grade": "excellent"
+    },
+    "file_io_operations": {
+      "avg_file_creation_ms": 0.08402444960665889,
+      "avg_file_reading_ms": 0.053001100168330595,
+      "avg_atomic_operation_ms": 0.08283919960376807,
+      "files_per_second_write": 11901.297832729279,
+      "files_per_second_read": 18867.532878072663,
+      "performance_grade": "excellent"
+    },
+    "redis_connection_pooling": {
+      "connection_attempts": 5,
+      "successful_connections": 5,
+      "avg_connection_time_ms": 5.207774598966353,
+      "avg_operation_time_ms": 2.205242599302437,
+      "operations_per_second": 453.464847956556,
+      "performance_grade": "good",
+      "note": "Simulated - actual Redis not available"
+    },
+    "subprocess_execution": {
+      "avg_simple_command_ms": 1.205767500505317,
+      "avg_complex_command_ms": 6.492255799821578,
+      "avg_async_command_ms": 1.1611597990849987,
+      "commands_per_second_sync": 829.3472826070671,
+      "commands_per_second_async": 861.2079067739052,
+      "performance_grade": "excellent"
+    },
+    "error_handling_overhead": {
+      "avg_normal_execution_ns": 0.7174450365710072,
+      "avg_exception_handling_ns": 1.9589690054999667,
+      "avg_actual_exception_ms": 0.0014539998664986342,
+      "overhead_percentage": 173.04795568211904,
+      "performance_grade": "poor"
+    },
+    "configuration_loading": {
+      "avg_json_parsing_us": 12.50282306864392,
+      "avg_file_loading_ms": 0.04538053006399423,
+      "configs_per_second_parse": 79981.93644025244,
+      "configs_per_second_load": 22035.881876871663,
+      "performance_grade": "excellent"
+    },
+    "logging_performance": {
+      "avg_sync_logging_us": 18.51444198837271,
+      "avg_async_logging_ms": 1.1667892996774754,
+      "logs_per_second_sync": 54011.88977923353,
+      "high_freq_logs_per_second": 346601.1683049489,
+      "performance_grade": "excellent"
+    },
+    "resource_cleanup": {
+      "avg_resource_creation_ms": 3.521324870089302,
+      "avg_cleanup_time_ms": 7.883401849976508,
+      "object_growth": 0,
+      "gc_collection_time_ms": 5.769191004219465,
+      "objects_collected": 0,
+      "performance_grade": "excellent"
+    }
+  },
+  "optimization_recommendations": [
+    {
+      "area": "websocket_performance",
+      "priority": "high",
+      "recommendations": [
+        "Implement message batching",
+        "Use connection pooling for WebSocket connections"
+      ]
+    },
+    {
+      "area": "redis_connection_pooling",
+      "priority": "medium",
+      "recommendations": []
+    },
+    {
+      "area": "error_handling_overhead",
+      "priority": "high",
+      "recommendations": []
+    }
+  ],
+  "scalability_assessment": {
+    "bottlenecks": [
+      "websocket_performance",
+      "error_handling_overhead"
+    ],
+    "capacity_projections": {},
+    "scalability_grade": "good"
+  },
+  "total_analysis_time": 2.9827818870544434
+}

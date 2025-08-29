@@ -1,5 +1,5 @@
 """
-CLI Interface for LocalAgent + UnifiedWorkflow Orchestration
+CLI Interface for LocalAgent Orchestration
 Provides command-line interface for workflow execution and agent management
 """
 
@@ -39,7 +39,7 @@ class LocalAgentCLI:
     def create_parser(self) -> argparse.ArgumentParser:
         """Create the main argument parser"""
         parser = argparse.ArgumentParser(
-            description='LocalAgent + UnifiedWorkflow Orchestration CLI',
+            description='LocalAgent Orchestration CLI',
             epilog='Example: localagent workflow "Fix authentication system"'
         )
         
@@ -65,7 +65,7 @@ class LocalAgentCLI:
         # Workflow command
         workflow_parser = subparsers.add_parser(
             'workflow',
-            help='Execute 12-phase UnifiedWorkflow'
+            help='Execute 12-phase workflow'
         )
         workflow_parser.add_argument(
             'prompt',

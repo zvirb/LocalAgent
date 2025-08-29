@@ -1,0 +1,88 @@
+# LocalAgent CLI with Autocomplete Feature
+# Multi-stage build for optimized image size
+
+FROM python:3.11-slim as builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /build
+
+# Copy requirements files
+COPY requirements.txt requirements-autocomplete.txt ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip wheel --no-cache-dir --no-deps --wheel-dir /build/wheels -r requirements.txt && \
+    pip wheel --no-cache-dir --no-deps --wheel-dir /build/wheels -r requirements-autocomplete.txt
+
+# Final stage
+FROM python:3.11-slim
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    # Terminal support for autocomplete
+    ncurses-base \
+    ncurses-bin \
+    # Git for version control commands
+    git \
+    # Process management
+    tini \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN groupadd -r localagent && \
+    useradd -r -g localagent -m -d /home/localagent localagent
+
+# Set working directory
+WORKDIR /app
+
+# Copy wheels from builder
+COPY --from=builder /build/wheels /wheels
+
+# Install Python packages
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir --no-index --find-links /wheels /wheels/* && \
+    rm -rf /wheels
+
+# Copy application code
+COPY --chown=localagent:localagent app/ ./app/
+COPY --chown=localagent:localagent scripts/ ./scripts/
+COPY --chown=localagent:localagent config/ ./config/
+COPY --chown=localagent:localagent templates/ ./templates/
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /home/localagent/.localagent \
+             /home/localagent/.localagent/autocomplete \
+             /app/logs \
+             /app/.cache && \
+    chown -R localagent:localagent /home/localagent/.localagent /app/logs /app/.cache
+
+# Set environment variables for autocomplete
+ENV LOCALAGENT_HOME=/home/localagent/.localagent \
+    LOCALAGENT_AUTOCOMPLETE_ENABLED=true \
+    LOCALAGENT_AUTOCOMPLETE_ENCRYPT=true \
+    LOCALAGENT_AUTOCOMPLETE_MAX_HISTORY=10000 \
+    LOCALAGENT_AUTOCOMPLETE_FUZZY=true \
+    LOCALAGENT_AUTOCOMPLETE_FUZZY_THRESHOLD=0.6 \
+    PYTHONUNBUFFERED=1 \
+    TERM=xterm-256color
+
+# Copy autocomplete configuration template
+COPY --chown=localagent:localagent docker/config/autocomplete_config.yaml /home/localagent/.localagent/
+
+# Switch to non-root user
+USER localagent
+
+# Initialize autocomplete on first run
+RUN python scripts/setup_autocomplete.py --docker-mode || true
+
+# Set up entrypoint
+ENTRYPOINT ["tini", "--"]
+
+# Default command - interactive CLI
+CMD ["python", "-m", "app.cli"]

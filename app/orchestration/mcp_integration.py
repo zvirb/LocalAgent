@@ -1,5 +1,5 @@
 """
-MCP (Model Context Protocol) Integration for LocalAgent + UnifiedWorkflow
+MCP (Model Context Protocol) Integration for LocalAgent
 Provides Memory MCP, Redis MCP, and Orchestration MCP server connections
 """
 

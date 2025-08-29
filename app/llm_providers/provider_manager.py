@@ -19,24 +19,45 @@ class ProviderManager:
         
     async def initialize_providers(self):
         """Initialize all configured providers"""
+        # Convert ProviderConfig objects to dicts if needed
+        providers_config = {}
+        if hasattr(self.config, 'items'):
+            for key, value in self.config.items():
+                if hasattr(value, 'model_dump'):
+                    providers_config[key] = value.model_dump()
+                else:
+                    providers_config[key] = value
+        else:
+            providers_config = self.config
+            
         # Initialize Ollama (always available)
-        ollama_config = self.config.get('ollama', {'base_url': 'http://localhost:11434'})
+        ollama_config = providers_config.get('ollama', {'base_url': 'http://localhost:11434'})
         self.providers['ollama'] = OllamaProvider(ollama_config)
         
         # Initialize OpenAI if configured
-        if 'openai' in self.config and self.config['openai'].get('api_key'):
+        if 'openai' in providers_config and providers_config['openai'].get('api_key'):
             from .openai_provider import OpenAIProvider
-            self.providers['openai'] = OpenAIProvider(self.config['openai'])
+            self.providers['openai'] = OpenAIProvider(providers_config['openai'])
         
         # Initialize Gemini if configured
-        if 'gemini' in self.config and self.config['gemini'].get('api_key'):
+        if 'gemini' in providers_config and providers_config['gemini'].get('api_key'):
             from .gemini_provider import GeminiProvider
-            self.providers['gemini'] = GeminiProvider(self.config['gemini'])
+            self.providers['gemini'] = GeminiProvider(providers_config['gemini'])
         
         # Initialize Perplexity if configured
-        if 'perplexity' in self.config and self.config['perplexity'].get('api_key'):
+        if 'perplexity' in providers_config and providers_config['perplexity'].get('api_key'):
             from .perplexity_provider import PerplexityProvider
-            self.providers['perplexity'] = PerplexityProvider(self.config['perplexity'])
+            self.providers['perplexity'] = PerplexityProvider(providers_config['perplexity'])
+
+        # Initialize Foo (example provider) if explicitly enabled
+        if 'foo' in providers_config and providers_config['foo'].get('enabled'):
+            try:
+                from .foo_provider import FooProvider
+                self.providers['foo'] = FooProvider(providers_config['foo'])
+                if 'foo' not in self.fallback_order:
+                    self.fallback_order.append('foo')
+            except Exception as e:
+                print(f"Failed to set up Foo provider: {e}")
         
         # Initialize all providers
         init_tasks = []

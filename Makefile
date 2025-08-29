@@ -22,6 +22,7 @@ help:
 	@echo ""
 	@echo "$(GREEN)Development:$(NC)"
 	@echo "  install      - Install development dependencies"
+	@echo "  config-import- Import example config to ~/.localagent"
 	@echo "  test         - Run tests"
 	@echo "  test-cov     - Run tests with coverage"
 	@echo "  lint         - Run linting"
@@ -293,3 +294,9 @@ version:
 # Comprehensive pipeline
 pipeline: clean install test lint type-check security docker-build
 	@echo "$(GREEN)✓ Complete CI pipeline executed successfully$(NC)"
+
+# Config helpers
+config-import:
+	@echo "$(BLUE)Importing example LocalAgent configuration...$(NC)"
+	@bash scripts/import-config
+	@echo "$(GREEN)✓ Configuration import finished$(NC)"

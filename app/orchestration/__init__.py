@@ -1,5 +1,5 @@
 """
-LocalAgent + UnifiedWorkflow Orchestration Integration Package
+LocalAgent Orchestration Integration Package
 Complete 12-phase workflow execution system with agent orchestration
 """
 
@@ -12,7 +12,7 @@ from .cli_interface import LocalAgentCLI, main as cli_main
 
 __version__ = "1.0.0"
 __author__ = "LocalAgent Integration Team"
-__description__ = "Complete orchestration system integrating LocalAgent with UnifiedWorkflow"
+__description__ = "Complete orchestration system for LocalAgent"
 
 __all__ = [
     # Core components
@@ -45,7 +45,7 @@ __all__ = [
 
 # Package metadata
 INTEGRATION_INFO = {
-    "name": "LocalAgent + UnifiedWorkflow Integration",
+    "name": "LocalAgent Orchestration Integration",
     "version": __version__,
     "components": [
         "Agent Provider Adapter Bridge",
@@ -65,7 +65,7 @@ INTEGRATION_INFO = {
         "Provider fallback support"
     ],
     "requirements": [
-        "UnifiedWorkflow agent definitions",
+        "LocalAgent agent definitions",
         "LocalAgent provider system",
         "Optional: Redis for coordination",
         "Optional: Custom MCP servers"

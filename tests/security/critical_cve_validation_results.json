@@ -1,0 +1,46 @@
+{
+  "overall_score": 92.85714285714286,
+  "passed_tests": 13,
+  "total_tests": 14,
+  "cve_001": {
+    "tests": {
+      "query_param_blocked": false,
+      "header_auth_required": true,
+      "invalid_auth_closes": true,
+      "security_logging": true
+    },
+    "passed": 3,
+    "total": 4,
+    "score": 75.0
+  },
+  "cve_002": {
+    "tests": {
+      "env_injection_blocked": true,
+      "process_substitution_blocked": true,
+      "command_chaining_blocked": true,
+      "allowlist_validation": true,
+      "comprehensive_patterns": true
+    },
+    "passed": 5,
+    "total": 5,
+    "score": 100.0
+  },
+  "cve_003": {
+    "tests": {
+      "hardcoded_password_removed": true,
+      "hardware_entropy_used": true,
+      "secure_key_derivation": true,
+      "memory_cleanup": true,
+      "nist_compliance": true
+    },
+    "passed": 5,
+    "total": 5,
+    "score": 100.0
+  },
+  "critical_failures": [
+    "CVE-001: Query parameter auth not blocked"
+  ],
+  "security_improvement": 121.08843537414967,
+  "status": "\u2705 EXCELLENT",
+  "timestamp": "2025-08-27 22:29:01"
+}

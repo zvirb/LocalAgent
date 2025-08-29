@@ -1,6 +1,6 @@
 """
 12-Phase Workflow Engine for LocalAgent Integration
-Implements the complete UnifiedWorkflow orchestration system with local agent execution
+Implements the complete orchestration system with local agent execution
 """
 
 import asyncio
@@ -80,9 +80,9 @@ class WorkflowEngine:
         
     def _load_workflow_config(self, config_path: Optional[str]) -> Dict[str, Any]:
         """Load workflow configuration"""
-        default_config_path = "../UnifiedWorkflow/workflows/12-phase-workflow.yaml"
+        default_config_path = "workflows/12-phase-workflow.yaml"
         if not Path(default_config_path).exists():
-            default_config_path = "/home/marku/Documents/programming/LocalProgramming/UnifiedWorkflow/workflows/12-phase-workflow.yaml"
+            default_config_path = "/mnt/7ac3bfed-9d8e-4829-b134-b5e98ff7c013/programming/LocalProgramming/workflows/12-phase-workflow.yaml"
             
         config_path = config_path or default_config_path
         

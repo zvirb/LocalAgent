@@ -1,0 +1,21 @@
+# Autocomplete Feature Requirements
+# Install with: pip install -r requirements-autocomplete.txt
+
+# Core UI dependencies
+inquirerpy>=0.3.4
+readchar>=4.0.5
+rich>=13.0.0
+
+# Security and encryption
+cryptography>=41.0.0
+
+# Performance and caching
+cachetools>=5.3.0
+
+# Testing dependencies (optional)
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.11.0
+
+# Type hints and validation (optional)
+pydantic>=2.0.0

@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-08-27T21:55:29.994820",
+  "time_window_seconds": 300,
+  "metrics": {
+    "cpu_percent": {
+      "count": 2,
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "stdev": 0.0,
+      "latest": 0.0,
+      "unit": "%"
+    },
+    "memory_percent": {
+      "count": 2,
+      "min": 0.14393414222146433,
+      "max": 0.14393414222146433,
+      "mean": 0.14393414222146433,
+      "median": 0.14393414222146433,
+      "stdev": 0.0,
+      "latest": 0.14393414222146433,
+      "unit": "%"
+    },
+    "memory_rss_mb": {
+      "count": 2,
+      "min": 22.75,
+      "max": 22.75,
+      "mean": 22.75,
+      "median": 22.75,
+      "stdev": 0.0,
+      "latest": 22.75,
+      "unit": "MB"
+    },
+    "disk_io_read_mb_s": {
+      "count": 2,
+      "min": 0.0,
+      "max": 12.731175666439801,
+      "mean": 6.365587833219901,
+      "median": 6.365587833219901,
+      "stdev": 9.002300646216748,
+      "latest": 12.731175666439801,
+      "unit": "MB/s"
+    },
+    "disk_io_write_mb_s": {
+      "count": 2,
+      "min": 0.0,
+      "max": 4.696347625391365,
+      "mean": 2.3481738126956824,
+      "median": 2.3481738126956824,
+      "stdev": 3.320819252723574,
+      "latest": 4.696347625391365,
+      "unit": "MB/s"
+    },
+    "thread_count": {
+      "count": 2,
+      "min": 1,
+      "max": 1,
+      "mean": 1,
+      "median": 1.0,
+      "stdev": 0.0,
+      "latest": 1,
+      "unit": "count"
+    },
+    "gc_collections": {
+      "count": 2,
+      "min": 39,
+      "max": 39,
+      "mean": 39,
+      "median": 39.0,
+      "stdev": 0.0,
+      "latest": 39,
+      "unit": "count"
+    }
+  },
+  "alerts": [
+    {
+      "timestamp": 1756295719.9904954,
+      "metric": "gc_collections",
+      "value": 39,
+      "threshold": 10,
+      "severity": "warning",
+      "message": "gc_collections warning: 39.00 count"
+    }
+  ],
+  "summary": {
+    "monitoring_active": true,
+    "total_alerts": 1,
+    "critical_alerts": 0,
+    "warning_alerts": 1,
+    "health_status": "healthy"
+  }
+}

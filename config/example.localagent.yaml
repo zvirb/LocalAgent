@@ -1,0 +1,35 @@
+# Example LocalAgent configuration
+
+# Default provider used when none is specified
+default_provider: ollama
+
+# Provider fallback order (first to last)
+fallback_order:
+  - ollama
+  - openai
+  - gemini
+  - perplexity
+  # - foo  # Uncomment after enabling Foo (example)
+
+# Provider configs
+ollama:
+  base_url: http://localhost:11434
+
+openai:
+  # Provide your API key via environment variable or secret store
+  api_key: ${OPENAI_API_KEY}
+  # model: gpt-4o-mini
+
+gemini:
+  api_key: ${GEMINI_API_KEY}
+  # model: gemini-1.5-pro
+
+perplexity:
+  api_key: ${PERPLEXITY_API_KEY}
+  # model: sonar-small-online
+
+# Example provider for contributors (disabled by default)
+foo:
+  enabled: false
+  default_model: foo-small
+

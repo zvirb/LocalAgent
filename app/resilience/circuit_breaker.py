@@ -69,9 +69,12 @@ class CircuitBreaker:
         
         # Set default expected exceptions if none provided
         if self.config.expected_exceptions is None:
+            # Note: asyncio.TimeoutError is a subclass of TimeoutError in Python 3.11+
+            # We only need to include one of them to avoid MRO issues
             self.config.expected_exceptions = [
-                ConnectionError, TimeoutError, OSError,
-                asyncio.TimeoutError, aiohttp.ClientError if 'aiohttp' in globals() else Exception
+                ConnectionError, OSError,
+                asyncio.TimeoutError,
+                aiohttp.ClientError if 'aiohttp' in globals() else Exception
             ]
         
         if self.config.ignored_exceptions is None:

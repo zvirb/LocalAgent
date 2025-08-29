@@ -1,6 +1,6 @@
 """
-Agent Provider Adapter Bridge for LocalAgent + UnifiedWorkflow Integration
-Connects LocalAgent's provider system with UnifiedWorkflow's agent orchestration
+Agent Provider Adapter Bridge for LocalAgent Integration
+Connects LocalAgent's provider system with agent orchestration
 """
 
 import asyncio
@@ -39,7 +39,7 @@ class AgentResponse:
 
 class AgentProviderAdapter:
     """
-    Bridge between LocalAgent's LLM providers and UnifiedWorkflow's agent system
+    Bridge between LocalAgent's LLM providers and agent system
     Provides unified interface for agent orchestration with local/remote flexibility
     """
     
@@ -92,10 +92,10 @@ class AgentProviderAdapter:
         self.logger.info("Agent Provider Adapter initialized successfully")
         
     async def _load_agents_registry(self):
-        """Load and validate agents registry from UnifiedWorkflow"""
-        agents_dir = Path("../UnifiedWorkflow/agents")
+        """Load and validate agents registry from local agents directory"""
+        agents_dir = Path("agents")
         if not agents_dir.exists():
-            agents_dir = Path("/home/marku/Documents/programming/LocalProgramming/UnifiedWorkflow/agents")
+            agents_dir = Path("/mnt/7ac3bfed-9d8e-4829-b134-b5e98ff7c013/programming/LocalProgramming/agents")
             
         if agents_dir.exists():
             for agent_file in agents_dir.glob("*.md"):

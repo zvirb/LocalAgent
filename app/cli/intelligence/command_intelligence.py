@@ -10,6 +10,7 @@ import asyncio
 import time
 import logging
 import difflib
+import os
 from typing import Dict, Any, List, Optional, Tuple, Set, Union
 from dataclasses import dataclass, field
 from collections import defaultdict, deque
@@ -20,6 +21,7 @@ import re
 # Import behavior tracking and ML models
 from .behavior_tracker import BehaviorTracker, UserInteraction
 from .ml_models import TensorFlowJSModelManager, AdaptiveUIModel, TrainingData
+from .autocomplete_history import AutocompleteHistoryManager, AutocompleteConfig, CommandHistoryEntry
 
 # Import MCP integration for intelligent pattern selection
 try:
@@ -71,13 +73,20 @@ class CommandIntelligenceEngine:
     def __init__(self, 
                  behavior_tracker: BehaviorTracker,
                  model_manager: TensorFlowJSModelManager,
-                 config_dir: Optional[Path] = None):
+                 config_dir: Optional[Path] = None,
+                 autocomplete_config: Optional[AutocompleteConfig] = None):
         
         self.behavior_tracker = behavior_tracker
         self.model_manager = model_manager
         self.config_dir = config_dir or Path.home() / ".localagent"
         
         self.logger = logging.getLogger("CommandIntelligenceEngine")
+        
+        # Initialize autocomplete history manager
+        self.autocomplete_history = AutocompleteHistoryManager(
+            config_dir=self.config_dir,
+            config=autocomplete_config
+        )
         
         # Command knowledge base
         self.command_vocabulary: Set[str] = set()
@@ -139,7 +148,7 @@ class CommandIntelligenceEngine:
                                    partial_command: str,
                                    context: CommandContext,
                                    max_suggestions: int = 10) -> List[CommandSuggestion]:
-        """Get intelligent command completion suggestions"""
+        """Get intelligent command completion suggestions with autocomplete history"""
         start_time = time.time()
         
         try:
@@ -151,21 +160,56 @@ class CommandIntelligenceEngine:
                     return cached_result
             
             suggestions = []
+            seen_commands = set()
             
-            # 1. ML-based suggestions (if model available)
+            # 1. Autocomplete history suggestions (highest priority)
+            autocomplete_context = {
+                'provider': context.available_providers[0] if context.available_providers else None,
+                'working_directory': context.current_directory,
+                'time_of_day': context.time_of_day,
+                'workflow_phase': context.workflow_phase
+            }
+            
+            history_suggestions = self.autocomplete_history.get_suggestions(
+                partial_command,
+                context=autocomplete_context,
+                max_suggestions=max_suggestions
+            )
+            
+            for command, confidence in history_suggestions[:5]:  # Top 5 from history
+                if command not in seen_commands:
+                    suggestions.append(CommandSuggestion(
+                        command=command,
+                        confidence=confidence * 1.2,  # Boost history suggestions
+                        source='autocomplete',
+                        description=self.command_descriptions.get(command, 'Recent command'),
+                        usage_count=self.autocomplete_history.command_frequency.get(command, 0)
+                    ))
+                    seen_commands.add(command)
+            
+            # 2. ML-based suggestions (if model available)
             if self.command_completion_model and len(partial_command) > 0:
                 ml_suggestions = await self._get_ml_suggestions(partial_command, context)
-                suggestions.extend(ml_suggestions)
+                for sugg in ml_suggestions:
+                    if sugg.command not in seen_commands:
+                        suggestions.append(sugg)
+                        seen_commands.add(sugg.command)
             
-            # 2. Frequency-based suggestions
+            # 3. Frequency-based suggestions
             frequency_suggestions = await self._get_frequency_suggestions(partial_command)
-            suggestions.extend(frequency_suggestions)
+            for sugg in frequency_suggestions:
+                if sugg.command not in seen_commands:
+                    suggestions.append(sugg)
+                    seen_commands.add(sugg.command)
             
-            # 3. Similarity-based suggestions
+            # 4. Similarity-based suggestions
             similarity_suggestions = await self._get_similarity_suggestions(partial_command)
-            suggestions.extend(similarity_suggestions)
+            for sugg in similarity_suggestions:
+                if sugg.command not in seen_commands:
+                    suggestions.append(sugg)
+                    seen_commands.add(sugg.command)
             
-            # 4. Context-aware suggestions
+            # 5. Context-aware suggestions
             context_suggestions = await self._get_context_suggestions(partial_command, context)
             suggestions.extend(context_suggestions)
             
@@ -391,6 +435,52 @@ class CommandIntelligenceEngine:
             ))
         
         return suggestions
+    
+    async def record_command_execution(self,
+                                     command: str,
+                                     success: bool = True,
+                                     execution_time: float = 0.0,
+                                     provider: Optional[str] = None,
+                                     arguments: Optional[List[str]] = None) -> None:
+        """Record a command execution in history for autocomplete learning"""
+        try:
+            # Add to autocomplete history
+            self.autocomplete_history.add_command(
+                command=command,
+                success=success,
+                execution_time=execution_time,
+                provider=provider,
+                working_directory=os.getcwd(),
+                arguments=arguments or []
+            )
+            
+            # Update internal frequency tracking
+            self.command_frequency[command] += 1
+            
+            # Update success rate
+            if command in self.command_success_rates:
+                current_rate = self.command_success_rates[command]
+                new_rate = (current_rate * 0.9 + (1.0 if success else 0.0) * 0.1)  # Exponential moving average
+                self.command_success_rates[command] = new_rate
+            else:
+                self.command_success_rates[command] = 1.0 if success else 0.0
+            
+            # Add to vocabulary
+            self.command_vocabulary.add(command)
+            
+            # Update command patterns (for sequential predictions)
+            if hasattr(self, '_last_command') and self._last_command:
+                if self._last_command not in self.command_patterns:
+                    self.command_patterns[self._last_command] = []
+                self.command_patterns[self._last_command].append(command)
+            
+            self._last_command = command
+            
+            # Clear cache as we have new data
+            self.cache.clear()
+            
+        except Exception as e:
+            self.logger.error(f"Failed to record command execution: {e}")
     
     def _get_provider_suggestions(self, partial_command: str, available_providers: List[str]) -> List[CommandSuggestion]:
         """Get provider-specific command suggestions"""

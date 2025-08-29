@@ -1,6 +1,6 @@
 """
 Orchestration Bridge
-Bridge between CLI and UnifiedWorkflow orchestration system
+Bridge between CLI and orchestration system
 """
 
 import asyncio

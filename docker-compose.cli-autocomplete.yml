@@ -1,0 +1,174 @@
+# LocalAgent CLI with Autocomplete - Docker Compose Configuration
+# This extends the main docker-compose.yml with autocomplete features
+
+version: '3.8'
+
+services:
+  # Enhanced LocalAgent CLI with Autocomplete
+  localagent-cli-autocomplete:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.cli-autocomplete
+      args:
+        - PYTHON_VERSION=3.11
+    image: localagent:cli-autocomplete
+    container_name: localagent-cli-autocomplete
+    
+    environment:
+      # Autocomplete configuration
+      - LOCALAGENT_AUTOCOMPLETE_ENABLED=true
+      - LOCALAGENT_AUTOCOMPLETE_ENCRYPT=true
+      - LOCALAGENT_AUTOCOMPLETE_MAX_HISTORY=10000
+      - LOCALAGENT_AUTOCOMPLETE_FUZZY=true
+      - LOCALAGENT_AUTOCOMPLETE_FUZZY_THRESHOLD=0.6
+      
+      # Provider configurations
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - REDIS_URL=redis://redis:6379/0
+      
+      # Terminal settings for autocomplete
+      - TERM=xterm-256color
+      - COLUMNS=120
+      - LINES=40
+      
+      # Security settings
+      - LOCALAGENT_SECURE_KEYSTORE=true
+      - LOCALAGENT_LOG_LEVEL=INFO
+      
+      # UnifiedWorkflow integration
+      - UNIFIED_WORKFLOW_ENABLED=true
+      - MCP_MEMORY_URL=redis://redis:6379/1
+      - MCP_COORDINATION_URL=redis://redis:6379/2
+      
+      # Optional API keys (use Docker secrets in production)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY:-}
+      
+    volumes:
+      # Persistent autocomplete history
+      - localagent-autocomplete:/home/localagent/.localagent
+      
+      # Configuration persistence
+      - localagent-config:/app/config
+      
+      # Cache for performance
+      - localagent-cache:/app/.cache
+      
+      # Logs
+      - localagent-logs:/app/logs
+      
+      # Development mode: mount source code
+      # - ./app:/app/app:ro
+      # - ./scripts:/app/scripts:ro
+      
+    depends_on:
+      ollama:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+        
+    networks:
+      - localagent-network
+    
+    # Interactive terminal support
+    stdin_open: true
+    tty: true
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "from app.cli.intelligence.autocomplete_history import AutocompleteHistoryManager; print('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    restart: unless-stopped
+    
+    # Command to run (interactive CLI with autocomplete)
+    command: ["python", "-m", "app.cli", "--autocomplete"]
+
+  # Redis service for autocomplete caching
+  redis:
+    image: redis:7-alpine
+    container_name: localagent-redis
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - localagent-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Ollama service
+  ollama:
+    image: ollama/ollama:latest
+    container_name: localagent-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - localagent-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+    
+    # GPU support (uncomment if available)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  localagent-autocomplete:
+    name: localagent-autocomplete
+    driver: local
+  localagent-config:
+    name: localagent-config
+    driver: local
+  localagent-cache:
+    name: localagent-cache
+    driver: local
+  localagent-logs:
+    name: localagent-logs
+    driver: local
+  redis-data:
+    name: localagent-redis-data
+    driver: local
+  ollama-data:
+    name: localagent-ollama-data
+    driver: local
+
+networks:
+  localagent-network:
+    name: localagent-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

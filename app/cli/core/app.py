@@ -143,7 +143,7 @@ class LocalAgentApp:
             output_format: Annotated[str, typer.Option("--format", help="Output format")] = "rich",
             save_report: Annotated[Optional[str], typer.Option("--save", help="Save report to file")] = None
         ):
-            """Execute 12-phase UnifiedWorkflow"""
+            """Execute 12-phase workflow"""
             asyncio.run(self._cmd_workflow(prompt, provider, phases, parallel, max_agents, output_format, save_report))
         
         @self.app.command()
@@ -370,7 +370,7 @@ class LocalAgentApp:
         output_format: str, 
         save_report: Optional[str]
     ):
-        """Execute 12-phase UnifiedWorkflow"""
+        """Execute 12-phase workflow"""
         from ...orchestration.orchestration_integration import create_orchestrator
         
         try:

@@ -1,0 +1,97 @@
+# LocalAgent Autocomplete Configuration for Docker
+# This configuration is optimized for containerized environments
+
+autocomplete:
+  # Core settings
+  enabled: true
+  max_suggestions: 10
+  max_history_size: 10000
+  
+  # Fuzzy matching settings
+  enable_fuzzy: true
+  fuzzy_threshold: 0.6
+  
+  # ML predictions (requires model files)
+  enable_ml_predictions: false  # Set to true when models are available
+  
+  # Security settings
+  enable_encryption: true
+  history_retention_days: 30
+  deduplication_window: 100
+  
+  # Sensitive data patterns to sanitize
+  sensitive_patterns:
+    - 'api[_-]?key'
+    - 'password'
+    - 'token'
+    - 'secret'
+    - 'credential'
+    - 'auth'
+    - 'private[_-]?key'
+    - 'bearer'
+    - 'jwt'
+  
+  # Performance settings
+  performance:
+    cache_ttl: 300
+    max_cache_size: 1000
+    target_response_ms: 16
+    
+  # Docker-specific settings
+  docker:
+    persist_history: true
+    history_volume: '/home/localagent/.localagent/autocomplete'
+    sync_interval: 60  # Sync to volume every 60 seconds
+    
+  # Context awareness
+  context:
+    track_working_directory: true
+    track_provider: true
+    track_workflow_phase: true
+    track_time_patterns: true
+    
+  # Command patterns to learn
+  command_patterns:
+    - 'git'
+    - 'docker'
+    - 'kubectl'
+    - 'npm'
+    - 'pip'
+    - 'pytest'
+    - 'localagent'
+    
+  # Provider-specific completions
+  provider_commands:
+    ollama:
+      - 'ollama pull'
+      - 'ollama run'
+      - 'ollama list'
+    openai:
+      - 'gpt-4'
+      - 'gpt-3.5-turbo'
+    gemini:
+      - 'gemini-pro'
+      - 'gemini-pro-vision'
+    
+  # Workflow phase commands
+  phase_commands:
+    research:
+      - 'search'
+      - 'analyze'
+      - 'inspect'
+    planning:
+      - 'plan'
+      - 'design'
+      - 'configure'
+    execution:
+      - 'run'
+      - 'execute'
+      - 'deploy'
+    testing:
+      - 'test'
+      - 'validate'
+      - 'verify'
+    cleanup:
+      - 'clean'
+      - 'remove'
+      - 'reset'

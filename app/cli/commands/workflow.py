@@ -1,6 +1,6 @@
 """
 Workflow Command Implementation
-Handles 12-phase UnifiedWorkflow execution through CLI
+Handles 12-phase workflow execution through CLI
 """
 
 import asyncio
@@ -15,7 +15,7 @@ from ..ui.display import DisplayManager
 
 class WorkflowCommand(AsyncCommand):
     """
-    Command for executing 12-phase UnifiedWorkflow
+    Command for executing 12-phase workflow
     Integrates with existing orchestration system
     """
     
@@ -25,7 +25,7 @@ class WorkflowCommand(AsyncCommand):
     
     @property
     def description(self) -> str:
-        return "Execute 12-phase UnifiedWorkflow with parallel agent orchestration"
+        return "Execute 12-phase workflow with parallel agent orchestration"
     
     @property
     def aliases(self) -> List[str]:
@@ -402,7 +402,7 @@ I understand you want to:
     def get_help_text(self) -> str:
         """Get detailed help text for workflow command"""
         return """
-workflow - Execute 12-phase UnifiedWorkflow
+workflow - Execute 12-phase workflow
 
 USAGE:
     localagent workflow "description of task" [OPTIONS]

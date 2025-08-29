@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+"""
+LocalAgent Interactive CLI - Improved version with better timeout and resilience
+"""
+
+import click
+import requests
+import json
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.prompt import Prompt
+from rich.panel import Panel
+from rich.text import Text
+import sys
+import time
+from typing import Optional, List, Dict, Any
+
+console = Console()
+
+class OllamaConnectionManager:
+    """Manages Ollama connections with improved resilience"""
+    
+    def __init__(self):
+        self.base_url = None
+        self.session = requests.Session()
+        # Adaptive timeout based on model complexity
+        self.timeout_config = {
+            'default': 120,  # Increased from 60 to 120 seconds
+            'small': 90,     # For 1b-3b models
+            'medium': 180,   # For 7b-13b models  
+            'large': 300     # For 30b+ models
+        }
+        self.retry_config = {
+            'max_retries': 3,
+            'backoff_factor': 2,
+            'initial_delay': 1
+        }
+        
+    def get_model_timeout(self, model: str) -> int:
+        """Determine appropriate timeout based on model size"""
+        model_lower = model.lower()
+        
+        # Detect model size from name
+        if any(size in model_lower for size in ['70b', '65b', '30b', '34b']):
+            return self.timeout_config['large']
+        elif any(size in model_lower for size in ['13b', '7b', '8b', '11b']):
+            return self.timeout_config['medium']
+        elif any(size in model_lower for size in ['1b', '2b', '3b']):
+            return self.timeout_config['small']
+        else:
+            return self.timeout_config['default']
+    
+    def find_ollama_server(self) -> Optional[str]:
+        """Try to find a working Ollama instance with better error handling"""
+        urls = [
+            "http://localhost:11434",
+            "http://alienware.local:11434",
+            "http://ollama:11434",
+            "http://127.0.0.1:11434"
+        ]
+        
+        for url in urls:
+            try:
+                response = self.session.get(f"{url}/api/tags", timeout=5)
+                if response.status_code == 200:
+                    self.base_url = url
+                    console.print(f"[green]✓ Connected to Ollama at {url}[/green]")
+                    return url
+            except requests.exceptions.ConnectionError:
+                continue
+            except requests.exceptions.Timeout:
+                console.print(f"[yellow]⚠ Timeout connecting to {url}, trying next...[/yellow]")
+                continue
+            except Exception as e:
+                console.print(f"[red]Error connecting to {url}: {e}[/red]")
+                continue
+        
+        return None
+    
+    def get_available_models(self) -> List[str]:
+        """Get list of available models with error handling"""
+        if not self.base_url:
+            self.find_ollama_server()
+        
+        if not self.base_url:
+            return []
+        
+        try:
+            response = self.session.get(f"{self.base_url}/api/tags", timeout=10)
+            if response.status_code == 200:
+                models = response.json().get('models', [])
+                return [m['name'] for m in models]
+        except Exception as e:
+            console.print(f"[red]Error fetching models: {e}[/red]")
+        
+        return []
+    
+    def chat_with_retry(self, model: str, prompt: str, context: List[Dict] = None) -> str:
+        """Send chat request with retry logic and adaptive timeout"""
+        if not self.base_url:
+            self.find_ollama_server()
+        
+        if not self.base_url:
+            return "Error: Could not connect to Ollama server"
+        
+        timeout = self.get_model_timeout(model)
+        console.print(f"[dim]Using timeout: {timeout}s for model {model}[/dim]")
+        
+        # Build messages format for better context handling
+        messages = context if context else []
+        messages.append({"role": "user", "content": prompt})
+        
+        for attempt in range(self.retry_config['max_retries']):
+            try:
+                # Use the chat endpoint for better compatibility
+                response = self.session.post(
+                    f"{self.base_url}/api/chat",
+                    json={
+                        "model": model,
+                        "messages": messages,
+                        "stream": False,
+                        "options": {
+                            "temperature": 0.7,
+                            "top_p": 0.9,
+                            "num_predict": 2048  # Limit response length
+                        }
+                    },
+                    timeout=timeout
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    return result.get('message', {}).get('content', 'No response')
+                elif response.status_code == 404:
+                    return f"Error: Model '{model}' not found. Please pull it first."
+                else:
+                    error_msg = f"Error: HTTP {response.status_code}"
+                    if attempt < self.retry_config['max_retries'] - 1:
+                        delay = self.retry_config['initial_delay'] * (self.retry_config['backoff_factor'] ** attempt)
+                        console.print(f"[yellow]Retrying in {delay}s... (attempt {attempt + 1}/{self.retry_config['max_retries']})[/yellow]")
+                        time.sleep(delay)
+                    else:
+                        return error_msg
+                        
+            except requests.exceptions.Timeout:
+                if attempt < self.retry_config['max_retries'] - 1:
+                    console.print(f"[yellow]Request timed out after {timeout}s. Retrying with longer timeout...[/yellow]")
+                    timeout = min(timeout * 1.5, 600)  # Increase timeout but cap at 10 minutes
+                else:
+                    return f"Error: Request timed out after {timeout} seconds. The model may be too slow for this prompt."
+                    
+            except requests.exceptions.ConnectionError:
+                return "Error: Lost connection to Ollama server. Please check if it's running."
+                
+            except Exception as e:
+                return f"Error: {str(e)}"
+        
+        return "Error: Max retries exceeded"
+
+@click.command()
+@click.option('--model', '-m', help='Model to use (default: auto-detect)')
+@click.option('--timeout', '-t', type=int, help='Override default timeout in seconds')
+@click.option('--context', '-c', is_flag=True, help='Enable conversation context (uses more memory)')
+def interactive_chat(model, timeout, context):
+    """Start an interactive chat session with improved Ollama handling"""
+    
+    # Welcome message
+    console.print(Panel.fit(
+        "[bold cyan]🤖 LocalAgent Interactive CLI - Enhanced Version[/bold cyan]\n"
+        "[dim]Chat with local LLM models powered by Ollama[/dim]\n"
+        "[green]✨ Features: Adaptive timeouts, retry logic, better error handling[/green]",
+        border_style="cyan"
+    ))
+    
+    # Initialize connection manager
+    conn_manager = OllamaConnectionManager()
+    
+    # Override timeout if specified
+    if timeout:
+        console.print(f"[yellow]Using custom timeout: {timeout}s[/yellow]")
+        for key in conn_manager.timeout_config:
+            conn_manager.timeout_config[key] = timeout
+    
+    # Find and connect to Ollama
+    if not conn_manager.find_ollama_server():
+        console.print("[red]❌ Could not connect to Ollama server![/red]")
+        console.print("\n[yellow]Please ensure Ollama is running:[/yellow]")
+        console.print("  1. Check if Ollama is installed: [cyan]ollama --version[/cyan]")
+        console.print("  2. Start Ollama service: [cyan]ollama serve[/cyan]")
+        console.print("  3. Or use Docker: [cyan]docker run -d -p 11434:11434 ollama/ollama[/cyan]")
+        sys.exit(1)
+    
+    # Get available models
+    models = conn_manager.get_available_models()
+    
+    if not models:
+        console.print("[red]❌ No models found![/red]")
+        console.print("\n[yellow]To install models, run:[/yellow]")
+        console.print("  [cyan]ollama pull gemma3:1b[/cyan]  (small, fast model)")
+        console.print("  [cyan]ollama pull llama3:8b[/cyan]  (balanced model)")
+        console.print("  [cyan]ollama pull mistral[/cyan]    (good for code)")
+        sys.exit(1)
+    
+    # Select model
+    if not model:
+        if len(models) == 1:
+            model = models[0]
+            console.print(f"[green]Using model: {model}[/green]")
+        else:
+            console.print("\n[cyan]Available models:[/cyan]")
+            for i, m in enumerate(models, 1):
+                # Show model with size estimate
+                size_indicator = "🟢" if "1b" in m.lower() or "3b" in m.lower() else "🟡" if "7b" in m.lower() or "8b" in m.lower() else "🔴"
+                console.print(f"  {i}. {size_indicator} {m}")
+            
+            choice = Prompt.ask(
+                "\nSelect a model",
+                choices=[str(i) for i in range(1, len(models)+1)],
+                default="1"
+            )
+            model = models[int(choice)-1]
+    
+    console.print(f"[green]✓ Selected: {model}[/green]")
+    
+    # Show recommended timeout
+    recommended_timeout = conn_manager.get_model_timeout(model)
+    console.print(f"[dim]Recommended timeout for {model}: {recommended_timeout}s[/dim]\n")
+    
+    # Instructions
+    console.print("[bold]Commands:[/bold]")
+    console.print("  [dim]Type 'help' to see available commands[/dim]")
+    console.print("  [dim]Type 'init' to initialize advanced features[/dim]")
+    console.print("  [dim]Type 'context' to see project context[/dim]")
+    console.print("  [dim]Type 'exit', 'quit', or 'bye' to end the session[/dim]\n")
+    
+    # Conversation context
+    conversation_context = [] if context else None
+    
+    # Chat loop
+    while True:
+        try:
+            # Get user input
+            user_input = Prompt.ask("[bold blue]You[/bold blue]")
+            
+            # Handle special commands
+            if user_input.lower() in ['exit', 'quit', 'bye']:
+                console.print("\n[cyan]👋 Goodbye![/cyan]")
+                break
+            
+            if user_input.lower() == 'help':
+                console.print("\n[bold]Available Commands:[/bold]")
+                console.print("  • exit/quit/bye - End the session")
+                console.print("  • clear - Clear the screen")
+                console.print("  • model - Switch to a different model")
+                console.print("  • context - Toggle conversation context")
+                console.print("  • timeout <seconds> - Change timeout")
+                console.print("  • status - Show connection status")
+                console.print("  • reset - Reset conversation context\n")
+                continue
+            
+            if user_input.lower() == 'clear':
+                console.clear()
+                continue
+            
+            if user_input.lower() == 'status':
+                console.print(f"\n[cyan]Status:[/cyan]")
+                console.print(f"  Server: {conn_manager.base_url}")
+                console.print(f"  Model: {model}")
+                console.print(f"  Timeout: {conn_manager.get_model_timeout(model)}s")
+                console.print(f"  Context: {'Enabled' if conversation_context is not None else 'Disabled'}\n")
+                continue
+            
+            if user_input.lower() == 'model':
+                console.print("\n[cyan]Available models:[/cyan]")
+                for i, m in enumerate(models, 1):
+                    console.print(f"  {i}. {m}")
+                choice = Prompt.ask("Select a model", default="1")
+                if choice.isdigit() and 1 <= int(choice) <= len(models):
+                    model = models[int(choice)-1]
+                    console.print(f"[green]✓ Switched to: {model}[/green]\n")
+                    if conversation_context is not None:
+                        conversation_context = []  # Reset context for new model
+                        console.print("[yellow]Context reset for new model[/yellow]\n")
+                continue
+            
+            if user_input.lower().startswith('timeout'):
+                parts = user_input.split()
+                if len(parts) == 2 and parts[1].isdigit():
+                    new_timeout = int(parts[1])
+                    for key in conn_manager.timeout_config:
+                        conn_manager.timeout_config[key] = new_timeout
+                    console.print(f"[green]✓ Timeout set to {new_timeout}s[/green]\n")
+                else:
+                    console.print("[red]Usage: timeout <seconds>[/red]\n")
+                continue
+            
+            if user_input.lower() == 'context':
+                if conversation_context is None:
+                    conversation_context = []
+                    console.print("[green]✓ Context enabled[/green]\n")
+                else:
+                    conversation_context = None
+                    console.print("[yellow]Context disabled[/yellow]\n")
+                continue
+            
+            if user_input.lower() == 'reset':
+                if conversation_context is not None:
+                    conversation_context = []
+                    console.print("[green]✓ Context reset[/green]\n")
+                else:
+                    console.print("[yellow]Context is not enabled[/yellow]\n")
+                continue
+            
+            # Show thinking indicator with model info
+            with console.status(f"[dim]Thinking with {model}...[/dim]", spinner="dots"):
+                start_time = time.time()
+                response = conn_manager.chat_with_retry(model, user_input, conversation_context)
+                elapsed = time.time() - start_time
+            
+            # Update context if enabled
+            if conversation_context is not None:
+                conversation_context.append({"role": "user", "content": user_input})
+                conversation_context.append({"role": "assistant", "content": response})
+                # Keep context size manageable
+                if len(conversation_context) > 10:
+                    conversation_context = conversation_context[-10:]
+            
+            # Display response
+            console.print(f"\n[bold green]A:[/bold green] [dim](responded in {elapsed:.1f}s)[/dim]")
+            
+            # Check if it's an error
+            if response.startswith("Error:"):
+                console.print(Panel(
+                    Text(response, style="red"),
+                    border_style="red",
+                    title="[red]Error[/red]",
+                    padding=(1, 2)
+                ))
+            else:
+                console.print(Panel(
+                    response,
+                    border_style="green",
+                    padding=(1, 2)
+                ))
+            console.print()
+            
+        except KeyboardInterrupt:
+            console.print("\n\n[yellow]Interrupted. Type 'exit' to quit or continue chatting.[/yellow]\n")
+        except Exception as e:
+            console.print(f"\n[red]Unexpected error: {e}[/red]\n")
+            console.print("[yellow]You can continue or type 'exit' to quit.[/yellow]\n")
+
+if __name__ == '__main__':
+    interactive_chat()

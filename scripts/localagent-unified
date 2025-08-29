@@ -1,0 +1,581 @@
+#!/usr/bin/env python3
+"""
+LocalAgent Unified CLI - All features in one integrated script
+Combines improved connection handling, enhanced features, and full workflow integration
+"""
+
+import click
+import requests
+import json
+import asyncio
+import sys
+import os
+import time
+from pathlib import Path
+from typing import Optional, Dict, Any, List
+from datetime import datetime
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.prompt import Prompt
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.tree import Tree
+
+# Add app directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+console = Console()
+
+class UnifiedLocalAgentCLI:
+    """Unified LocalAgent CLI with all features integrated"""
+    
+    def __init__(self):
+        self.console = console
+        self.session = requests.Session()
+        self.base_url = None
+        self.current_model = None
+        self.conversation_context = []
+        self.context_enabled = True
+        
+        # Advanced features (lazy loaded)
+        self.initialized = False
+        self.config = None
+        self.workflow_engine = None
+        self.agent_adapter = None
+        self.context_manager = None
+        self.orchestrator = None
+        self.provider_manager = None
+        self.current_directory = Path.cwd()
+        self.project_context = None
+        
+        # Timeout configurations
+        self.timeout_config = {
+            'default': 120,
+            'small': 90,     # For 1b-3b models
+            'medium': 180,   # For 7b-13b models  
+            'large': 300     # For 30b+ models
+        }
+        
+        # Retry configuration
+        self.retry_config = {
+            'max_retries': 3,
+            'backoff_factor': 2,
+            'initial_delay': 1
+        }
+
+    def get_model_timeout(self, model: str) -> int:
+        """Determine appropriate timeout based on model size"""
+        model_lower = model.lower()
+        
+        if any(size in model_lower for size in ['70b', '65b', '30b', '34b']):
+            return self.timeout_config['large']
+        elif any(size in model_lower for size in ['13b', '7b', '8b', '11b']):
+            return self.timeout_config['medium']
+        elif any(size in model_lower for size in ['1b', '2b', '3b']):
+            return self.timeout_config['small']
+        else:
+            return self.timeout_config['default']
+
+    def find_ollama_server(self) -> Optional[str]:
+        """Find and connect to Ollama server"""
+        urls = [
+            "http://localhost:11434",
+            "http://alienware.local:11434",
+            "http://ollama:11434",
+            "http://127.0.0.1:11434"
+        ]
+        
+        for url in urls:
+            try:
+                response = self.session.get(f"{url}/api/tags", timeout=5)
+                if response.status_code == 200:
+                    self.base_url = url
+                    self.console.print(f"[green]✓ Connected to Ollama at {url}[/green]")
+                    return url
+            except:
+                continue
+        
+        return None
+
+    def get_available_models(self) -> List[str]:
+        """Get list of available models"""
+        if not self.base_url:
+            self.find_ollama_server()
+        
+        if not self.base_url:
+            return []
+        
+        try:
+            response = self.session.get(f"{self.base_url}/api/tags", timeout=10)
+            if response.status_code == 200:
+                models = response.json().get('models', [])
+                return [m['name'] for m in models]
+        except:
+            pass
+        
+        return []
+
+    def chat_with_retry(self, model: str, prompt: str, context: List[Dict] = None) -> str:
+        """Send chat request with retry logic"""
+        if not self.base_url:
+            return "Error: No Ollama server connection"
+        
+        timeout = self.get_model_timeout(model)
+        self.console.print(f"[dim]Using timeout: {timeout}s for model {model}[/dim]")
+        
+        for attempt in range(self.retry_config['max_retries']):
+            try:
+                # Build messages for chat
+                messages = []
+                if context:
+                    messages.extend(context)
+                messages.append({"role": "user", "content": prompt})
+                
+                # Add system context if advanced features are initialized
+                if self.initialized and self.project_context:
+                    system_prompt = self.build_system_prompt()
+                    messages.insert(0, {"role": "system", "content": system_prompt})
+                
+                response = self.session.post(
+                    f"{self.base_url}/api/chat",
+                    json={
+                        "model": model,
+                        "messages": messages,
+                        "stream": False
+                    },
+                    timeout=timeout
+                )
+                
+                if response.status_code == 200:
+                    result = response.json()
+                    return result.get('message', {}).get('content', 'No response')
+                else:
+                    if attempt < self.retry_config['max_retries'] - 1:
+                        delay = self.retry_config['initial_delay'] * (self.retry_config['backoff_factor'] ** attempt)
+                        self.console.print(f"[yellow]Retrying in {delay}s...[/yellow]")
+                        time.sleep(delay)
+                    else:
+                        return f"Error: Server returned {response.status_code}"
+                        
+            except requests.exceptions.Timeout:
+                if attempt < self.retry_config['max_retries'] - 1:
+                    self.console.print(f"[yellow]Timeout, retrying (attempt {attempt + 2}/{self.retry_config['max_retries']})...[/yellow]")
+                else:
+                    return "Error: Request timed out after all retries"
+            except Exception as e:
+                return f"Error: {str(e)}"
+        
+        return "Error: Failed after all retry attempts"
+
+    def build_system_prompt(self) -> str:
+        """Build system prompt with project context"""
+        context_parts = [
+            "You are LocalAgent, an AI assistant with access to the following project context:",
+            f"Current Directory: {self.current_directory}",
+        ]
+        
+        if self.project_context:
+            if 'files' in self.project_context:
+                context_parts.append(f"Project Files: {len(self.project_context['files'])} files found")
+            if 'readme' in self.project_context:
+                context_parts.append(f"Project README: {self.project_context['readme'][:500]}...")
+        
+        context_parts.append("\nYou have access to the following capabilities when advanced features are enabled:")
+        context_parts.append("- File system operations (read, write, search)")
+        context_parts.append("- Code analysis and generation")
+        context_parts.append("- Workflow orchestration")
+        context_parts.append("- Multi-agent coordination")
+        
+        return "\n".join(context_parts)
+
+    async def initialize_advanced_features(self) -> bool:
+        """Initialize advanced features including file system access"""
+        try:
+            self.console.print("[cyan]Initializing advanced features...[/cyan]")
+            
+            # Load configuration
+            try:
+                from app.cli.core.config import ConfigurationManager
+                config_manager = ConfigurationManager()
+                self.config = await config_manager.load_configuration()
+                self.console.print("[green]✓ Configuration loaded[/green]")
+            except Exception as e:
+                self.console.print(f"[yellow]⚠ Config load failed: {e}[/yellow]")
+            
+            # Initialize provider manager
+            try:
+                from app.llm_providers.provider_manager import ProviderManager
+                self.provider_manager = ProviderManager(
+                    self.config.providers if self.config and hasattr(self.config, 'providers') else {}
+                )
+                await self.provider_manager.initialize_providers()
+                self.console.print("[green]✓ Provider manager initialized[/green]")
+            except Exception as e:
+                self.console.print(f"[yellow]⚠ Provider manager failed: {e}[/yellow]")
+            
+            # Initialize orchestration components
+            try:
+                from app.orchestration.orchestration_integration import LocalAgentOrchestrator
+                self.orchestrator = LocalAgentOrchestrator()
+                if self.provider_manager:
+                    await self.orchestrator.initialize(self.provider_manager)
+                    self.workflow_engine = self.orchestrator.workflow_engine
+                    self.agent_adapter = self.orchestrator.agent_adapter
+                    self.context_manager = self.orchestrator.context_manager
+                    self.console.print("[green]✓ Orchestration engine initialized[/green]")
+            except Exception as e:
+                self.console.print(f"[yellow]⚠ Orchestration failed: {e}[/yellow]")
+            
+            # Load project context
+            self.project_context = await self.load_project_context()
+            if self.project_context:
+                self.console.print("[green]✓ Project context loaded[/green]")
+                self.console.print(f"  Found {len(self.project_context.get('files', []))} files")
+            
+            self.initialized = True
+            self.console.print("[green]✓ Advanced features ready![/green]")
+            self.console.print("[dim]You can now use file operations, code analysis, and workflow commands[/dim]")
+            return True
+            
+        except Exception as e:
+            self.console.print(f"[red]Failed to initialize advanced features: {e}[/red]")
+            return False
+
+    async def load_project_context(self) -> Dict[str, Any]:
+        """Load project context from current directory"""
+        context = {
+            'directory': str(self.current_directory),
+            'files': [],
+            'readme': None,
+            'config_files': []
+        }
+        
+        try:
+            # Scan for project files
+            for path in self.current_directory.rglob('*'):
+                if path.is_file() and not any(part.startswith('.') for part in path.parts):
+                    rel_path = path.relative_to(self.current_directory)
+                    context['files'].append(str(rel_path))
+                    
+                    # Check for special files
+                    if path.name.lower() == 'readme.md':
+                        context['readme'] = path.read_text()[:1000]
+                    elif path.suffix in ['.json', '.yaml', '.yml', '.toml']:
+                        context['config_files'].append(str(rel_path))
+            
+            # Limit file list for context
+            context['files'] = context['files'][:100]
+            
+        except Exception as e:
+            self.console.print(f"[yellow]Warning: Could not load full project context: {e}[/yellow]")
+        
+        return context
+
+    def handle_file_command(self, command: str) -> str:
+        """Handle file system commands"""
+        if not self.initialized:
+            return "Please run 'init' first to enable file operations"
+        
+        parts = command.split(maxsplit=1)
+        if len(parts) < 2:
+            return "Usage: file <read|write|list|search> <path/pattern>"
+        
+        operation = parts[0].lower()
+        arg = parts[1] if len(parts) > 1 else ""
+        
+        try:
+            if operation == "list":
+                path = Path(arg) if arg else self.current_directory
+                if path.is_dir():
+                    files = list(path.iterdir())[:20]
+                    return "Files:\n" + "\n".join(f"  - {f.name}" for f in files)
+                else:
+                    return f"Not a directory: {path}"
+            
+            elif operation == "read":
+                path = Path(arg)
+                if path.exists() and path.is_file():
+                    content = path.read_text()[:1000]
+                    return f"Content of {path}:\n{content}"
+                else:
+                    return f"File not found: {path}"
+            
+            elif operation == "search":
+                matches = list(self.current_directory.rglob(arg))[:10]
+                if matches:
+                    return "Matches:\n" + "\n".join(f"  - {m}" for m in matches)
+                else:
+                    return f"No matches found for: {arg}"
+            
+            else:
+                return f"Unknown file operation: {operation}"
+                
+        except Exception as e:
+            return f"Error: {str(e)}"
+
+    def display_help(self):
+        """Display comprehensive help information"""
+        help_text = """
+[bold]Available Commands:[/bold]
+
+[cyan]Basic Commands:[/cyan]
+  • help          - Show this help message
+  • exit/quit/bye - End the session
+  • clear         - Clear the screen
+  • status        - Show connection status
+  • model         - Switch to a different model
+  • context       - Toggle conversation context
+  • reset         - Reset conversation context
+  • timeout <sec> - Change timeout setting
+
+[cyan]Advanced Commands:[/cyan]
+  • init          - Initialize advanced features (file access, orchestration)
+  • config        - Show current configuration
+  • workflow      - Show workflow status
+  • agent <name>  - Run a specific agent
+  • file <op>     - File operations (list, read, search)
+  • cd <path>     - Change current directory
+  • pwd           - Show current directory
+
+[cyan]File Operations (after init):[/cyan]
+  • file list [path]      - List files in directory
+  • file read <path>      - Read file contents
+  • file search <pattern> - Search for files
+
+[dim]Tip: Run 'init' to enable advanced features including file system access[/dim]
+"""
+        self.console.print(help_text)
+
+    async def run_interactive_session(self, model: Optional[str] = None):
+        """Run the main interactive session"""
+        # Display welcome banner
+        self.console.print(Panel.fit(
+            "[bold cyan]🤖 LocalAgent Unified CLI[/bold cyan]\n"
+            "[dim]All features integrated - Chat, File Access, Orchestration[/dim]",
+            border_style="cyan"
+        ))
+        
+        # Connect to Ollama
+        if not self.find_ollama_server():
+            self.console.print("[red]❌ Could not connect to Ollama[/red]")
+            self.console.print("[dim]Please ensure Ollama is running (ollama serve)[/dim]")
+            return
+        
+        # Get available models
+        models = self.get_available_models()
+        if not models:
+            self.console.print("[red]❌ No models available[/red]")
+            self.console.print("[dim]Pull a model first: ollama pull gemma3:1b[/dim]")
+            return
+        
+        # Select model
+        if not model:
+            self.console.print("\n[cyan]Available models:[/cyan]")
+            for i, m in enumerate(models, 1):
+                status = "🟢" if "gemma" in m.lower() or "llama" in m.lower() else "🔵"
+                self.console.print(f"  {i}. {status} {m}")
+            
+            choice = Prompt.ask("Select a model", default="1")
+            if choice.isdigit() and 1 <= int(choice) <= len(models):
+                model = models[int(choice)-1]
+            else:
+                model = models[0]
+        
+        self.current_model = model
+        self.console.print(f"[green]✓ Selected: {model}[/green]")
+        self.console.print(f"[dim]Recommended timeout: {self.get_model_timeout(model)}s[/dim]\n")
+        
+        # Show initial commands
+        self.console.print("[bold]Quick Start:[/bold]")
+        self.console.print("  • Type 'help' for all commands")
+        self.console.print("  • Type 'init' to enable advanced features")
+        self.console.print("  • Type 'exit' to quit\n")
+        
+        # Main interaction loop
+        while True:
+            try:
+                # Get user input
+                user_input = Prompt.ask("[bold blue]You[/bold blue]")
+                
+                # Handle exit commands
+                if user_input.lower() in ['exit', 'quit', 'bye']:
+                    self.console.print("\n[cyan]👋 Goodbye![/cyan]")
+                    break
+                
+                # Handle help
+                if user_input.lower() == 'help':
+                    self.display_help()
+                    continue
+                
+                # Handle clear
+                if user_input.lower() == 'clear':
+                    self.console.clear()
+                    continue
+                
+                # Handle status
+                if user_input.lower() == 'status':
+                    self.console.print(f"\n[cyan]Status:[/cyan]")
+                    self.console.print(f"  Server: {self.base_url}")
+                    self.console.print(f"  Model: {self.current_model}")
+                    self.console.print(f"  Timeout: {self.get_model_timeout(self.current_model)}s")
+                    self.console.print(f"  Context: {'Enabled' if self.context_enabled else 'Disabled'}")
+                    self.console.print(f"  Advanced Features: {'Initialized' if self.initialized else 'Not initialized'}")
+                    if self.initialized:
+                        self.console.print(f"  Current Directory: {self.current_directory}")
+                    self.console.print()
+                    continue
+                
+                # Handle init
+                if user_input.lower() == 'init':
+                    success = await self.initialize_advanced_features()
+                    continue
+                
+                # Handle config
+                if user_input.lower() == 'config':
+                    if self.config:
+                        config_data = self.config.model_dump() if hasattr(self.config, 'model_dump') else {}
+                        self.console.print(Panel(
+                            json.dumps(config_data, indent=2),
+                            title="Configuration",
+                            border_style="green"
+                        ))
+                    else:
+                        self.console.print("[yellow]Configuration not loaded. Run 'init' first.[/yellow]")
+                    continue
+                
+                # Handle context toggle
+                if user_input.lower() == 'context':
+                    self.context_enabled = not self.context_enabled
+                    self.console.print(f"[green]✓ Context {'enabled' if self.context_enabled else 'disabled'}[/green]")
+                    if not self.context_enabled:
+                        self.conversation_context = []
+                    continue
+                
+                # Handle reset
+                if user_input.lower() == 'reset':
+                    self.conversation_context = []
+                    self.console.print("[green]✓ Context reset[/green]")
+                    continue
+                
+                # Handle model switch
+                if user_input.lower() == 'model':
+                    self.console.print("\n[cyan]Available models:[/cyan]")
+                    for i, m in enumerate(models, 1):
+                        self.console.print(f"  {i}. {m}")
+                    choice = Prompt.ask("Select a model", default="1")
+                    if choice.isdigit() and 1 <= int(choice) <= len(models):
+                        self.current_model = models[int(choice)-1]
+                        self.console.print(f"[green]✓ Switched to: {self.current_model}[/green]")
+                        self.conversation_context = []  # Reset context for new model
+                    continue
+                
+                # Handle timeout change
+                if user_input.lower().startswith('timeout'):
+                    parts = user_input.split()
+                    if len(parts) == 2 and parts[1].isdigit():
+                        new_timeout = int(parts[1])
+                        for key in self.timeout_config:
+                            self.timeout_config[key] = new_timeout
+                        self.console.print(f"[green]✓ Timeout set to {new_timeout}s[/green]")
+                    else:
+                        self.console.print("[red]Usage: timeout <seconds>[/red]")
+                    continue
+                
+                # Handle file commands
+                if user_input.lower().startswith('file '):
+                    result = self.handle_file_command(user_input[5:])
+                    self.console.print(Panel(result, title="File Operation", border_style="cyan"))
+                    continue
+                
+                # Handle pwd
+                if user_input.lower() == 'pwd':
+                    self.console.print(f"[cyan]Current directory: {self.current_directory}[/cyan]")
+                    continue
+                
+                # Handle cd
+                if user_input.lower().startswith('cd '):
+                    path = user_input[3:].strip()
+                    try:
+                        new_dir = Path(path).expanduser().resolve()
+                        if new_dir.exists() and new_dir.is_dir():
+                            self.current_directory = new_dir
+                            os.chdir(new_dir)
+                            self.console.print(f"[green]✓ Changed to: {new_dir}[/green]")
+                            if self.initialized:
+                                self.project_context = await self.load_project_context()
+                        else:
+                            self.console.print(f"[red]Directory not found: {path}[/red]")
+                    except Exception as e:
+                        self.console.print(f"[red]Error: {e}[/red]")
+                    continue
+                
+                # Regular chat interaction
+                with self.console.status(f"[dim]Thinking with {self.current_model}...[/dim]", spinner="dots"):
+                    start_time = time.time()
+                    response = self.chat_with_retry(
+                        self.current_model, 
+                        user_input,
+                        self.conversation_context if self.context_enabled else None
+                    )
+                    elapsed = time.time() - start_time
+                
+                # Update context
+                if self.context_enabled:
+                    self.conversation_context.append({"role": "user", "content": user_input})
+                    self.conversation_context.append({"role": "assistant", "content": response})
+                    # Keep context manageable
+                    if len(self.conversation_context) > 10:
+                        self.conversation_context = self.conversation_context[-10:]
+                
+                # Display response
+                self.console.print(f"\n[bold green]A:[/bold green] [dim](responded in {elapsed:.1f}s)[/dim]")
+                
+                if response.startswith("Error:"):
+                    self.console.print(Panel(
+                        Text(response, style="red"),
+                        border_style="red",
+                        title="Error"
+                    ))
+                else:
+                    self.console.print(Panel(
+                        Markdown(response),
+                        border_style="green",
+                        padding=(1, 2)
+                    ))
+                
+                self.console.print()
+                
+            except KeyboardInterrupt:
+                self.console.print("\n[yellow]Use 'exit' to quit[/yellow]")
+                continue
+            except Exception as e:
+                self.console.print(f"[red]Error: {e}[/red]")
+                continue
+
+@click.command()
+@click.option('-m', '--model', help='Model to use (default: auto-detect)')
+@click.option('--debug', is_flag=True, help='Enable debug output')
+def main(model: Optional[str] = None, debug: bool = False):
+    """LocalAgent Unified CLI - All features in one integrated script"""
+    
+    if debug:
+        console.print("[yellow]Debug mode enabled[/yellow]")
+    
+    # Create and run the CLI
+    cli = UnifiedLocalAgentCLI()
+    
+    # Use asyncio to run the async session
+    try:
+        asyncio.run(cli.run_interactive_session(model))
+    except KeyboardInterrupt:
+        console.print("\n[cyan]Session interrupted[/cyan]")
+    except Exception as e:
+        console.print(f"[red]Fatal error: {e}[/red]")
+        if debug:
+            import traceback
+            console.print(traceback.format_exc())
+
+if __name__ == "__main__":
+    main()

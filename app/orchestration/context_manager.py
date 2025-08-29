@@ -1,5 +1,5 @@
 """
-Context Manager for LocalAgent + UnifiedWorkflow Integration
+Context Manager for LocalAgent Integration
 Manages context packages, token compression, and cross-session continuity
 """
 

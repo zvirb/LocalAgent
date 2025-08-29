@@ -1,4 +1,4 @@
-# LocalAgent + UnifiedWorkflow Orchestration Configuration
+# LocalAgent Orchestration Configuration
 orchestration:
   max_parallel_agents: 10
   max_workflow_iterations: 3
@@ -35,4 +35,4 @@ providers:
   #   api_key: your-api-key
 
 workflow:
-  config_path: null  # Uses default UnifiedWorkflow config
+  config_path: null  # Uses default LocalAgent workflow config

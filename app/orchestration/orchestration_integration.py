@@ -1,5 +1,5 @@
 """
-Complete LocalAgent + UnifiedWorkflow Orchestration Integration
+Complete LocalAgent Orchestration Integration
 Main orchestration module that combines all components for 12-phase workflow execution
 """
 
@@ -18,7 +18,7 @@ from .context_manager import ContextManager
 
 class LocalAgentOrchestrator:
     """
-    Complete LocalAgent orchestration system with UnifiedWorkflow integration
+    Complete LocalAgent orchestration system
     Provides CLI interface for 12-phase workflow execution with local/remote flexibility
     """
     
@@ -64,7 +64,7 @@ class LocalAgentOrchestrator:
                 'memory': {}
             },
             'workflow': {
-                'config_path': None  # Will use default UnifiedWorkflow config
+                'config_path': None  # Will use default LocalAgent config
             }
         }
         
@@ -123,7 +123,7 @@ class LocalAgentOrchestrator:
         context: Dict[str, Any] = None,
         workflow_id: Optional[str] = None
     ) -> Dict[str, Any]:
-        """Execute complete 12-phase UnifiedWorkflow"""
+        """Execute complete 12-phase workflow"""
         
         if not self.initialized:
             raise RuntimeError("Orchestrator not initialized. Call initialize() first.")

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+EXAMPLE_CONFIG="$REPO_ROOT/config/example.localagent.yaml"
+TARGET_DIR="${LOCALAGENT_CONFIG_DIR:-$HOME/.localagent}"
+TARGET_CONFIG="$TARGET_DIR/config.yaml"
+
+echo "[localagent] Importing example configuration..."
+
+if [[ ! -f "$EXAMPLE_CONFIG" ]]; then
+  echo "[error] Example config not found at: $EXAMPLE_CONFIG" >&2
+  exit 1
+fi
+
+mkdir -p "$TARGET_DIR"
+
+if [[ -f "$TARGET_CONFIG" ]]; then
+  TS="$(date +%Y%m%d_%H%M%S)"
+  BACKUP="$TARGET_CONFIG.bak.$TS"
+  cp "$TARGET_CONFIG" "$BACKUP"
+  echo "[localagent] Existing config backed up to: $BACKUP"
+fi
+
+cp "$EXAMPLE_CONFIG" "$TARGET_CONFIG"
+echo "[localagent] Example config copied to: $TARGET_CONFIG"
+
+echo "[localagent] Validating configuration..."
+if command -v localagent >/dev/null 2>&1; then
+  if localagent config --validate; then
+    echo "[localagent] Configuration validated successfully."
+  else
+    echo "[warn] Validation reported issues. Please review output above." >&2
+  fi
+else
+  echo "[info] 'localagent' CLI not found on PATH. Skipping validation."
+fi
+
+echo "[localagent] Done."
+

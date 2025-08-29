@@ -9,11 +9,13 @@ from .builtin_plugins import (
     BUILTIN_PLUGINS,
     register_builtin_plugins
 )
+from .shell_plugin import ShellCommandPlugin
 
 __all__ = [
     'SystemInfoPlugin',
     'WorkflowDebugPlugin',
-    'ConfigurationPlugin', 
+    'ConfigurationPlugin',
+    'ShellCommandPlugin', 
     'BUILTIN_PLUGINS',
     'register_builtin_plugins'
 ]

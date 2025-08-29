@@ -14,6 +14,7 @@ from pathlib import Path
 
 from app.cli.plugins.framework import CommandPlugin, ProviderPlugin, UIPlugin, WorkflowPlugin
 from app.cli.core.context import CLIContext
+from .shell_plugin import ShellCommandPlugin
 
 console = Console()
 
@@ -456,7 +457,8 @@ class ConfigurationPlugin(CommandPlugin):
 BUILTIN_PLUGINS = [
     SystemInfoPlugin,
     WorkflowDebugPlugin,
-    ConfigurationPlugin
+    ConfigurationPlugin,
+    ShellCommandPlugin
 ]
 
 def get_builtin_plugins() -> List[type]:
