@@ -19,6 +19,22 @@ class LocalAgentCLI:
     
     def __init__(self):
         self.orchestrator: Optional[LocalAgentOrchestrator] = None
+
+    def _load_agents_context(self, start_path: Optional[Path] = None) -> Optional[str]:
+        """Collect AGENTS.md instructions from current and parent directories."""
+        start = (start_path or Path.cwd()).resolve()
+        directories = list(start.parents)[::-1] + [start]
+        contents: List[str] = []
+        for directory in directories:
+            agents_file = directory / "AGENTS.md"
+            if agents_file.exists():
+                try:
+                    contents.append(agents_file.read_text(encoding="utf-8"))
+                except Exception:
+                    continue
+        if contents:
+            return "\n\n".join(contents)
+        return None
         
     def create_parser(self) -> argparse.ArgumentParser:
         """Create the main argument parser"""
@@ -184,6 +200,10 @@ class LocalAgentCLI:
             context = {}
             if args.context:
                 context = json.loads(args.context)
+
+            agents_md = self._load_agents_context()
+            if agents_md:
+                context.setdefault('agents_md', agents_md)
             
             print(f"🚀 Starting 12-phase workflow...")
             print(f"📝 Prompt: {args.prompt}")
@@ -242,7 +262,10 @@ class LocalAgentCLI:
             context = {}
             if args.context:
                 context = json.loads(args.context)
-            
+            agents_md = self._load_agents_context()
+            if agents_md:
+                context.setdefault('agents_md', agents_md)
+
             print(f"🤖 Executing agent: {args.agent_type}")
             print(f"📝 Prompt: {args.prompt}")
             

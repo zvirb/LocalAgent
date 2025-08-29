@@ -140,6 +140,10 @@ python -m app.orchestration.cli_interface health
 python -m app.orchestration.cli_interface agents
 ```
 
+#### AGENTS.md Support
+
+The CLI automatically searches for `AGENTS.md` files in the current directory and its parents. Any instructions found are combined and injected into the `agents_md` field of the context sent to agents and workflows.
+
 ### Programmatic Usage
 
 ```python
