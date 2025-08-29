@@ -11,6 +11,7 @@ A powerful, Claude Code-compatible CLI that provides unified access to multiple 
 - **Streaming Responses**: Real-time output with rich terminal formatting
 - **Automatic Fallback**: Intelligent provider failover on errors
 - **API Key Management**: Secure credential storage with OS keyring integration
+- **Design Review Workflow Templates**: Automate UI/UX assessments with Playwright MCP
 
 ## Installation
 
